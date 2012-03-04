@@ -1,0 +1,272 @@
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to pdf, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+
+% Article Structure
+%    Title which includes the name of the software.
+%    Authors and affiliations.
+%    Abstract – Fundamental task(s) which the software accomplishes, examples of biological insights from the use of the software, details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
+%    Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
+%    Design and Implementation – Details of the algorithms used by the software, how those algorithms have been instantiated, including dependencies. Details of the supplied test data and how to install and run the software should be detailed in the supplementary material.
+%    Results – Examples of biological problems solved using the software, including results obtained with the deposited test data and associated parameters.
+%    Availability and Future Directions – Where the software has been deposited. Any future work planned to be carried out by the authors, how others might extend the software.
+
+\documentclass[10pt]{article}
+
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
+
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
+\usepackage{graphicx}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{color} 
+
+% Use doublespacing - comment out for single spacing
+\usepackage{setspace} 
+\doublespacing
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+%% ** EDIT HERE **
+
+%% ** EDIT HERE **
+%% PLEASE INCLUDE ALL MACROS BELOW
+
+%% END MACROS SECTION
+
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{Title}
+}
+% Insert Author names, affiliations and corresponding author email.
+\\
+Gary R. Mirams$^{1,\ast}$, Christopher Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
+Rafael Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
+Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel Harvey$^{1}$, 
+James M. Osborne$^{1}$, Pras Pathmanathan$^{1}$, Joe M. Pitt-Francis$^{1}$, 
+James Southern$^7$, Nejib Zemzemi$^8$, David J. Gavaghan$^{1}$
+\\
+\bf{1} Computational Biology, Dept. of Computer Science, University of Oxford, Oxford, UK
+\\
+\bf{2} CoMPLEX, Faculty of Maths \& Physical Sciences, University College London, London, UK
+\\
+\bf{3} Department of Bioengineering, National University of Singapore, Singapore, Singapore
+\\
+\bf{4} Oxford Centre for Collaborative Applied Mathematics, Mathematics Institute, University of Oxford, Oxford, UK
+\\
+\bf{5} Computational Science Laboratory, Microsoft Research, Cambridge, UK
+\\
+\bf{6} Centre for Mathematical Biology, Mathematics Institute, University of Oxford, Oxford, UK
+\\
+\bf{7} Fujitsu Laboratories of Europe, Uxbridge, UK
+\\
+\bf{8} INRIA, France
+\\
+$\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
+\end{flushleft}
+
+% Please keep the abstract between 250 and 300 words
+\section*{Abstract}
+
+% Please keep the Author Summary between 150 and 200 words
+% Use first person. 
+\section*{Author Summary}
+
+\section*{Introduction}
+
+Keep this quite short
+
+We think there is a need for more open-source software, especially in computational biology where reproducability is a problem.
+
+MIRIAM \cite{Novere2005} MIASE \cite{Waltemath2011} guidelines - fulfilled nicely by an open source code which is relatively easy for everyone to examine and run.
+
+Idea is to stop each PhD student re-inventing the wheel and having their own spaghetti code which is un-usable by anyone else and is discarded at the end of their project.
+
+Release 1.0 of Chaste was described previously \cite{Bernabeu2008,pitt2009chaste}. 
+In this article we describe the capabilities of version 3.0, scientific applications, and future directions. 
+
+\section*{Design and Implementation}
+
+\subsection*{Code layout / design}
+Idea: shared libraries for code which is common to many computational biology problems, focussing on the``physiology" rather than ``network" biology to date.
+
+This involves common ODE, PDE, mesh, io, visualization, etc. which is shared by many different application areas in mathematical biology.
+
+design, modular layout of code, encourage use of the core components.
+
+User projects for individual projects/papers
+
+If code occurs in more than one user project it tends to become `core'.
+
+\subsection*{Coding Strategy}
+
+How we are working towards `safety critical' software. This is what makes Chaste very different to other software in this arena.
+
+\subsubsection*{Coding Standards}
+
+Available on the website, similar to the Joint Strike Fighter C++ standards (although we're a bit more flexible).
+
+\subsubsection*{Agile programming}
+Chaste is developed using a so-called `agile' approach. This means we do not plan too far ahead at any stange, and only inplement the code we need for the next immediate goal. 
+
+This leads to constant `refactoring' of the code, that is: re-thinking the class structures and interfaces; re-writing and re-organising for efficiency in terms of speed, but also readability and ease of re-use. 
+To ensure that the code retains its function and no bugs can be introduced we believe scientific agile programming must also be `test-driven'. 
+
+\subsubsection*{Test-driven development}
+
+Amongst all the coding practices we use, the one that is most highly regarded by the development team.
+
+Tests for coverage of the code by other tests
+
+Test for documentation coverage
+
+Ensures the code always does what it was written to do (not entirely the same as `guaranteed bug free', but $\sim$almost). A bug is usually when we expect functionality that hasn't ever been tested, not a bug in code which is tested.
+
+\section*{Results}
+
+What we (and others) have used Chaste for to date.
+
+\subsection*{Cancer}
+
+\begin{enumerate}
+    \item Colorectal cancer modelling, how we used this as a test case for:
+    \begin{enumerate}
+	\item lattice-based cellular automata models
+	\item latttice-based Potts models
+	\item off-lattice mesh-defined cell-centre interactions, meineke style spring models \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}.
+	\item off-lattice voronoi-region defined cell-vertex models - various sub-types
+	\item off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres
+	\item We can study suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
+    \end{enumerate}
+    \item Insights on monoclonality and how they have been experimentally proven since!
+    \item Tumour Spheroids (oxygen PDE)
+    \item Delta-Notch patterning
+\end{enumerate}
+
+\subsection*{Heart}
+
+\begin{enumerate}
+    \item Now one of fastest, accurate, best convergence (only large scale open source solver) \cite{bordas2009simulation,niederer2011verification}
+    \item Pretty simulations of human heart defibrillation
+    \item Some of PreDiCT stuff (close to real time)
+    \item Lots of improvements to numerics \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011} - cite Megan (include as author since she's contributed a few bits of core code?)
+    \item human body surface ECG now possible.
+    \item Single cell stuff - my papers and Alan and Penny's EAD paper? \cite{Mirams2011,Cooper2011cuc}.
+    \item Comp Bio students' applications: \cite{Dutta2011,Walmsley2012}.
+\end{enumerate}
+
+\subsection*{Other application areas}
+
+Functional Curation work \cite{Cooper2011}.
+
+Alberto's gastric stuff
+
+\section*{Availability and Future Directions}
+
+How to get the code
+
+How to become an active developer
+
+What we are planning to do next:
+\begin{enumerate}
+    \item Some fluid mechanics
+    \item parallel and efficient electro-mechanics \cite{Pathmanathan2010}
+    \item Purkinje-myocyte models
+    \item lung mechanics
+    \item Make it easier for people to contribute code to the trunk
+    \item Make it work on Windows.
+\end{enumerate}
+
+What other people are already starting to use Chaste for
+\begin{enumerate}
+    \item STD models in Notts
+    \item lattice based multiple occupancy cellular automata
+    \item Radiation effects on tissue at NASA
+    \item Drug-induced changes to cardiac rhythm at FDA
+    \item brain simulations
+\end{enumerate}
+
+What it is possible you could use Chaste for
+
+Developmental biology
+
+
+% Do NOT remove this, even if you are not including acknowledgments
+\section*{Acknowledgments}
+
+Original EPSRC grant
+
+IB
+
+PreDiCT
+
+2020 Science
+
+%\section*{References}
+% The bibtex filename
+\bibliography{refs}
+
+\section*{Figure Legends}
+%\begin{figure}[!ht]
+%\begin{center}
+%%\includegraphics[width=4in]{figure_name.2.eps}
+%\end{center}
+%\caption{
+%{\bf Bold the first sentence.}  Rest of figure 2  caption.  Caption 
+%should be left justified, as specified by the options to the caption 
+%package.
+%}
+%\label{Figure_label}
+%\end{figure}
+
+
+\section*{Tables}
+%\begin{table}[!ht]
+%\caption{
+%\bf{Table title}}
+%\begin{tabular}{|c|c|c|}
+%table information
+%\end{tabular}
+%\begin{flushleft}Table caption
+%\end{flushleft}
+%\label{tab:label}
+% \end{table}
+
+\end{document}
+
