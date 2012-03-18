@@ -8,15 +8,7 @@
 % latex plos.template
 % dvipdf plos.template
 
-% Article Structure
-%    Title which includes the name of the software.
-%    Authors and affiliations.
-%    Abstract – Fundamental task(s) which the software accomplishes, examples of biological insights from the use of the software, details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
-%    Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
-%    Design and Implementation – Details of the algorithms used by the software, how those algorithms have been instantiated, including dependencies. Details of the supplied test data and how to install and run the software should be detailed in the supplementary material.
-%    Results – Examples of biological problems solved using the software, including results obtained with the deposited test data and associated parameters.
-%    Availability and Future Directions – Where the software has been deposited. Any future work planned to be carried out by the authors, how others might extend the software.
-
+% DO NOT EDIT - PLoS STYLE
 \documentclass[10pt]{article}
 
 % amsmath package, useful for mathematical formulas
@@ -64,15 +56,24 @@
 
 %% ** EDIT HERE **
 %% PLEASE INCLUDE ALL MACROS BELOW
-
+\newcommand{\highlight}[1]{{\color{red} \bf{#1}}}
+\newcommand{\garycomment}[1]{{\color{green} \bf{Gary: #1}}}
 %% END MACROS SECTION
 
+% Article Structure
+%    Title which includes the name of the software.
+%    Authors and affiliations.
+%    Abstract – Fundamental task(s) which the software accomplishes, examples of biological insights from the use of the software, details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
+%    Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
+%    Design and Implementation – Details of the algorithms used by the software, how those algorithms have been instantiated, including dependencies. Details of the supplied test data and how to install and run the software should be detailed in the supplementary material.
+%    Results – Examples of biological problems solved using the software, including results obtained with the deposited test data and associated parameters.
+%    Availability and Future Directions – Where the software has been deposited. Any future work planned to be carried out by the authors, how others might extend the software.
 \begin{document}
 
 % Title must be 150 characters or less
 \begin{flushleft}
 {\Large
-\textbf{Title}
+\textbf{Chaste: an open-source C++ library for computational physiology and biology}
 }
 % Insert Author names, affiliations and corresponding author email.
 \\
@@ -94,82 +95,208 @@ James Southern$^7$, Nejib Zemzemi$^8$, David J. Gavaghan$^{1}$
 \\
 \bf{6} Centre for Mathematical Biology, Mathematics Institute, University of Oxford, Oxford, UK
 \\
-\bf{7} Fujitsu Laboratories of Europe, Uxbridge, UK
+\bf{7} Fujitsu Laboratories of Europe, Hayes Park, London, UK
 \\
-\bf{8} INRIA, France
+\bf{8} INRIA, Bordeaux, France
 \\
 $\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
 \end{flushleft}
 
 % Please keep the abstract between 250 and 300 words
 \section*{Abstract}
-
+% PLoS Instructions:
+% Fundamental task(s) which the software accomplishes, examples of biological insights from the use of the software, 
+% details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
+Chaste --- \textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment --- 
+is an open-source C++ library for computational simulation of mathematical models developed for physiology and biology.
+Code development has been driven by two main applications. (1) In cardiac electrophysiology a large number of studies have been performed, including high-performance computing investigations of de-fibrillation in realistic human cardiac geometry. (2) New models for the initiation and growth of cancer have been developed; individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
+Chaste is now being applied to a far wider range of problems. 
+The code provides modules for handling common components of computational models, such as meshes and ODE and PDE solvers, thereby avoiding the need for researcher to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
+Chaste is developed using industrial techniques to ensure reliability, in particular test-driven development, and is released under an open-source BSD licence. 
+The source code, for releases and the development version, is available to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
+together with details of a mailing list and links to documentation and tutorials.
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. 
 \section*{Author Summary}
+% Lay-person summary 
+Scientific software is often written by individuals with no formal software training for a specific project, and is then discarded. 
+To prevent this, and accelerate progress in computational biology and physiology, we have adopted an industrial approach, including rigorous testing, to provide a library of commonly needed tools.
+The Chaste software environment offers a framework on which to build programs for simulation of computational biology problems.
+It is at the forefront of the cardiac and cell-based modelling fields, being one of the only software platforms available for these applications.
+As such, Chaste is now commonly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development of cancers.
+The way we have built Chaste lends itself to easy extension for new projects, by inheriting many of the necessary models and algorithms from existing code, and we believe there are many  components that could be used, and contributed to, by the wider scientific community.
+The code is open-source and freely available to download.
 
 \section*{Introduction}
+% PLoS Instructions:
+% Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
+Chaste (\textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment) has been developed to enable the study of novel problems in computational physiology and biology. The following quotation highlights two problems that Chaste has been designed to overcome:
+%Keep this quite short
+\begin{quotation}
+``Increasingly, the real limit on what computational scientists can accomplish is how quickly and reliably they can translate their ideas into working code.''
+G. Wilson \cite{wilson2006s}
+\end{quotation}
 
-Keep this quite short
+\textbf{Firstly}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because we do not effectively re-use models and methods that others have developed.
+At the most practical level, these equations and algorithms are encoded as software (or even more usefully as mark-up languages for the generation of software), describing unambiguously the computations required for simulations.
+In computational physiology and biology, many problems share a common need for the same underlying components and numerical schemes.
+It is still common for each new PhD student or postdoc to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
+This not only slows their progress, but a lack of formal software training on structuring and documenting code leads to `spaghetti code' \cite{Merali2010}. 
+This code rapidly becomes unusable by anyone else, and is typically discarded at the end of their project, leading the next person to work on the research topic to start the process again.
 
-We think there is a need for more open-source software, especially in computational biology where reproducability is a problem.
+\textbf{Secondly}, the \emph{reliability} of code, and subsequent results, is often uncertain and unprovable.
+As discussed in Baxter \emph{et al.} in a perspective on software development in this journal \cite{Baxter2006}, there is generally no rigorous software testing approach taken, and testing comes down to whether results `look about right' \cite{Merali2010}. 
+This may soon become safety critical as clinical interventions become guided by the results of computational biology simulations. 
 
-MIRIAM \cite{Novere2005} MIASE \cite{Waltemath2011} guidelines - fulfilled nicely by an open source code which is relatively easy for everyone to examine and run.
+Both problems discussed above lead to the \emph{reproducibility} of computational results being very difficult, if at all possible. Minimum information standards have been suggested for models (MIRIAM \cite{Novere2005}) and simulations (MIASE \cite{Waltemath2011}) which are a vital step in defining the models and algorithms used in their solution.
+Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
+Given the complexity of modern mathematical models and numerical algorithms, we believe use of such standards in open-source software is a pre-requisite for \emph{rapid progress}, \emph{reliability} and \emph{reproducibility}.
 
-Idea is to stop each PhD student re-inventing the wheel and having their own spaghetti code which is un-usable by anyone else and is discarded at the end of their project.
+To date, the applications we have focussed on have been in computational physiology and biophysics.
+In these fields, a wide array of models are represented as: continuum ODE/PDE problems; individual or agent-based discrete models; or a hybrid of these two.
+Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology.
+We therefore set out in 2005 to build a software environment which could be used for simulation of these types of problems, which would overcome many of the pitfalls discussed above.
+Chaste does this by providing a library of fully-tested modules for these common elements, which can be easily utilised and readily extended, for the simulation of novel models (and the use of novel numerical algorithms). 
+Chaste is exceptional in being the only open-source software available for many of its application areas, and also in the use of industrial software engineering standards for its development. 
 
-Release 1.0 of Chaste was described previously \cite{Bernabeu2008,pitt2009chaste}. 
-In this article we describe the capabilities of version 3.0, scientific applications, and future directions. 
+Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
+In this article we describe the capabilities of version \highlight{3.1 ?}, scientific applications, and future directions. 
+All of the figures in this article can be reproduced by downloading and running the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
+
+Short tribute to other open source efforts: OpenCMISS \cite{Bradley2011}, CompuCell3D \cite{Cickovski2007}.
 
 \section*{Design and Implementation}
+% PLoS Instructions:
+%     Design and Implementation:
+%         Details of the algorithms used by the software, 
+%         how those algorithms have been instantiated, including dependencies. 
+%         Details of the supplied test data and how to install and run the software
+%         should be detailed in the supplementary material.
+
+%\cite{Baxter2006}  --- PLoS perspective on scientific software design and implementation.
+%``1) design the project upfront;'' --- `` ''What will the program(s) do?’’ and
+%``How will the results produced by the program be verified?’’ '' (we have adapted this as our motivation for test-driven development, but we don't plan too much ahead.)
+%``2) document programs and key processes; 
+%3) apply quality control; 
+%4) use data standards where possible; 
+%and 5) incorporate project management.''
+
+In this section we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
+We then introduce the code layout and the available model types and algorithms.
+Chaste is built on C++, which is a reasonably low-level compiled language that allows object-oriented class definitions.
+This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
+
+\subsection*{Development Strategy}
+
+At the beginning of the Chaste project we worked with members of a software engineering group to ensure that we were using industrial standards in our development.  
+We are working in a style of software development which can be used for `safety critical' applications, where lives are at risk if the software fails. 
+We have found the following practices invaluable in terms of rapid development, fast performance, and ensuring reliable results.
+
+\subsubsection*{Coding Standards}
+
+Simple rules for the naming of variables, methods and classes enables developers to navigate their way through the code efficiently, and makes mistakes less likely. 
+Using a standardised code layout and in-line documentation makes the code more readable.
+The documentation is compiled into an auto-generated website, publicly available.
+We have a standard approach for other technicalities unique to C++, which are similar to the  Joint Strike Fighter C++ standards \cite{jsf}.
+These standards are all available on the Chaste website for any developers and users of the code\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}.
+
+\subsubsection*{Agile programming}
+Chaste is developed using a so-called `agile' approach. 
+A feature of this approach is to avoid planning too far ahead at any stage.  
+This limits the scope of coding work at any time to a goal which is achievable in a reasonable time frame (typically around a month). 
+
+This approach has pros and cons.
+It leads to fast development of working prototypes, and removes paralysis through planning for a myriad of possible future requirements. 
+On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use. 
+
+We have also adopted some other characteristics of the `agile' approach, notably pair programming. 
+Ideally all code which is contributed to the main source code is written by a pair of developers, sitting side-by-side, with one entering code, and the other checking this and suggesting improvements.
+In an academic setting we find we can/should not insist on this, but try to use it wherever possible.
+Pair programming has benefits in that there is no one person who takes sole responsibility for part of the code, this is especially useful in an academic setting as people move on to new projects frequently.
+
+To maintain bug-free code that retains its function in this rapid re-writing style of development, we believe scientific agile programming must also be `test-driven'.
+
+\subsubsection*{Test-driven development}
+
+Test-driven development is fundamental to our approach, and is the opposite of what most computational scientists do. In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
+Once a test is in place, the source code is then written to make the test pass.
+This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test it will perform its function correctly. 
+
+All test code is committed to the central repository at the same time as the source code it tests.
+Upon each commit all of the test code is run, to check no function has been inadvertently broken.
+This ensures the code always does what it was written to do, and developers `protect' their new code from any future changes to either the code itself, or any code it relies on.
+This does not guarantee bug free code, but in practice this approach makes bugs very rare.
+When bugs do occur, it is typically because functionality is expected that hasn't ever been tested, and the solution is to write more tests.
+
+In a nightly test run we check all of the standard tests for memory leaks; 
+profile certain tests for speed; 
+check for documentation on all the variables, methods and classes; 
+and check that every line of the source code is called by at least one of the tests.
+
+Amongst all the coding practices we use, \emph{test-driven development} is never discarded, and is the feature most highly regarded by the development team, who commonly apply it to their other projects.
 
 \subsection*{Code layout / design}
-Idea: shared libraries for code which is common to many computational biology problems, focussing on the``physiology" rather than ``network" biology to date.
+Chaste provides shared libraries for code which is common to many computational biology problems. 
+This involves common ODE, PDE, mesh, io, visualization, etc. which are required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
 
-This involves common ODE, PDE, mesh, io, visualization, etc. which is shared by many different application areas in mathematical biology.
-
-design, modular layout of code, encourage use of the core components.
+\begin{itemize}
+ \item \texttt{global} --- basic code for Chaste warnings and exceptions, mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), and wrappers for libraries such as PETSc to allow the same calls for multiple library versions.
+ \item \texttt{io} (input/output) --- contains code for basic input and output file formats, together with code which uses the HDF5 scientific file format, which enables distributed data to be collated and stored in a single file.
+ \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview).
+ \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
+ \item \texttt{ode} ODEs and solvers --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
+ \item \texttt{pde} PDEs, assemblers and solvers --- \highlight{Get Pras to do this bit!}.
+ \item \texttt{continuum\_mechanics} --- code for compressible and incompressible nonlinear elasticity. \highlight{Pras again}.
+%%
+%% PERHAPS DELETE THESE LAST TWO AND SAY HOW WE'VE 
+%% USED CORE STUFF TO MAKE THESE APPLICATIONS WHICH WE TALK ABOUT IN RESULTS?
+%%
+ \item \texttt{cell\_based} --- code for individual cell based simulations. Two main types lattice-based and off-lattice.
+\begin{itemize}
+ \item Lattice-based: Cellular automata in 1/2/3D; Potts in 2/3D
+ \item Off-Lattice: 
+\begin{itemize}
+ \item Cell-centre: Cells are represented by points, which interact with other cells according to neighbours defined in two main ways
+\begin{itemize}
+ \item Node-based in 1/2/3D: neighbours are any nodes within a certain interaction distance.
+ \item Mesh-based in 1/2/3D: neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres).
+\end{itemize}
+ \item Cell-vertex in 2D: Cells are defined by the vertices of their polygonal perimeter, points that touch other cells, these move according to energy minimization formulae of various types - \highlight{cite ...}
+\end{itemize}
+ \item All of these share code for cell cycle models, cell killers, intracellular signalling pathways, coupling for PDEs for e.g. nutrient/oxygen diffusion.
+ \item \texttt{crypt} --- specialised module for colorectal crypt geometry, signalling and cell cycle.
+\end{itemize}
+ \item \texttt{heart} --- code for simulation of electromechanics problems: dynamic loading of CellML files; fast and accurate solution on large meshes; optimized for high-performance computing facilities; heterogeneities in fibre directions and cell models; monodomain/bidomain/bidomain with bath/extended bidomain; simulation of ECG with electrodes; postprocessing of APDs and conduction velocity.
+\end{itemize}
 
 User projects for individual projects/papers
 
 If code occurs in more than one user project it tends to become `core'.
 
-\subsection*{Coding Strategy}
-
-How we are working towards `safety critical' software. This is what makes Chaste very different to other software in this arena.
-
-\subsubsection*{Coding Standards}
-
-Available on the website, similar to the Joint Strike Fighter C++ standards (although we're a bit more flexible).
-
-\subsubsection*{Agile programming}
-Chaste is developed using a so-called `agile' approach. This means we do not plan too far ahead at any stange, and only inplement the code we need for the next immediate goal. 
-
-This leads to constant `refactoring' of the code, that is: re-thinking the class structures and interfaces; re-writing and re-organising for efficiency in terms of speed, but also readability and ease of re-use. 
-To ensure that the code retains its function and no bugs can be introduced we believe scientific agile programming must also be `test-driven'. 
-
-\subsubsection*{Test-driven development}
-
-Amongst all the coding practices we use, the one that is most highly regarded by the development team.
-
-Tests for coverage of the code by other tests
-
-Test for documentation coverage
-
-Ensures the code always does what it was written to do (not entirely the same as `guaranteed bug free', but $\sim$almost). A bug is usually when we expect functionality that hasn't ever been tested, not a bug in code which is tested.
-
 \section*{Results}
+% PLoS Instructions:
+%    Results – Examples of biological problems solved using the software, 
+%    including results obtained with the deposited test data and associated parameters.
+In this section we will provide some examples of the types of problems that Chaste has been used to simulate to date.
+We structure this around \highlight{five?} figures, which can be reproduced by running the tests in the bolt-on project for Chaste which accompanies this paper.
 
-What we (and others) have used Chaste for to date.
+What we (and others) have used Chaste for to date. Organise this around 4 or 5 figures/movies
+\begin{enumerate}
+ \item Figure~\ref{fig:FourCrypts}: Ozzy node-based multiple crypts and villus 
+ \item Figure~\ref{fig:SpiralWave}: spiral wave
+ \item Figure~\ref{fig:TwistyWedge}: Pras twisty wedge 
+ \item Figure~\ref{fig:Butterfly}: Alex Butterfly?
+ \item Figure~\ref{fig:DeltaNotchFootball}: Delta-Notch football pattern?
+\end{enumerate}
 
-\subsection*{Cancer}
+\subsection*{Cell-based}
 
 \begin{enumerate}
     \item Colorectal cancer modelling, how we used this as a test case for:
     \begin{enumerate}
 	\item lattice-based cellular automata models
 	\item latttice-based Potts models
-	\item off-lattice mesh-defined cell-centre interactions, meineke style spring models \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}.
+	\item off-lattice mesh-defined cell-centre interactions, meineke style spring models \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}. Mesh with Triangle \cite{shewchuk96b} or tetgen \cite{si2005}.
 	\item off-lattice voronoi-region defined cell-vertex models - various sub-types
 	\item off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres
 	\item We can study suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
@@ -184,10 +311,10 @@ What we (and others) have used Chaste for to date.
 \begin{enumerate}
     \item Now one of fastest, accurate, best convergence (only large scale open source solver) \cite{bordas2009simulation,niederer2011verification}
     \item Pretty simulations of human heart defibrillation
-    \item Some of PreDiCT stuff (close to real time)
+    \item Some of PreDiCT stuff (close to real time) - because of parallelism PETSc \cite{petsc} and metis \cite{karypis1998fast}.
     \item Lots of improvements to numerics \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011} - cite Megan (include as author since she's contributed a few bits of core code?)
     \item human body surface ECG now possible.
-    \item Single cell stuff - my papers and Alan and Penny's EAD paper? \cite{Mirams2011,Cooper2011cuc}.
+    \item Single cell stuff - my papers and Alan and Penny's EAD paper? \cite{Mirams2011,Cooper2011cuc}. We use CVODE for this \cite{hindmarsh2005sundials}.
     \item Comp Bio students' applications: \cite{Dutta2011,Walmsley2012}.
 \end{enumerate}
 
@@ -195,44 +322,57 @@ What we (and others) have used Chaste for to date.
 
 Functional Curation work \cite{Cooper2011}.
 
-Alberto's gastric stuff
+Alberto's gastric stuff \highlight{citations?}
 
 \section*{Availability and Future Directions}
+% PLoS Instructions:
+%    Availability and Future Directions – Where the software has been deposited. 
+%    Any future work planned to be carried out by the authors, how others might extend the software.
+\subsection*{Availability}
+Chaste is available to download from \texttt{http://www.cs.ox.ac.uk/chaste/}
 
-How to get the code
+Chaste releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible BSD licence.
 
-How to become an active developer
+\subsection*{Future Directions}
 
 What we are planning to do next:
 \begin{enumerate}
-    \item Some fluid mechanics
-    \item parallel and efficient electro-mechanics \cite{Pathmanathan2010}
-    \item Purkinje-myocyte models
-    \item lung mechanics
-    \item Make it easier for people to contribute code to the trunk
+    \item Some fluid mechanics.
+    \item parallel and efficient electro-mechanics \cite{Pathmanathan2010}.
+    \item Purkinje-myocyte models.
+    \item lung mechanics.
+    \item Make it easier for people to contribute code to the trunk.
     \item Make it work on Windows.
+    \item SBML import for cell-based ODE signalling pathway systems.
 \end{enumerate}
 
 What other people are already starting to use Chaste for
 \begin{enumerate}
-    \item STD models in Notts
-    \item lattice based multiple occupancy cellular automata
-    \item Radiation effects on tissue at NASA
-    \item Drug-induced changes to cardiac rhythm at FDA
-    \item brain simulations
+    \item STD models in Notts.
+    \item lattice based multiple occupancy cellular automata.
+    \item Radiation effects on tissue at NASA.
+    \item Drug-induced changes to cardiac rhythm at FDA.
+    \item brain simulations.
 \end{enumerate}
+
+\subsection*{How to become an active developer}
+
+You can make yourself a login for the Chaste wiki at\\
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
+
+We have a guide for people who would like to work with the development version of Chaste here:\\
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}.
 
 What it is possible you could use Chaste for
 
-Developmental biology
-
+Developmental biology...etc
 
 % Do NOT remove this, even if you are not including acknowledgments
 \section*{Acknowledgments}
 
-Original EPSRC grant
-
 IB
+
+Original EPSRC grant
 
 PreDiCT
 
@@ -243,30 +383,115 @@ PreDiCT
 \bibliography{refs}
 
 \section*{Figure Legends}
-%\begin{figure}[!ht]
-%\begin{center}
-%%\includegraphics[width=4in]{figure_name.2.eps}
-%\end{center}
-%\caption{
-%{\bf Bold the first sentence.}  Rest of figure 2  caption.  Caption 
-%should be left justified, as specified by the options to the caption 
-%package.
-%}
-%\label{Figure_label}
-%\end{figure}
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{figure_name.2.eps}
+\end{center}
+\caption{
+{\bf Four-crypts and villus simulation.}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:FourCrypts}
+\end{figure}
 
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{figure_name.2.eps}
+\end{center}
+\caption{
+{\bf Spiral wave/arrhyhmia?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:SpiralWave}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{figure_name.2.eps}
+\end{center}
+\caption{
+{\bf Butterfly?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:Butterfly}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{figure_name.2.eps}
+\end{center}
+\caption{
+{\bf Mechanics - twisting wedge?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:TwistyWedge}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{figure_name.2.eps}
+\end{center}
+\caption{
+{\bf Delta-Notch Football pattern?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:DeltaNotchFootball}
+\end{figure}
 
 \section*{Tables}
-%\begin{table}[!ht]
-%\caption{
-%\bf{Table title}}
-%\begin{tabular}{|c|c|c|}
-%table information
-%\end{tabular}
-%\begin{flushleft}Table caption
-%\end{flushleft}
-%\label{tab:label}
-% \end{table}
+
+Any tables in the document here.
+
+\newpage
+\section*{Supplementary Material}
+
+\section{Installation}
+
+In this section we summarise how to install and run Chaste.
+The simplest method is to use the linux Ubuntu operating system, as a debian package is available for this platform.
+Instructions for this are at:\\
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
+
+Chaste can also be installed on any other linux system, although this requires manual installation of a number of dependencies.
+Instructions are here:\\
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
+
+In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if not Ubuntu machine is available.
+
+The bolt-on project
+
+\section{Dependencies}
+
+\begin{table}[!ht]
+    \caption{
+    \bf{Chaste Dependencies.} For the full text of all licences examine the contents of \texttt{docs/licences.html} 
+    or visit \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}}
+    \begin{tabular}{|l|l|l|}
+      \hline
+      Dependency & Available from & Licence \\
+\hline
+Amara & \texttt{http://wiki.xml3k.org/Amara} & Apache 1.1\\
+Boost & \texttt{http://www.boost.org} & Custom\\
+CodeSynthesis XSD &  \texttt{http://codesynthesis.com/products/xsd} & GPL\\
+CVODE (SUNDIALS) & \texttt{https://computation.llnl.gov/casc/sundials} & BSD\\
+CxxTest & \texttt{http://cxxtest.tigris.org} & LGPL\\
+HDF5 &  \texttt{http://www.hdfgroup.org/HDF5/HDF5.txt} & Custom\\
+(Par)METIS &  \texttt{http://glaros.dtc.umn.edu/gkhome/views/metis} & Custom\\
+MPICH &  \texttt{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
+PETSc &  \texttt{http://www.mcs.anl.gov/petsc} & Custom\\
+Pyparsing &  \texttt{http://pyparsing.wikispaces.com} & MIT\\
+RDFLib &  \texttt{https://github.com/RDFLib} & BSD\\
+RNV &  \texttt{http://www.davidashen.net/rnv.html} & BSD\\
+TetGen &  packaged with Chaste & Custom\\
+triangle &  packaged with Chaste & Custom\\
+VTK &  \texttt{http://www.vtk.org} & BSD\\
+Xerces &  \texttt{http://xerces.apache.org/xerces-c} & Apache 2 \\
+      \hline
+    \end{tabular}
+    \begin{flushleft}
+    \end{flushleft}
+    \label{tab:ChasteDependencies}
+\end{table}
 
 \end{document}
 
