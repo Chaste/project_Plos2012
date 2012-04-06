@@ -188,16 +188,14 @@ This makes the code suitable for applications where efficient memory management 
 
 \subsection*{Development Strategy}
 
-At the beginning of the Chaste project we worked with members of a software engineering group to ensure that we were using industrial standards in our development.  
-We are working in a style of software development which can be used for `safety critical' applications, where lives are at risk if the software fails. 
-We have found the following practices invaluable in terms of rapid development, fast performance, and ensuring reliable results.
+We have found the following practices invaluable in terms of rapid development, delivering fast performance, and ensuring reliable results.
 
 \subsubsection*{Coding Standards}
 
 Simple rules for the naming of variables, methods and classes enables developers to navigate their way through the code efficiently, and makes mistakes less likely. 
 Using a standardised code layout and in-line documentation makes the code more readable.
 The documentation is compiled into an auto-generated website, publicly available.
-We have a standard approach for other technicalities unique to C++, which are similar to the  Joint Strike Fighter C++ standards \cite{jsf}.
+We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
 These standards are all available on the Chaste website for any developers and users of the code\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}.
 
 \subsubsection*{Agile programming}
@@ -212,25 +210,26 @@ On the other hand, it also leads to constant `re-factoring' of the code, that is
 We have also adopted some other characteristics of the `agile' approach, notably pair programming. 
 Ideally all code which is contributed to the main source code is written by a pair of developers, sitting side-by-side, with one entering code, and the other checking this and suggesting improvements.
 In an academic setting we find we can/should not insist on this, but try to use it wherever possible.
-Pair programming has benefits in that there is no one person who takes sole responsibility for part of the code, this is especially useful in an academic setting as people move on to new projects frequently.
+Pair programming has additional benefits: there is no one person who takes sole responsibility for any part of the code, this is especially useful in an academic setting as people move on to new projects frequently.
 
 To maintain bug-free code that retains its function in this rapid re-writing style of development, we believe scientific agile programming must also be `test-driven'.
 
 \subsubsection*{Test-driven development}
 
-Test-driven development is fundamental to our approach, and is the opposite of what most computational scientists do. In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
+Test-driven development is fundamental to our approach, and is the opposite of what computational scientists typically do. 
+In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
 Once a test is in place, the source code is then written to make the test pass.
-This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test it will perform its function correctly. 
+This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test the source code performs its function correctly. 
 
 All test code is committed to the central repository at the same time as the source code it tests.
 Upon each commit all of the test code is run, to check no function has been inadvertently broken.
 This ensures the code always does what it was written to do, and developers `protect' their new code from any future changes to either the code itself, or any code it relies on.
 This does not guarantee bug free code, but in practice this approach makes bugs very rare.
-When bugs do occur, it is typically because functionality is expected that hasn't ever been tested, and the solution is to write more tests.
+When bugs do occur, it is typically because functionality is expected that hasn't ever been tested, and the first step in the solution is to write more tests.
 
 In a nightly test run we check all of the standard tests for memory leaks; 
 profile certain tests for speed; 
-check for documentation on all the variables, methods and classes; 
+check for documentation on all source code; 
 and check that every line of the source code is called by at least one of the tests.
 
 Amongst all the coding practices we use, \emph{test-driven development} is never discarded, and is the feature most highly regarded by the development team, who commonly apply it to their other projects.
@@ -242,7 +241,7 @@ This involves common ODE, PDE, mesh, io, visualization, etc. which are required 
 \begin{itemize}
  \item \texttt{global} --- basic code for Chaste warnings and exceptions, mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), and wrappers for libraries such as PETSc to allow the same calls for multiple library versions.
  \item \texttt{io} (input/output) --- contains code for basic input and output file formats, together with code which uses the HDF5 scientific file format, which enables distributed data to be collated and stored in a single file.
- \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview).
+ \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview) formats.
  \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
  \item \texttt{ode} ODEs and solvers --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
  \item \texttt{pde} PDEs, assemblers and solvers --- \highlight{Get Pras to do this bit!}.
@@ -269,9 +268,8 @@ This involves common ODE, PDE, mesh, io, visualization, etc. which are required 
  \item \texttt{heart} --- code for simulation of electromechanics problems: dynamic loading of CellML files; fast and accurate solution on large meshes; optimized for high-performance computing facilities; heterogeneities in fibre directions and cell models; monodomain/bidomain/bidomain with bath/extended bidomain; simulation of ECG with electrodes; postprocessing of APDs and conduction velocity.
 \end{itemize}
 
-User projects for individual projects/papers
-
-If code occurs in more than one user project it tends to become `core'.
+We support `user projects' for individuals using Chaste to store their code in the version-control repository, and to utilise the testing framework.
+If common code occurs in more than one user project, then it is suggested that it be moved to the central Chaste repository.
 
 \section*{Results}
 % PLoS Instructions:
@@ -311,7 +309,9 @@ What we (and others) have used Chaste for to date. Organise this around 4 or 5 f
 \begin{enumerate}
     \item Now one of fastest, accurate, best convergence (only large scale open source solver) \cite{bordas2009simulation,niederer2011verification}
     \item Pretty simulations of human heart defibrillation
+    \item Independent benchmarking of the code - scales well to 2048 cores \cite{Strazdins2011}.
     \item Some of PreDiCT stuff (close to real time) - because of parallelism PETSc \cite{petsc} and metis \cite{karypis1998fast}.
+    \item Being used to test new numerical schemes - adaptive meshing \cite{Southern2012Parallel}.
     \item Lots of improvements to numerics \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011} - cite Megan (include as author since she's contributed a few bits of core code?)
     \item human body surface ECG now possible.
     \item Single cell stuff - my papers and Alan and Penny's EAD paper? \cite{Mirams2011,Cooper2011cuc}. We use CVODE for this \cite{hindmarsh2005sundials}.
@@ -328,39 +328,26 @@ Alberto's gastric stuff \highlight{citations?}
 % PLoS Instructions:
 %    Availability and Future Directions – Where the software has been deposited. 
 %    Any future work planned to be carried out by the authors, how others might extend the software.
-\subsection*{Availability}
-Chaste is available to download from \texttt{http://www.cs.ox.ac.uk/chaste/}
+%\subsection*{Availability}
+Chaste is freely available to download from \texttt{http://www.cs.ox.ac.uk/chaste/}. 
+Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible BSD licence, to enable more industrial partners access to the code.
 
-Chaste releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible BSD licence.
+%\subsection*{Future Directions}
 
-\subsection*{Future Directions}
+In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel electro-mechanics; Purkinje-myocyte coupling; lung mechanics; import of SBML models for signalling pathways and cell-cycle models.
+We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
-What we are planning to do next:
-\begin{enumerate}
-    \item Some fluid mechanics.
-    \item parallel and efficient electro-mechanics \cite{Pathmanathan2010}.
-    \item Purkinje-myocyte models.
-    \item lung mechanics.
-    \item Make it easier for people to contribute code to the trunk.
-    \item Make it work on Windows.
-    \item SBML import for cell-based ODE signalling pathway systems.
-\end{enumerate}
-
-What other people are already starting to use Chaste for
-\begin{enumerate}
-    \item STD models in Notts.
-    \item lattice based multiple occupancy cellular automata.
-    \item Radiation effects on tissue at NASA.
-    \item Drug-induced changes to cardiac rhythm at FDA.
-    \item brain simulations.
-\end{enumerate}
+\comment{ask for permission to say each of these people are working on these...}
+Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \comment{cite Holga's stuff?});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\comment{}).
 
 \subsection*{How to become an active developer}
 
-You can make yourself a login for the Chaste wiki at\\
+Anyone can generate a login for the Chaste wiki at\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
+You can then comment on tickets, and submit patches for inclusion in Chaste.
+We have a large number of tutorials which are easy to adapt to perform many types of simulation.
 
-We have a guide for people who would like to work with the development version of Chaste here:\\
+We have a guide for people who would like to work with the latest development version of Chaste here:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}.
 
 What it is possible you could use Chaste for
@@ -456,9 +443,9 @@ Chaste can also be installed on any other linux system, although this requires m
 Instructions are here:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
 
-In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if not Ubuntu machine is available.
+In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
 
-The bolt-on project
+The bolt-on project \texttt{Plos2012} is available to download from 
 
 \section{Dependencies}
 
