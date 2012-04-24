@@ -124,7 +124,7 @@ public:
         }
 
         DeltaNotchOffLatticeSimulation<2> simulator(cell_population);
-        simulator.SetOutputDirectory("DeltaNotchSimulation");
+        simulator.SetOutputDirectory("Plos2012_DeltaNotchSimulation");
         simulator.SetSamplingTimestepMultiple(10);
         simulator.SetEndTime(50.0);
 

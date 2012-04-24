@@ -82,7 +82,7 @@ public:
 
         // Set up cell-based simulation
         OffLatticeSimulation<3> simulator(crypt);
-        simulator.SetOutputDirectory("MultipleCryptDemo3d");
+        simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
         simulator.SetDt(1.0/120.0);
         simulator.SetSamplingTimestepMultiple(120);
         simulator.SetEndTime(200);

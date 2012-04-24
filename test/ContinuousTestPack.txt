@@ -1,2 +1,3 @@
 TestCellBasedMultipleCrypt.hpp
 TestDeltaNotchSimulation.hpp
+TestSpiralWave.hpp
