@@ -77,7 +77,7 @@
 }
 % Insert Author names, affiliations and corresponding author email.
 \\
-Gary R. Mirams$^{1,\ast}$, Christopher Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
+Gary R. Mirams$^{1,\ast}$, Christopher J. Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
 Rafael Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
 Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel Harvey$^{1}$, 
 James M. Osborne$^{1}$, Pras Pathmanathan$^{1}$, Joe M. Pitt-Francis$^{1}$, 
@@ -109,11 +109,11 @@ $\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
 % details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
 Chaste --- \textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment --- 
 is an open-source C++ library for computational simulation of mathematical models developed for physiology and biology.
-Code development has been driven by two main applications. (1) In cardiac electrophysiology a large number of studies have been performed, including high-performance computing investigations of de-fibrillation in realistic human cardiac geometry. (2) New models for the initiation and growth of cancer have been developed; individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
+Code development has been driven by two main applications. (1) In cardiac electrophysiology a large number of studies have been enabled and performed, including high-performance computing investigations of defibrillation in realistic human cardiac geometry. (2) New models for the initiation and growth of cancer have been developed; individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
 Chaste is now being applied to a far wider range of problems. 
-The code provides modules for handling common components of computational models, such as meshes and ODE and PDE solvers, thereby avoiding the need for researcher to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
-Chaste is developed using industrial techniques to ensure reliability, in particular test-driven development, and is released under an open-source BSD licence. 
-The source code, for releases and the development version, is available to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
+The code provides modules for handling common components of computational models, such as meshes and ODE/PDE solvers, thereby avoiding the need for researcher to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
+Chaste is developed using industrial techniques, in particular test-driven development, to ensure reliability.
+The source code, for releases and the development version, is available under an open-source BSD licence to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. 
@@ -122,7 +122,7 @@ together with details of a mailing list and links to documentation and tutorials
 Scientific software is often written by individuals with no formal software training for a specific project, and is then discarded. 
 To prevent this, and accelerate progress in computational biology and physiology, we have adopted an industrial approach, including rigorous testing, to provide a library of commonly needed tools.
 The Chaste software environment offers a framework on which to build programs for simulation of computational biology problems.
-It is at the forefront of the cardiac and cell-based modelling fields, being one of the only software platforms available for these applications.
+It is at the forefront of the cardiac and cell-based modelling fields, being one of the only open software platforms available for these applications.
 As such, Chaste is now commonly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development of cancers.
 The way we have built Chaste lends itself to easy extension for new projects, by inheriting many of the necessary models and algorithms from existing code, and we believe there are many  components that could be used, and contributed to, by the wider scientific community.
 The code is open-source and freely available to download.
@@ -146,11 +146,13 @@ This code rapidly becomes unusable by anyone else, and is typically discarded at
 
 \textbf{Secondly}, the \emph{reliability} of code, and subsequent results, is often uncertain and unprovable.
 As discussed in Baxter \emph{et al.} in a perspective on software development in this journal \cite{Baxter2006}, there is generally no rigorous software testing approach taken, and testing comes down to whether results `look about right' \cite{Merali2010}. 
-This may soon become safety critical as clinical interventions become guided by the results of computational biology simulations. 
+This may soon become safety critical, as clinical interventions become guided by the results of computational biology simulations. 
 
 Both problems discussed above lead to the \emph{reproducibility} of computational results being very difficult, if at all possible. Minimum information standards have been suggested for models (MIRIAM \cite{Novere2005}) and simulations (MIASE \cite{Waltemath2011}) which are a vital step in defining the models and algorithms used in their solution.
 Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
 Given the complexity of modern mathematical models and numerical algorithms, we believe use of such standards in open-source software is a pre-requisite for \emph{rapid progress}, \emph{reliability} and \emph{reproducibility}.
+
+\highlight{Short tribute to other open source efforts: OpenCMISS \cite{Bradley2011}, CompuCell3D \cite{Cickovski2007}.}
 
 To date, the applications we have focussed on have been in computational physiology and biophysics.
 In these fields, a wide array of models are represented as: continuum ODE/PDE problems; individual or agent-based discrete models; or a hybrid of these two.
@@ -162,8 +164,6 @@ Chaste is exceptional in being the only open-source software available for many 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
 In this article we describe the capabilities of version \highlight{3.1 ?}, scientific applications, and future directions. 
 All of the figures in this article can be reproduced by downloading and running the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
-
-Short tribute to other open source efforts: OpenCMISS \cite{Bradley2011}, CompuCell3D \cite{Cickovski2007}.
 
 \section*{Design and Implementation}
 % PLoS Instructions:
@@ -204,7 +204,7 @@ A feature of this approach is to avoid planning too far ahead at any stage.
 This limits the scope of coding work at any time to a goal which is achievable in a reasonable time frame (typically around a month). 
 
 This approach has pros and cons.
-It leads to fast development of working prototypes, and removes paralysis through planning for a myriad of possible future requirements. 
+It leads to fast development of working prototypes, and removes `paralysis through planning' which can occur when trying to accommodate a myriad of possible future requirements. 
 On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use. 
 
 We have also adopted some other characteristics of the `agile' approach, notably pair programming. 
@@ -236,91 +236,113 @@ Amongst all the coding practices we use, \emph{test-driven development} is never
 
 \subsection*{Code layout / design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
-This involves common ODE, PDE, mesh, io, visualization, etc. which are required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
+This involves code for ODEs, PDEs, meshes, i/o, visualization, etc. which is required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
+Here we briefly describe the components of the code base and subsequent capabilities.
+We will discuss new scientific insight Chaste has enabled in the Results section.
 
 \begin{itemize}
- \item \texttt{global} --- basic code for Chaste warnings and exceptions, mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), and wrappers for libraries such as PETSc to allow the same calls for multiple library versions.
+ \item \texttt{global} --- basic code for Chaste warnings and exceptions, mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), and wrappers for libraries such as PETSc.
  \item \texttt{io} (input/output) --- contains code for basic input and output file formats, together with code which uses the HDF5 scientific file format, which enables distributed data to be collated and stored in a single file.
  \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview) formats.
  \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
- \item \texttt{ode} ODEs and solvers --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
- \item \texttt{pde} PDEs, assemblers and solvers --- \highlight{Get Pras to do this bit!}.
- \item \texttt{continuum\_mechanics} --- code for compressible and incompressible nonlinear elasticity. \highlight{Pras again}.
-%%
-%% PERHAPS DELETE THESE LAST TWO AND SAY HOW WE'VE 
-%% USED CORE STUFF TO MAKE THESE APPLICATIONS WHICH WE TALK ABOUT IN RESULTS?
-%%
- \item \texttt{cell\_based} --- code for individual cell based simulations. Two main types lattice-based and off-lattice.
-\begin{itemize}
- \item Lattice-based: Cellular automata in 1/2/3D; Potts in 2/3D
- \item Off-Lattice: 
-\begin{itemize}
- \item Cell-centre: Cells are represented by points, which interact with other cells according to neighbours defined in two main ways
-\begin{itemize}
- \item Node-based in 1/2/3D: neighbours are any nodes within a certain interaction distance.
- \item Mesh-based in 1/2/3D: neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres).
-\end{itemize}
- \item Cell-vertex in 2D: Cells are defined by the vertices of their polygonal perimeter, points that touch other cells, these move according to energy minimization formulae of various types - \highlight{cite ...}
-\end{itemize}
- \item All of these share code for cell cycle models, cell killers, intracellular signalling pathways, coupling for PDEs for e.g. nutrient/oxygen diffusion.
- \item \texttt{crypt} --- specialised module for colorectal crypt geometry, signalling and cell cycle.
-\end{itemize}
- \item \texttt{heart} --- code for simulation of electromechanics problems: dynamic loading of CellML files; fast and accurate solution on large meshes; optimized for high-performance computing facilities; heterogeneities in fibre directions and cell models; monodomain/bidomain/bidomain with bath/extended bidomain; simulation of ECG with electrodes; postprocessing of APDs and conduction velocity.
+ \item \texttt{ode} (ODEs and solvers) --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
+ \item \texttt{pde} (PDEs, assemblers and solvers) --- \highlight{Get Pras to do this bit!}.
+ \item \texttt{continuum\_mechanics} --- code for compressible and incompressible linear and nonlinear elasticity. \highlight{Pras again}.
 \end{itemize}
 
-We support `user projects' for individuals using Chaste to store their code in the version-control repository, and to utilise the testing framework.
-If common code occurs in more than one user project, then it is suggested that it be moved to the central Chaste repository.
+These core components are used by two application components that have driven Chaste development to date --- \texttt{cell\_based} and \texttt{heart}.
+
+\subsubsection*{Cell-based code}
+The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell based simulations. 
+Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g. nutrient/oxygen diffusion.
+In terms of cellular mechanics, there are two main types of model: on- and off-lattice. 
+
+On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells. 
+Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs]}, and additional sites are included or removed to minimize an energy function.
+
+The off-lattice models fall into two main types, with cells defined spatially by (i) their centres, or (ii) their vertices.
+
+(i) In cell-centre models cells are represented by points, which move according to interactions with neighbouring cells, that can be defined in two main ways: 
+node-based (1--3D) --- neighbours are any nodes within a certain interaction distance \highlight{e.g. [refs], include force equation sum over neighbours here?};
+mesh-based (1--3D) --- neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}.) \highlight{e.g. [refs]}.
+
+(ii) cell-vertex models (2D, 3D planned in future). Cells are defined by the vertices of their polygonal perimeter, points that touch other cells, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
+
+
+\subsubsection*{Heart code}
+
+The \texttt{heart} component provides fast and accurate solution  of electromechanics problems on large meshes, optimized for high-performance computing facilities by using PETSc for parallel linear algebra \cite{petsc}, and METIS for mesh distribution \cite{karypis1998fast}.
+Simulations can be performed based upon single cell ODE systems using CVODE \cite{hindmarsh2005sundials}, or tissue PDE systems including monodomain\highlight{[ref]}, bidomain\highlight{[ref]}, bidomain-with-bath\highlight{[ref]}, and our new extended-bidomain system \cite{corrias2012modelling}.
+
+Chaste also includes the following modelling capabilities: 
+dynamic loading of CellML files, including units conversion \cite{Cooper2011cuc}; 
+heterogeneities in fibre directions and cell models; 
+simulation of ECGs; 
+and defibrillation with electrodes.
+Post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \highlight{[ref]}, and conduction velocities.
+
+\subsubsection*{User Projects}
+
+We support `user projects' for individuals using Chaste, this allows storage of code in the version-control repository, and provides an interface to the testing framework.
+If common code occurs in more than one user project, then generally it is moved to the central Chaste repository, becoming publicly available.
 
 \section*{Results}
-% PLoS Instructions:
+% PloS Instructions:
 %    Results – Examples of biological problems solved using the software, 
 %    including results obtained with the deposited test data and associated parameters.
-In this section we will provide some examples of the types of problems that Chaste has been used to simulate to date.
-We structure this around \highlight{five?} figures, which can be reproduced by running the tests in the bolt-on project for Chaste which accompanies this paper.
+In this section we will provide some examples of the types of scientific problems that Chaste has been used for to date.
+We structure this around four figures, which can all be reproduced by running the tests in the bolt-on project for Chaste which accompanies this paper.
+These examples are simple to enable their reproduction on a typical desktop PC, for some of the more state-of-the-art simulation results please refer to the papers cited herein.
 
-What we (and others) have used Chaste for to date. Organise this around 4 or 5 figures/movies
-\begin{enumerate}
- \item Figure~\ref{fig:FourCrypts}: Ozzy node-based multiple crypts and villus 
- \item Figure~\ref{fig:SpiralWave}: spiral wave
- \item Figure~\ref{fig:TwistyWedge}: Pras twisty wedge 
- \item Figure~\ref{fig:Butterfly}: Alex Butterfly?
- \item Figure~\ref{fig:DeltaNotchFootball}: Delta-Notch football pattern?
-\end{enumerate}
+% What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
+% \begin{enumerate}
+%  \item Figure~\ref{fig:FourCrypts}: Ozzy node-based multiple crypts and villus 
+%  \item Figure~\ref{fig:SpiralWave}: Spiral wave
+%  \item Figure~\ref{fig:TwistyWedge}: Pras twisty wedge 
+%  %\item Figure~\ref{fig:Butterfly}: Alex Butterfly? This is going in CPC.
+%  \item Figure~\ref{fig:DeltaNotchFootball}: Delta-Notch football pattern?
+% \end{enumerate}
 
 \subsection*{Cell-based}
 
-\begin{enumerate}
-    \item Colorectal cancer modelling, how we used this as a test case for:
-    \begin{enumerate}
-	\item lattice-based cellular automata models
-	\item latttice-based Potts models
-	\item off-lattice mesh-defined cell-centre interactions, meineke style spring models \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}. Mesh with Triangle \cite{shewchuk96b} or tetgen \cite{si2005}.
-	\item off-lattice voronoi-region defined cell-vertex models - various sub-types
-	\item off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres
-	\item We can study suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
-    \end{enumerate}
-    \item Insights on monoclonality and how they have been experimentally proven since!
-    \item Tumour Spheroids (oxygen PDE)
-    \item Delta-Notch patterning
-\end{enumerate}
+A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
+This component includes code for intestinal crypt geometry, the Wnt signalling pathway and intestinal cell-cycle models. 
+
+We have extensively used this component with off-lattice mesh-based models, \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}.
+\highlight{Insights on monoclonality in \cite{VanLeeuwen2009}, and how they have been experimentally proven since...}
+
+Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres, pretty versatile --- Figure~\ref{fig:FourCrypts}.
+
+We have studied the suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
+
+Tumour Spheroids (oxygen PDE)
+
+Delta-Notch patterning --- see Figure~\ref{fig:DeltaNotchFootball}
 
 \subsection*{Heart}
 
-\begin{enumerate}
-    \item Now one of fastest, accurate, best convergence (only large scale open source solver) \cite{bordas2009simulation,niederer2011verification}
-    \item Pretty simulations of human heart defibrillation
-    \item Independent benchmarking of the code - scales well to 2048 cores \cite{Strazdins2011}.
-    \item Some of PreDiCT stuff (close to real time) - because of parallelism PETSc \cite{petsc} and metis \cite{karypis1998fast}.
-    \item Being used to test new numerical schemes - adaptive meshing \cite{Southern2012Parallel}.
-    \item Lots of improvements to numerics \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011} - cite Megan (include as author since she's contributed a few bits of core code?)
-    \item human body surface ECG now possible.
-    \item Single cell stuff - my papers and Alan and Penny's EAD paper? \cite{Mirams2011,Cooper2011cuc}. We use CVODE for this \cite{hindmarsh2005sundials}.
-    \item Comp Bio students' applications: \cite{Dutta2011,Walmsley2012}.
-\end{enumerate}
+Chaste is one of the fastest, most accurate cardiac electrophysiology solvers, and is the only large-scale open source solver available \cite{bordas2009simulation,niederer2011verification}.
+Independent benchmarking has shown \highlight{number here} scaling to 2048 cores \cite{Strazdins2011}.
+
+In Figure~\ref{fig:TwistyWedge} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to learn about the electrical dynamics leading to the initiation of arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
+
+Improvements to the numerical methods have been a large focus of our research efforts \highlight{expand on these} \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011,Southern2012Parallel} \highlight{cite Megan, and include as co-author?}.
+
+These improvements to numerical algorithms have enabled novel biological problems to be studied. 
+For example, a mesh of the human heart embedded within a torso has enabled us to simulate the 12-lead human body surface ECG, and to use this to predict ECG changes under drug action \cite{zemzemi2012}. 
+This technology may soon be used to predict the results of human clinical trials during drug development, to improve the attrition rates in drug development and to prevent dangerous drugs reaching the market \cite{mirams2011time,Mirams2012}.
+Simulation have been performed to study defibrillation of a human heart in arrhythmia \highlight{[Miguel ref?]}, with a view to improving medical devices and interventions.
+
+An automatic conversion of cardiac cell models, defined by CellML files, has been developed \cite{Cooper2011cuc}.
+This approach has enabled studies that consider the extensive variability between different cell models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
+
+Our group has used Chaste to study the effect of stochasticity in action potential models \cite{Walmsley2012}. 
+\highlight{ and \cite{Dutta2011}}.
+
+Recently we have begun to work on electro-mechanics, and the latest code release has made this available. In Figure~\ref{fig:TwistyWedge} we show the spread of an electrical wave in a slab of cardiac tissue, and its subsequent deformation due to an electrically-dependent contraction model, and tissue mechanics \highlight{Pras sentence here}. 
+Feedback from deformation to electrical activity also occurs through the presence of stretch-activated ion channels in the electrophysiology cell model.
 
 \subsection*{Other application areas}
-
-Functional Curation work \cite{Cooper2011}.
 
 Alberto's gastric stuff \highlight{citations?}
 
@@ -334,11 +356,11 @@ Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future re
 
 %\subsection*{Future Directions}
 
-In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel electro-mechanics; Purkinje-myocyte coupling; lung mechanics; import of SBML models for signalling pathways and cell-cycle models.
+In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathways and cell-cycle models.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
-\comment{ask for permission to say each of these people are working on these...}
-Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \comment{cite Holga's stuff?});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\comment{}).
+\garycomment{ask for permission to say each of these people are working on these...}
+Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \garycomment{cite Holga's stuff?});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\garycomment{}).
 
 \subsection*{How to become an active developer}
 
@@ -372,7 +394,7 @@ PreDiCT
 \section*{Figure Legends}
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{figure_name.2.eps}
+%\includegraphics[width=4in]{multi_crypts.eps}
 \end{center}
 \caption{
 {\bf Four-crypts and villus simulation.}  
@@ -383,7 +405,18 @@ The code for this is available to download as supplementary material and can als
 
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{figure_name.2.eps}
+%\includegraphics[width=4in]{delta_notch.eps}
+\end{center}
+\caption{
+{\bf Delta-Notch Football pattern?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:DeltaNotchFootball}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{spiral_wave.eps}
 \end{center}
 \caption{
 {\bf Spiral wave/arrhyhmia?}  
@@ -394,18 +427,7 @@ The code for this is available to download as supplementary material and can als
 
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{figure_name.2.eps}
-\end{center}
-\caption{
-{\bf Butterfly?}  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
-}
-\label{fig:Butterfly}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
-%\includegraphics[width=4in]{figure_name.2.eps}
+%\includegraphics[width=4in]{twisty_wedge.eps}
 \end{center}
 \caption{
 {\bf Mechanics - twisting wedge?}  
@@ -414,21 +436,14 @@ The code for this is available to download as supplementary material and can als
 \label{fig:TwistyWedge}
 \end{figure}
 
-\begin{figure}[!ht]
-\begin{center}
-%\includegraphics[width=4in]{figure_name.2.eps}
-\end{center}
-\caption{
-{\bf Delta-Notch Football pattern?}  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
-}
-\label{fig:DeltaNotchFootball}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Any tables in the document go here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Tables}
 
-\section*{Tables}
-
-Any tables in the document here.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% THIS WILL BE ONLINE - NOT TO BE INCLUDED IN WORD COUNT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section*{Supplementary Material}
 
@@ -438,12 +453,11 @@ In this section we summarise how to install and run Chaste.
 The simplest method is to use the linux Ubuntu operating system, as a debian package is available for this platform.
 Instructions for this are at:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
+In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other linux system, although this requires manual installation of a number of dependencies.
 Instructions are here:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
-
-In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
 
 The bolt-on project \texttt{Plos2012} is available to download from 
 

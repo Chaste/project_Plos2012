@@ -61,7 +61,7 @@ public:
         double y = this->GetMesh()->GetNode(nodeIndex)->rGetLocation()[1];
 
         double x_threshold_for_S1 = 0.1 + 1e-6;
-        double x_threshold_for_S2 = mXExtent*0.5;
+        double x_threshold_for_S2 = mXExtent*0.6;
         double y_threshold_for_S2 = mYExtent*0.5;
 
         AbstractCardiacCell* p_cell;

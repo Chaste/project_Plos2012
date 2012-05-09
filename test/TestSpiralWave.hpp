@@ -69,7 +69,7 @@ public:
          * So if you want to alter the monodomain conductivity call
          * `HeartConfig::Instance()->SetIntracellularConductivities`
          */
-        HeartConfig::Instance()->SetSimulationDuration(200); //ms
+        HeartConfig::Instance()->SetSimulationDuration(500); //ms
         HeartConfig::Instance()->SetOutputDirectory("Plos2012_SpiralWave");
         HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 1);

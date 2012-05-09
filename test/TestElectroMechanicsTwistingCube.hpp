@@ -85,7 +85,7 @@ public:
 //        }
 //        p_file->close();
 
-        // NOTE: the following assumes the local project folder is named 'Plot2012'
+        // NOTE: the following assumes the local project folder is named 'Plos2012'
         problem_defn.SetVariableFibreSheetDirectionsFile("projects/Plos2012/test/data/5by5by5_fibres.ortho", false);
 
         CardiacElectroMechanicsProblem<3> problem(COMPRESSIBLE,
@@ -93,7 +93,7 @@ public:
                                                   &mechanics_mesh,
                                                   &cell_factory,
                                                   &problem_defn,
-                                                  "TestElectroMechanicsTwistingCube");
+                                                  "Plos2012_TwistingCube");
 
         problem.Solve();
 
