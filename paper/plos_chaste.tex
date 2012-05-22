@@ -237,12 +237,14 @@ Amongst all the coding practices we use, \emph{test-driven development} is never
 \subsection*{Code layout / design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
 This involves code for ODEs, PDEs, meshes, i/o, visualization, etc. which is required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
-Here we briefly describe the components of the code base and subsequent capabilities.
+Here we briefly describe the components of the code base and their capabilities.
 We will discuss new scientific insight Chaste has enabled in the Results section.
 
+\highlight{Add an overall schematic figure --- Figure~\ref{fig:OverallSchematic}??}.
+
 \begin{itemize}
- \item \texttt{global} --- basic code for Chaste warnings and exceptions, mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), and wrappers for libraries such as PETSc.
- \item \texttt{io} (input/output) --- contains code for basic input and output file formats, together with code which uses the HDF5 scientific file format, which enables distributed data to be collated and stored in a single file.
+ \item \texttt{global} --- mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), wrappers for libraries such as PETSc, and code to handle warnings and exceptions.
+ \item \texttt{io} (input/output) --- contains code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \highlight{[ref]}, which enables distributed data to be collated and stored in a single file.
  \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview) formats.
  \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
  \item \texttt{ode} (ODEs and solvers) --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
@@ -255,10 +257,10 @@ These core components are used by two application components that have driven Ch
 \subsubsection*{Cell-based code}
 The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell based simulations. 
 Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g. nutrient/oxygen diffusion.
-In terms of cellular mechanics, there are two main types of model: on- and off-lattice. 
+For cellular mechanics, there are two main types of model: on- and off-lattice. 
 
-On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells. 
-Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs]}, and additional sites are included or removed to minimize an energy function.
+On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells. Cellular automata have been widely used for \highlight{... cite some of Nottingham stuff?}.
+Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs including CompuCell3d]}, and additional sites are included or removed to minimize an energy function.
 
 The off-lattice models fall into two main types, with cells defined spatially by (i) their centres, or (ii) their vertices.
 
@@ -266,7 +268,7 @@ The off-lattice models fall into two main types, with cells defined spatially by
 node-based (1--3D) --- neighbours are any nodes within a certain interaction distance \highlight{e.g. [refs], include force equation sum over neighbours here?};
 mesh-based (1--3D) --- neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}.) \highlight{e.g. [refs]}.
 
-(ii) cell-vertex models (2D, 3D planned in future). Cells are defined by the vertices of their polygonal perimeter, points that touch other cells, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
+(ii) cell-vertex models (2D, 3D planned in future). Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
 
 
 \subsubsection*{Heart code}
@@ -283,7 +285,7 @@ Post-processing can be performed to obtain quantities such as action potential d
 
 \subsubsection*{User Projects}
 
-We support `user projects' for individuals using Chaste, this allows storage of code in the version-control repository, and provides an interface to the testing framework.
+We support `user projects' for individual studies using Chaste, this allows storage of code in the version-control repository, and provides an interface to the testing framework.
 If common code occurs in more than one user project, then generally it is moved to the central Chaste repository, becoming publicly available.
 
 \section*{Results}
@@ -307,7 +309,6 @@ These examples are simple to enable their reproduction on a typical desktop PC, 
 
 A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
 This component includes code for intestinal crypt geometry, the Wnt signalling pathway and intestinal cell-cycle models. 
-
 We have extensively used this component with off-lattice mesh-based models, \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012}.
 \highlight{Insights on monoclonality in \cite{VanLeeuwen2009}, and how they have been experimentally proven since...}
 
@@ -315,13 +316,13 @@ Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres
 
 We have studied the suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
 
-Tumour Spheroids (oxygen PDE)
+Tumour Spheroids (oxygen PDE) --- see Figure~\ref{fig:TumourSpheroid} \highlight{Can we get one of these in 3D with a cut-away view?}.
 
-Delta-Notch patterning --- see Figure~\ref{fig:DeltaNotchFootball}
+Delta-Notch patterning --- see Figure~\ref{fig:FourCrypts}.
 
 \subsection*{Heart}
 
-Chaste is one of the fastest, most accurate cardiac electrophysiology solvers, and is the only large-scale open source solver available \cite{bordas2009simulation,niederer2011verification}.
+Chaste is one of the fastest cardiac electrophysiology solvers, and is the only large-scale open-source solver available \cite{bordas2009simulation,niederer2011verification}.
 Independent benchmarking has shown \highlight{number here} scaling to 2048 cores \cite{Strazdins2011}.
 
 In Figure~\ref{fig:TwistyWedge} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to learn about the electrical dynamics leading to the initiation of arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
@@ -359,8 +360,8 @@ Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future re
 In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathways and cell-cycle models.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
-\garycomment{ask for permission to say each of these people are working on these...}
-Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \garycomment{cite Holga's stuff?});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\garycomment{}).
+\highlight{ask for permission to say each of these people are working on these if they haven't published...}
+Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \highlight{cite Holga's stuff?});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\highlight{ref for these}).
 
 \subsection*{How to become an active developer}
 
@@ -392,31 +393,43 @@ PreDiCT
 \bibliography{refs}
 
 \section*{Figure Legends}
+
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{multi_crypts.eps}
+%\includegraphics[width=4in]{images/schematic.eps}
+\end{center}
+\caption{
+{\bf Overall schematic of the code?}  
+Caption.
+}
+\label{fig:OverallSchematic}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{images/spheroid.eps}
+\end{center}
+\caption{
+{\bf 3D tumour spheroid?}  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+}
+\label{fig:TumourSpheroid}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+%\includegraphics[width=4in]{images/multi_crypts.eps}
 \end{center}
 \caption{
 {\bf Four-crypts and villus simulation.}  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}. \garycomment{Possibly combine the delta-notch and 4 crypts and a villus simulation? Would get nice pattern of secretory / absorptive cells presumably, which they reckon is delta-notch.}
 }
 \label{fig:FourCrypts}
 \end{figure}
 
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{delta_notch.eps}
-\end{center}
-\caption{
-{\bf Delta-Notch Football pattern?}  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
-}
-\label{fig:DeltaNotchFootball}
-\end{figure}
-
-\begin{figure}[!ht]
-\begin{center}
-%\includegraphics[width=4in]{spiral_wave.eps}
+\includegraphics[width=4in]{images/spiral_wave.eps}
 \end{center}
 \caption{
 {\bf Spiral wave/arrhyhmia?}  
@@ -427,7 +440,8 @@ The code for this is available to download as supplementary material and can als
 
 \begin{figure}[!ht]
 \begin{center}
-%\includegraphics[width=4in]{twisty_wedge.eps}
+\includegraphics[width=0.45\linewidth]{images/undeformed_cube.eps}
+\includegraphics[width=0.45\linewidth]{images/deformed_cube.eps}
 \end{center}
 \caption{
 {\bf Mechanics - twisting wedge?}  

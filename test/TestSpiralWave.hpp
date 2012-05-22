@@ -88,24 +88,6 @@ public:
          */
         monodomain_problem.SetMesh(&mesh);
 
-//        /*
-//         * By default data for all nodes is output, but for big simulations, sometimes this
-//         * might not be required, and the action potential only at certain nodes required.
-//         * The following code shows how to output the results at the first, middle and last
-//         * nodes, for example. (The output is written to the HDF5 file; no meshalyzer output
-//         * will be made. HDF5 files can be read using Matlab). We are not using this in this
-//         * simulation however (hence the boolean being set to false).
-//         */
-//        bool partial_output = false;
-//        if(partial_output)
-//        {
-//            std::vector<unsigned> nodes_to_be_output;
-//            nodes_to_be_output.push_back(0);
-//            nodes_to_be_output.push_back((unsigned)round( (mesh.GetNumNodes()-1)/2 ));
-//            nodes_to_be_output.push_back(mesh.GetNumNodes()-1);
-//            monodomain_problem.SetOutputNodes(nodes_to_be_output);
-//        }
-
         /* `SetWriteInfo` is a useful method that means that the min/max voltage is
          * printed as the simulation runs (useful for verifying that cells are stimulated
          * and the wave propagating, for example) (although note scons does buffer output
@@ -115,10 +97,6 @@ public:
         /* Finally, call `Initialise` and `Solve` as before */
         monodomain_problem.Initialise();
         monodomain_problem.Solve();
-
-        /* This part is just to check nothing has accidentally been changed in this example */
-        ReplicatableVector voltage(monodomain_problem.GetSolution());
-        TS_ASSERT_DELTA(voltage[0], 35.0939, 1e-2);
     }
 };
 

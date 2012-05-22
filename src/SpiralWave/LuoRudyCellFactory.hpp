@@ -82,7 +82,7 @@ public:
         }
         else
         {
-            p_cell = new CellLuoRudy1991AnnotatedFromCellMLBackwardEuler(mpSolver, mpZeroStimulus);
+            p_cell = new CellLuoRudy1991AnnotatedFromCellMLBackwardEuler(mpSolver, this->mpZeroStimulus);
         }
 
         // Alter parameters to match those used in

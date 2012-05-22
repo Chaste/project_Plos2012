@@ -63,7 +63,7 @@ public:
         std::vector<unsigned> fixed_nodes
           = NonlinearElasticityTools<3>::GetNodesByComponentValue(mechanics_mesh, 2, 0.0);
 
-        HeartConfig::Instance()->SetSimulationDuration(50.0);
+        HeartConfig::Instance()->SetSimulationDuration(36.0);
 
         ElectroMechanicsProblemDefinition<3> problem_defn(mechanics_mesh);
         problem_defn.SetContractionModel(KERCHOFFS2003,1.0);
