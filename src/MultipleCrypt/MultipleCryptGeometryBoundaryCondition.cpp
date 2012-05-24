@@ -30,266 +30,239 @@ along with Chaste. If not, see <http://www.gnu.org/licenses/>.
 #include "NodeBasedCellPopulation.hpp"
 #include "Debug.hpp"
 
-template<unsigned DIM>
-MultipleCryptGeometryBoundaryCondition<DIM>::MultipleCryptGeometryBoundaryCondition(AbstractCellPopulation<DIM>* pCellPopulation,
-                                                                      double radius,
-                                                                      double length)
-    : AbstractCellPopulationBoundaryCondition<DIM>(pCellPopulation),
-      mRadiusOfBase(radius),
-      mLengthOfCrypt(length)
+MultipleCryptGeometryBoundaryCondition::MultipleCryptGeometryBoundaryCondition(AbstractCellPopulation<3>* pCellPopulation,
+                                                                      double cryptRadius,
+                                                                      double cryptLength,
+                                                                      double villusRadius,
+                                                                      double villusLength,
+                                                                      double domainWidth)
+    : AbstractCellPopulationBoundaryCondition<3>(pCellPopulation),
+      mRadiusOfCrypt(cryptRadius),
+      mLengthOfCrypt(cryptLength),
+      mRadiusOfVillus(villusRadius),
+      mLengthOfVillus(villusLength),
+      mDomainWidth(domainWidth)
 {
-    assert(mRadiusOfBase > 0.0);
+    assert(mRadiusOfCrypt > 0.0);
 
-    if (dynamic_cast<NodeBasedCellPopulation<DIM>*>(this->mpCellPopulation) == NULL)
+    if (dynamic_cast<NodeBasedCellPopulation<3>*>(this->mpCellPopulation) == NULL)
     {
         EXCEPTION("A NodeBasedCellPopulation must be used with this boundary condition object.");
     }
-    if (DIM < 3)
-    {
-        EXCEPTION("This boundary condition is only implemented in 3D.");
-    }
 }
 
-template<unsigned DIM>
-double MultipleCryptGeometryBoundaryCondition<DIM>::GetRadiusOfBase() const
+double MultipleCryptGeometryBoundaryCondition::GetRadiusOfCrypt() const
 {
-    return mRadiusOfBase;
+    return mRadiusOfCrypt;
 }
 
-template<unsigned DIM>
-double MultipleCryptGeometryBoundaryCondition<DIM>::GetLengthOfCrypt() const
+double MultipleCryptGeometryBoundaryCondition::GetLengthOfCrypt() const
 {
     return mLengthOfCrypt;
 }
 
-template<unsigned DIM>
-void MultipleCryptGeometryBoundaryCondition<DIM>::ImposeBoundaryCondition(const std::vector<c_vector<double, DIM> >& rOldLocations)
+double MultipleCryptGeometryBoundaryCondition::GetRadiusOfVillus() const
 {
-    double mLengthOfCrypt = 2.0;
+    return mRadiusOfVillus;
+}
 
+double MultipleCryptGeometryBoundaryCondition::GetLengthOfVillus() const
+{
+    return mLengthOfVillus;
+}
+
+
+double MultipleCryptGeometryBoundaryCondition::GetDomainWidth() const
+{
+    return mDomainWidth;
+}
+
+void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::vector<c_vector<double, 3> >& rOldLocations)
+{
     // Iterate over the cell population
-    for (typename AbstractCellPopulation<DIM>::Iterator cell_iter = this->mpCellPopulation->Begin();
+    for (typename AbstractCellPopulation<3>::Iterator cell_iter = this->mpCellPopulation->Begin();
          cell_iter != this->mpCellPopulation->End();
          ++cell_iter)
     {
-        c_vector<double,DIM> cell_location = this->mpCellPopulation->GetLocationOfCellCentre(*cell_iter);
-        //PRINT_VECTOR(cell_location);
+        const c_vector<double,3> cell_location = this->mpCellPopulation->GetLocationOfCellCentre(*cell_iter);
+        //PRINT_VECTOR(cell_location);#
 
-        double original_height = cell_location[DIM-1];
+        const double flat_height =  2.0*mRadiusOfCrypt + mLengthOfCrypt;
 
         c_vector<double,3> base_centre_1;
-        base_centre_1[0] = 2.0*mRadiusOfBase;
-        base_centre_1[1] = 2.0*mRadiusOfBase;
-        base_centre_1[2] = mRadiusOfBase;
+        base_centre_1[0] = 0.25*mDomainWidth;
+        base_centre_1[1] = 0.25*mDomainWidth;
+        base_centre_1[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_1 = cell_location - base_centre_1;
         location_from_centre_1[2]=0.0;
 
         c_vector<double,3> base_centre_2;
-        base_centre_2[0] = 10.0*mRadiusOfBase;
-        base_centre_2[1] = 2.0*mRadiusOfBase;
-        base_centre_2[2] = mRadiusOfBase;
+        base_centre_2[0] = 0.75*mDomainWidth;
+        base_centre_2[1] = 0.25*mDomainWidth;
+        base_centre_2[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_2 = cell_location - base_centre_2;
         location_from_centre_2[2]=0.0;
 
         c_vector<double,3> base_centre_3;
-        base_centre_3[0] = 2.0*mRadiusOfBase;
-        base_centre_3[1] = 10.0*mRadiusOfBase;
-        base_centre_3[2] = mRadiusOfBase;
+        base_centre_3[0] = 0.25*mDomainWidth;
+        base_centre_3[1] = 0.75*mDomainWidth;
+        base_centre_3[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_3 = cell_location - base_centre_3;
         location_from_centre_3[2]=0.0;
 
         c_vector<double,3> base_centre_4;
-        base_centre_4[0] = 10.0*mRadiusOfBase;
-        base_centre_4[1] = 10.0*mRadiusOfBase;
-        base_centre_4[2] = mRadiusOfBase;
+        base_centre_4[0] = 0.75*mDomainWidth;
+        base_centre_4[1] = 0.75*mDomainWidth;
+        base_centre_4[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_4 = cell_location - base_centre_4;
         location_from_centre_4[2]=0.0;
 
-        c_vector<double,3> base_centre_vilus;
-        base_centre_vilus[0] = 6.0*mRadiusOfBase;
-        base_centre_vilus[1] = 6.0*mRadiusOfBase;
-        base_centre_vilus[2] = 2.0*mLengthOfCrypt + 3.0* mRadiusOfBase;
+        c_vector<double,3> base_centre_villus;
+        base_centre_villus[0] = 0.5*mDomainWidth;
+        base_centre_villus[1] = 0.5*mDomainWidth;
+        base_centre_villus[2] = flat_height + mLengthOfVillus + mRadiusOfVillus;
 
-        c_vector<double,3> location_from_centre_vilus = cell_location - base_centre_vilus;
+        c_vector<double,3> location_from_centre_vilus = cell_location - base_centre_villus;
         location_from_centre_vilus[2]=0.0;
 
+        c_vector<double, 3> location_on_surface = cell_location;
 
-        c_vector<double, DIM> location_on_surface = cell_location;
-
-        if (norm_2(location_from_centre_1) < 2.0*mRadiusOfBase) //1st Crypt
+        // Edges
+        if (cell_location[0]<0)
         {
-            // Base of crypt
-            if (cell_location[DIM-1] <= mRadiusOfBase)
-            {
-                double radius = norm_2(cell_location - base_centre_1);
-                //PRINT_VARIABLE(radius);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_1)/radius + base_centre_1;
-            }
-            else if (original_height > mRadiusOfBase && original_height < mLengthOfCrypt + mRadiusOfBase) // cylinder of crypt
-            {
-                cell_location[DIM-1] = mRadiusOfBase;
-                double radius = norm_2(cell_location - base_centre_1);
-                //PRINT_VARIABLE(radius);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_1)/radius + base_centre_1;
-                location_on_surface[DIM-1] = original_height;
-            }
-            else  // Top rim
-            {
-                c_vector<double,DIM> centre_on_rim = (location_from_centre_1)*(2.0*mRadiusOfBase)/norm_2(location_from_centre_1) + base_centre_1;
-                centre_on_rim[DIM-1] = mRadiusOfBase + mLengthOfCrypt;
-                double radius = norm_2(cell_location - centre_on_rim);
-                location_on_surface = mRadiusOfBase*(cell_location - centre_on_rim)/radius + centre_on_rim;
-            }
+            location_on_surface[0] = 0;
+        }
+        if (cell_location[0]>mDomainWidth)
+        {
+            location_on_surface[0] = mDomainWidth;
+        }
+        if (cell_location[1]<0)
+        {
+            location_on_surface[1] = 0;
+        }
+        if (cell_location[1]>mDomainWidth)
+        {
+            location_on_surface[1] = mDomainWidth;
         }
 
-        else if (norm_2(location_from_centre_2) < 2.0*mRadiusOfBase) //2nd Crypt
-        {
-            // Base of crypt
-            if (cell_location[DIM-1] <= mRadiusOfBase)
+        // Now Crypts
+        if (norm_2(location_from_centre_1) < 2.0*mRadiusOfCrypt)
+        {   // 1st Crypt
+            location_on_surface = MoveToCrypt(cell_location,base_centre_1);
+        }
+        else if (norm_2(location_from_centre_2) < 2.0*mRadiusOfCrypt)
+        {   // 2nd Crypt
+            location_on_surface = MoveToCrypt(cell_location,base_centre_2);
+        }
+        else if (norm_2(location_from_centre_3) < 2.0*mRadiusOfCrypt)
+        {   // 3rd Crypt
+            location_on_surface = MoveToCrypt(cell_location,base_centre_3);
+        }
+        else if (norm_2(location_from_centre_4) < 2.0*mRadiusOfCrypt)
+        {   // 4th Crypt
+            location_on_surface = MoveToCrypt(cell_location,base_centre_4);
+        }
+        else if (norm_2(location_from_centre_vilus) < 2.0*mRadiusOfVillus)
+        {   // On villus
+            location_on_surface = cell_location;
+            if (cell_location[2] <= flat_height + mRadiusOfVillus) // Base of Villus
             {
-                double radius = norm_2(cell_location - base_centre_2);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_2)/radius + base_centre_2;
-            }
-            else if (original_height > mRadiusOfBase && original_height < mLengthOfCrypt + mRadiusOfBase) // cylinder of crypt
-            {
-                cell_location[DIM-1] = mRadiusOfBase;
-                double radius = norm_2(cell_location - base_centre_2);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_2)/radius + base_centre_2;
-                location_on_surface[DIM-1] = original_height;
-            }
-            else  // Top rim
-            {
-                c_vector<double,DIM> centre_on_rim = (location_from_centre_2)*(2.0*mRadiusOfBase)/norm_2(location_from_centre_2) + base_centre_2;
-                centre_on_rim[DIM-1] = mRadiusOfBase + mLengthOfCrypt;
+                c_vector<double,3> centre_on_rim = (location_from_centre_vilus)*(2.0*mRadiusOfVillus)/norm_2(location_from_centre_vilus) + base_centre_villus;
+                centre_on_rim[2] = flat_height + mRadiusOfVillus;
                 double radius = norm_2(cell_location - centre_on_rim);
-                location_on_surface = mRadiusOfBase*(cell_location - centre_on_rim)/radius + centre_on_rim;
+                location_on_surface = mRadiusOfVillus*(cell_location - centre_on_rim)/radius + centre_on_rim;
+            }
+            else if (   cell_location[2] > flat_height + mRadiusOfVillus
+                     && cell_location[2] < flat_height + mRadiusOfVillus + mLengthOfVillus) // cylinder of villus
+            {
+                location_on_surface[2] = base_centre_villus[2];
+                double radius = norm_2(location_on_surface - base_centre_villus);
+                location_on_surface = mRadiusOfVillus*(location_on_surface - base_centre_villus)/radius + base_centre_villus;
+                location_on_surface[2] = cell_location[2];
+            }
+            else  // Top of villus
+            {
+                double radius = norm_2(cell_location - base_centre_villus);
+                location_on_surface = mRadiusOfVillus*(cell_location - base_centre_villus)/radius + base_centre_villus;
             }
         }
-
-        else if (norm_2(location_from_centre_3) < 2.0*mRadiusOfBase) //3rd Crypt
-        {
-            // Base of crypt
-            if (cell_location[DIM-1] <= mRadiusOfBase)
-            {
-                double radius = norm_2(cell_location - base_centre_3);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_3)/radius + base_centre_3;
-            }
-            else if (original_height > mRadiusOfBase && original_height < mLengthOfCrypt + mRadiusOfBase) // cylinder of crypt
-            {
-                cell_location[DIM-1] = mRadiusOfBase;
-                double radius = norm_2(cell_location - base_centre_3);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_3)/radius + base_centre_3;
-                location_on_surface[DIM-1] = original_height;
-            }
-            else  // Top rim
-            {
-                c_vector<double,DIM> centre_on_rim = (location_from_centre_3)*(2.0*mRadiusOfBase)/norm_2(location_from_centre_3) + base_centre_3;
-                centre_on_rim[DIM-1] = mRadiusOfBase + mLengthOfCrypt;
-                double radius = norm_2(cell_location - centre_on_rim);
-                location_on_surface = mRadiusOfBase*(cell_location - centre_on_rim)/radius + centre_on_rim;
-            }
-        }
-
-        else if (norm_2(location_from_centre_4) < 2.0*mRadiusOfBase) //4th Crypt
-        {
-            // Base of crypt
-            if (cell_location[DIM-1] <= mRadiusOfBase)
-            {
-                double radius = norm_2(cell_location - base_centre_4);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_4)/radius + base_centre_4;
-            }
-            else if (original_height > mRadiusOfBase && original_height < mLengthOfCrypt + mRadiusOfBase) // cylinder of crypt
-            {
-                cell_location[DIM-1] = mRadiusOfBase;
-                double radius = norm_2(cell_location - base_centre_4);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_4)/radius + base_centre_4;
-                location_on_surface[DIM-1] = original_height;
-            }
-            else  // Top rim
-            {
-                c_vector<double,DIM> centre_on_rim = (location_from_centre_4)*(2.0*mRadiusOfBase)/norm_2(location_from_centre_4) + base_centre_4;
-                centre_on_rim[DIM-1] = mRadiusOfBase + mLengthOfCrypt;
-                double radius = norm_2(cell_location - centre_on_rim);
-                location_on_surface = mRadiusOfBase*(cell_location - centre_on_rim)/radius + centre_on_rim;
-            }
-        }
-
-        else if (norm_2(location_from_centre_vilus) < 2.0*mRadiusOfBase) //Vilus
-        {
-            // Top of Vilus
-            if (cell_location[DIM-1] >= base_centre_vilus[DIM-1])
-            {
-                double radius = norm_2(cell_location - base_centre_vilus);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_vilus)/radius + base_centre_vilus;
-            }
-            else if (original_height < base_centre_vilus[DIM-1] && original_height > base_centre_vilus[DIM-1] - mLengthOfCrypt) // cylinder of vilus                        {
-            {
-                cell_location[DIM-1] = base_centre_vilus[DIM-1];
-                double radius = norm_2(cell_location - base_centre_vilus);
-                location_on_surface = mRadiusOfBase*(cell_location - base_centre_vilus)/radius + base_centre_vilus;
-                location_on_surface[DIM-1] = original_height;
-            }
-            else  // Top rim
-            {
-                c_vector<double,DIM> centre_on_rim = (location_from_centre_vilus)*(2.0*mRadiusOfBase)/norm_2(location_from_centre_vilus) + base_centre_vilus;
-                centre_on_rim[DIM-1] = 3.0*mRadiusOfBase + mLengthOfCrypt;
-                double radius = norm_2(cell_location - centre_on_rim);
-                location_on_surface = mRadiusOfBase*(cell_location - centre_on_rim)/radius + centre_on_rim;
-            }
-        }
-
-
         else // Flat part
         {
             //PRINT_VECTOR(location_on_surface);
-            location_on_surface[DIM-1] =  2.0*mRadiusOfBase + mLengthOfCrypt;
+            location_on_surface[2] = flat_height;
         }
 
         // Move node on to surface
         unsigned node_index = this->mpCellPopulation->GetLocationIndexUsingCell(*cell_iter);
-        Node<DIM>* p_node = this->mpCellPopulation->GetNode(node_index);
+        Node<3>* p_node = this->mpCellPopulation->GetNode(node_index);
         p_node->rGetModifiableLocation() = location_on_surface;
         //PRINT_VECTOR(location_on_surface);
         //PRINT_VECTOR(p_node->rGetLocation());
-
     }
-
-
 }
 
-template<unsigned DIM>
-bool MultipleCryptGeometryBoundaryCondition<DIM>::VerifyBoundaryCondition()
+c_vector<double, 3> MultipleCryptGeometryBoundaryCondition::MoveToCrypt(const c_vector<double,3>& rCellLocation, const c_vector<double,3>& rBaseCentre)
+{
+    c_vector<double, 3> location_on_surface = rCellLocation;
+    // End of crypt
+    if (rCellLocation[2] <= mRadiusOfCrypt)
+    {
+        double radius = norm_2(rCellLocation - rBaseCentre);
+        //PRINT_VARIABLE(radius);
+        location_on_surface = mRadiusOfCrypt*(rCellLocation - rBaseCentre)/radius + rBaseCentre;
+    }
+    else if (rCellLocation[2]  > mRadiusOfCrypt && rCellLocation[2] < mLengthOfCrypt + mRadiusOfCrypt) // cylinder of crypt
+    {   // cylinder
+        location_on_surface[2] = mRadiusOfCrypt;
+        double radius = norm_2(location_on_surface - rBaseCentre);
+        //PRINT_VARIABLE(radius);
+        location_on_surface = mRadiusOfCrypt*(location_on_surface - rBaseCentre)/radius + rBaseCentre;
+        location_on_surface[2] = rCellLocation[2];
+    }
+    else  // rim
+    {
+        c_vector<double, 3> location_from_centre = rCellLocation - rBaseCentre;
+        location_from_centre[2]=0.0;
+        c_vector<double,3> centre_on_rim = (location_from_centre)*(2.0*mRadiusOfCrypt)/norm_2(location_from_centre) + rBaseCentre;
+        centre_on_rim[2] = mRadiusOfCrypt + mLengthOfCrypt;
+        double radius = norm_2(rCellLocation - centre_on_rim);
+        location_on_surface = mRadiusOfCrypt*(rCellLocation - centre_on_rim)/radius + centre_on_rim;
+    }
+    return location_on_surface;
+}
+
+bool MultipleCryptGeometryBoundaryCondition::VerifyBoundaryCondition()
 {
     bool condition_satisfied = true;
 
 //    // Iterate over the cell population
-//    for (typename AbstractCellPopulation<DIM>::Iterator cell_iter = this->mpCellPopulation->Begin();
+//    for (typename AbstractCellPopulation<3>::Iterator cell_iter = this->mpCellPopulation->Begin();
 //         cell_iter != this->mpCellPopulation->End();
 //         ++cell_iter)
 //    {
-//        c_vector<double,DIM> cell_location = this->mpCellPopulation->GetLocationOfCellCentre(*cell_iter);
+//        c_vector<double,3> cell_location = this->mpCellPopulation->GetLocationOfCellCentre(*cell_iter);
 //
-//        c_vector<double,DIM> sphere_centre = original_heightero_vector<double>(DIM);
-//        sphere_centre[DIM-1] = mRadiusOfBase;
-//        double target_radius = mRadiusOfBase;
-//        double original_height = cell_location[DIM-1];
+//        c_vector<double,3> sphere_centre = original_heightero_vector<double>(3);
+//        sphere_centre[2] = mRadiusOfCrypt;
+//        double target_radius = mRadiusOfCrypt;
+//        double original_height = cell_location[2];
 //
-//        if (cell_location[DIM-1] > mRadiusOfBase)
+//        if (cell_location[2] > mRadiusOfCrypt)
 //        {
-//            //double original_height = cell_location[DIM-1] - mRadiusOfBase;
+//            //double original_height = cell_location[2] - mRadiusOfCrypt;
 //            //target_radius *= (1.0525 - 0.05*(tanh(0.5*(original_height-5.0)) - 2*tanh(1*(original_height-9.0))));
-//            cell_location[DIM-1]=mRadiusOfBase;
+//            cell_location[2]=mRadiusOfCrypt;
 //        }
 //
 //        // Find the radial distance between this cell and the surface
 //        double radius = normnorm_2(cell_location - sphere_centre);
 //
 //        // If the cell is too far from the surface of the sphere...
-//        if (fabs(radius - mRadiusOfBase) > 1e-12)
+//        if (fabs(radius - mRadiusOfCrypt) > 1e-12)
 //        {
 //            unsigned node_index = this->mpCellPopulation->GetLocationIndexUsingCell(*cell_iter);
 //            condition_satisfied = false;
@@ -300,23 +273,18 @@ bool MultipleCryptGeometryBoundaryCondition<DIM>::VerifyBoundaryCondition()
     return condition_satisfied;
 }
 
-template<unsigned DIM>
-void MultipleCryptGeometryBoundaryCondition<DIM>::OutputCellPopulationBoundaryConditionParameters(out_stream& rParamsFile)
+
+void MultipleCryptGeometryBoundaryCondition::OutputCellPopulationBoundaryConditionParameters(out_stream& rParamsFile)
 {
-    *rParamsFile << "\t\t\t<RadiusOfBase>" << mRadiusOfBase << "</RadiusOfBase>\n";
-
+    *rParamsFile << "\t\t\t<RadiusOfCrypt>" << mRadiusOfCrypt << "</RadiusOfCrypt>\n";
+    *rParamsFile << "\t\t\t<LengthOfCrypt>" << mLengthOfCrypt << "</LengthOfCrypt>\n";
+    *rParamsFile << "\t\t\t<RadiusOfVillus>" << mRadiusOfVillus << "</RadiusOfVillus>\n";
+    *rParamsFile << "\t\t\t<LengthOfVillus>" << mLengthOfVillus << "</LengthOfVillus>\n";
+    *rParamsFile << "\t\t\t<DomainWidth>" << mDomainWidth << "</DomainWidth>\n";
     // Call method on direct parent class
-    AbstractCellPopulationBoundaryCondition<DIM>::OutputCellPopulationBoundaryConditionParameters(rParamsFile);
+    AbstractCellPopulationBoundaryCondition<3>::OutputCellPopulationBoundaryConditionParameters(rParamsFile);
 }
-
-/////////////////////////////////////////////////////////////////////////////
-// Explicit instantiation
-/////////////////////////////////////////////////////////////////////////////
-
-template class MultipleCryptGeometryBoundaryCondition<1>;
-template class MultipleCryptGeometryBoundaryCondition<2>;
-template class MultipleCryptGeometryBoundaryCondition<3>;
 
 // Serialioriginal_heightation for Boost >= 1.36
 #include "SerializationExportWrapperForCpp.hpp"
-EXPORT_TEMPLATE_CLASS_SAME_DIMS(MultipleCryptGeometryBoundaryCondition)
+CHASTE_CLASS_EXPORT(MultipleCryptGeometryBoundaryCondition)

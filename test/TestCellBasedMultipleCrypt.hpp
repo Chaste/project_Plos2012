@@ -44,23 +44,27 @@ public:
 
     void Test3dCrypt() throw (Exception)
     {
-        double crypt_length = 1.0;
+        double crypt_length = 4.0;
         double crypt_radius = 1.0;
+        double villus_length = 8.0;
+        double villus_radius = 2.0;
+        double domain_width = 12.0;
+        double domain_height = 2.0*crypt_radius+crypt_length+villus_length+2.0*villus_radius;
 
         // Create mesh Need so many nodes to ensure there are some node pairs setup
         std::vector<Node<3>*> nodes;
-        nodes.push_back(new Node<3>(0u,  false,  2.0*crypt_radius, 2.0*crypt_radius, 0.0));
-        nodes.push_back(new Node<3>(1u,  false,  2.0*crypt_radius+1, 2.0*crypt_radius, 0.0));
+        nodes.push_back(new Node<3>(0u,  false,  0.25*domain_width, 0.25*domain_width, 0.0));
+        nodes.push_back(new Node<3>(1u,  false,  0.25*domain_width+1.0, 0.25*domain_width, 0.0));
 
-        nodes.push_back(new Node<3>(2u,  false,  2.0*crypt_radius, 10.0*crypt_radius, 0.0));
-        nodes.push_back(new Node<3>(3u,  false,  2.0*crypt_radius+1.0, 10.0*crypt_radius, 0.0));
+        nodes.push_back(new Node<3>(2u,  false,  0.25*domain_width, 0.75*domain_width, 0.0));
+        nodes.push_back(new Node<3>(3u,  false,  0.25*domain_width+1.0, 0.75*domain_width, 0.0));
 
 
-        nodes.push_back(new Node<3>(4u,  false,  10.0*crypt_radius, 2.0*crypt_radius, 0.0));
-        nodes.push_back(new Node<3>(5u,  false,  10.0*crypt_radius+1.0, 2.0*crypt_radius, 0.0));
+        nodes.push_back(new Node<3>(4u,  false,  0.75*domain_width, 0.25*domain_width, 0.0));
+        nodes.push_back(new Node<3>(5u,  false,  0.75*domain_width+1.0, 0.25*domain_width, 0.0));
 
-        nodes.push_back(new Node<3>(6u,  false,  10.0*crypt_radius, 10.0*crypt_radius, 0.0));
-        nodes.push_back(new Node<3>(7u,  false,  10.0*crypt_radius+1.0, 10.0*crypt_radius, 0.0));
+        nodes.push_back(new Node<3>(6u,  false,  0.75*domain_width, 0.75*domain_width, 0.0));
+        nodes.push_back(new Node<3>(7u,  false,  0.75*domain_width+1.0, 0.75*domain_width, 0.0));
 
         // Convert this to a NodesOnlyMesh
         NodesOnlyMesh<3> mesh;
@@ -83,9 +87,8 @@ public:
         // Set up cell-based simulation
         OffLatticeSimulation<3> simulator(crypt);
         simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
-        simulator.SetDt(1.0/120.0);
-        simulator.SetSamplingTimestepMultiple(120);
-        simulator.SetEndTime(200);
+        simulator.SetDt(1.0/180.0);
+        simulator.SetSamplingTimestepMultiple(60);
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
@@ -94,49 +97,26 @@ public:
         p_linear_force->SetCutOffLength(1.5);
         simulator.AddForce(p_linear_force);
 
-
-        MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition<3>, p_boundary_condition, (&crypt, crypt_radius, crypt_length));
+        MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition, p_boundary_condition, (&crypt, crypt_radius, crypt_length, villus_radius, villus_length, domain_width));
         simulator.AddCellPopulationBoundaryCondition(p_boundary_condition);
 
-        //        MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition<3>, p_boundary_condition, (&crypt, crypt_radius, crypt_length));
-        //        simulator.AddCellPopulationBoundaryCondition(p_boundary_condition);
-        //
-        //        MAKE_PTR_ARGS(PlaneBoundaryCondition<3>, p_boundary_condition_1,(&crypt, 12*crypt_radius*unit_vector<double>(3,0), unit_vector<double>(3,0)));
-        //        simulator.AddCellPopulationBoundaryCondition(p_boundary_condition_1);
-        //
-        //        MAKE_PTR_ARGS(PlaneBoundaryCondition<3>, p_boundary_condition_2,(&crypt, 12*crypt_radius*unit_vector<double>(3,1), unit_vector<double>(3,1)));
-        //        simulator.AddCellPopulationBoundaryCondition(p_boundary_condition_2);
-        //
-        //        MAKE_PTR_ARGS(PlaneBoundaryCondition<3>, p_boundary_condition_3,(&crypt, zero_vector<double>(3), -unit_vector<double>(3,0)));
-        //        simulator.AddCellPopulationBoundaryCondition(p_boundary_condition_3);
-        //
-        //        MAKE_PTR_ARGS(PlaneBoundaryCondition<3>, p_boundary_condition_4,(&crypt, zero_vector<double>(3), -unit_vector<double>(3,1)));
-        //        simulator.AddCellPopulationBoundaryCondition(p_boundary_condition_4);
-
-        // Create cell killer and pass in to crypt simulation
-        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, 12*crypt_radius*unit_vector<double>(3,0), unit_vector<double>(3,0)));
+        // Create cell killers for each of the four edges and pass in to crypt simulation...
+        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
-        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_2,(&crypt, 12*crypt_radius*unit_vector<double>(3,1), unit_vector<double>(3,1)));
-        simulator.AddCellKiller(p_cell_killer_2);
-
-        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_3,(&crypt, zero_vector<double>(3), -unit_vector<double>(3,0)));
-        simulator.AddCellKiller(p_cell_killer_3);
-
-        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_4,(&crypt, zero_vector<double>(3), -unit_vector<double>(3,1)));
-        simulator.AddCellKiller(p_cell_killer_4);
 
         // Create an instance of a Wnt concentration
         WntConcentration<3>::Instance()->SetType(LINEAR);
         WntConcentration<3>::Instance()->SetCellPopulation(crypt);
-        WntConcentration<3>::Instance()->SetCryptLength(2.0*crypt_length+2.0*crypt_radius);
+        WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2*crypt_radius);
 
         // Run simulation
-        simulator.Solve();
+        simulator.SetEndTime(200);
+        simulator.Solve(); // to 200
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
-        simulator.SetEndTime(210.0); //200
+        simulator.SetEndTime(250.0);
 
         // Run simulation
         simulator.Solve();

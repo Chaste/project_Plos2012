@@ -39,16 +39,24 @@ along with Chaste. If not, see <http://www.gnu.org/licenses/>.
  * A cell population boundary condition class, which restricts nodes to lie
  * on the surface of a set of crypts and a villus.
  */
-template<unsigned DIM>
-class MultipleCryptGeometryBoundaryCondition : public AbstractCellPopulationBoundaryCondition<DIM>
+class MultipleCryptGeometryBoundaryCondition : public AbstractCellPopulationBoundaryCondition<3>
 {
 private:
 
-    /** The radius of the base. */
-    double mRadiusOfBase;
+    /** The radius of the crypt bases. */
+    double mRadiusOfCrypt;
 
-    /** The length of the crypt. */
+    /** The length of the crypts. */
     double mLengthOfCrypt;
+
+    /** The radius of the villus base. */
+    double mRadiusOfVillus;
+
+    /** The length of the villus. */
+    double mLengthOfVillus;
+
+    /** The domain width in x and y directions */
+    double mDomainWidth;
 
     /** Needed for serialization. */
     friend class boost::serialization::access;
@@ -61,8 +69,23 @@ private:
     template<class Archive>
     void serialize(Archive & archive, const unsigned int version)
     {
-        archive & boost::serialization::base_object<AbstractCellPopulationBoundaryCondition<DIM> >(*this);
+        archive & boost::serialization::base_object<AbstractCellPopulationBoundaryCondition<3> >(*this);
+        archive & mRadiusOfCrypt;
+        archive & mLengthOfCrypt;
+        archive & mRadiusOfVillus;
+        archive & mLengthOfVillus;
+        archive & mDomainWidth;
     }
+
+    /**
+     * Move a cell onto a crypt
+     *
+     * @param rCellLocation  the old cell location after a movement
+     * @param rBaseCentre  the location of the crypt base
+     * @return the new cell location after BC enforced
+     */
+    c_vector<double, 3> MoveToCrypt(const c_vector<double,3>& rCellLocation, const c_vector<double,3>& rBaseCentre);
+
 
 public:
 
@@ -70,22 +93,43 @@ public:
      * Constructor.
      *
      * @param pCellPopulation pointer to the cell population
-     * @param radius the radius of the base
-     * @param length the length of the crypt
+     * @param cryptRadius the radius of the crypt bases (and top rim)
+     * @param cryptLength the length of the crypts
+     * @param villusRadius the radius of the villus top (and base rim)
+     * @param villusLength the length of the villus
+     * @param domainWidth the width (in x and y directions) of the domain.
      */
-    MultipleCryptGeometryBoundaryCondition(AbstractCellPopulation<DIM>* pCellPopulation,
-                                    double radius,
-                                    double length);
+    MultipleCryptGeometryBoundaryCondition(AbstractCellPopulation<3>* pCellPopulation,
+                                    double cryptRadius,
+                                    double cryptLength,
+                                    double villusRadius,
+                                    double villusLength,
+                                    double domainWidth);
 
     /**
-     * @return mRadiusOfBase.
+     * @return The radii of the crypts.
      */
-    double GetRadiusOfBase() const;
+    double GetRadiusOfCrypt() const;
 
     /**
-     * @return mLengthOfCrypt.
+     * @return The length of the crypts.
      */
     double GetLengthOfCrypt() const;
+
+    /**
+     * @return The radius of the villus.
+     */
+    double GetRadiusOfVillus() const;
+
+    /**
+     * @return The length of the villus.
+     */
+    double GetLengthOfVillus() const;
+
+    /**
+     * @return The width of the domain (in x and y directions).
+     */
+    double GetDomainWidth() const;
 
     /**
      * Overridden ImposeBoundaryCondition() method.
@@ -94,7 +138,7 @@ public:
      *
      * @param rOldLocations the node locations before any boundary conditions are applied
      */
-    void ImposeBoundaryCondition(const std::vector< c_vector<double, DIM> >& rOldLocations);
+    void ImposeBoundaryCondition(const std::vector< c_vector<double, 3> >& rOldLocations);
 
     /**
      * Overridden VerifyBoundaryCondition() method.
@@ -115,7 +159,7 @@ public:
 };
 
 #include "SerializationExportWrapper.hpp"
-EXPORT_TEMPLATE_CLASS_SAME_DIMS(MultipleCryptGeometryBoundaryCondition)
+CHASTE_CLASS_EXPORT(MultipleCryptGeometryBoundaryCondition)
 
 namespace boost
 {
@@ -124,41 +168,53 @@ namespace serialization
 /**
  * Serialize information required to construct a MultipleCryptGeometryBoundaryCondition.
  */
-template<class Archive, unsigned DIM>
+template<class Archive>
 inline void save_construct_data(
-    Archive & ar, const MultipleCryptGeometryBoundaryCondition<DIM>* t, const BOOST_PFTO unsigned int file_version)
+    Archive & ar, const MultipleCryptGeometryBoundaryCondition* t, const BOOST_PFTO unsigned int file_version)
 {
-    // Save data required to construct instance
-    const AbstractCellPopulation<DIM>* const p_cell_population = t->GetCellPopulation();
+    // Get data required to construct instance
+    const AbstractCellPopulation<3>* const p_cell_population = t->GetCellPopulation();
+    double crypt_radius = t->GetRadiusOfCrypt();
+    double crypt_length = t->GetLengthOfCrypt();
+    double villus_radius = t->GetRadiusOfVillus();
+    double villus_length = t->GetLengthOfVillus();
+    double domain_width = t->GetDomainWidth();
+
+    // Archive
     ar << p_cell_population;
-
-    // Archive other member variables
-    double radius = t->GetRadiusOfBase();
-    ar << radius;
-
-    double length = t->GetLengthOfCrypt();
-    ar << length;
+    ar << crypt_radius;
+    ar << crypt_length;
+    ar << villus_radius;
+    ar << villus_length;
+    ar << domain_width;
 }
 
 /**
  * De-serialize constructor parameters and initialize a MultipleCryptGeometryBoundaryCondition.
  */
-template<class Archive, unsigned DIM>
+template<class Archive>
 inline void load_construct_data(
-    Archive & ar, MultipleCryptGeometryBoundaryCondition<DIM>* t, const unsigned int file_version)
+    Archive & ar, MultipleCryptGeometryBoundaryCondition* t, const unsigned int file_version)
 {
-    // Retrieve data from archive required to construct new instance
-    AbstractCellPopulation<DIM>* p_cell_population;
+    // Make variables required to construct new instance with constructor
+    AbstractCellPopulation<3>* p_cell_population;
+    double crypt_radius;
+    double crypt_length;
+    double villus_radius;
+    double villus_length;
+    double domain_width;
+
+    // Populate these variables
     ar >> p_cell_population;
+    ar >> crypt_radius;
+    ar >> crypt_length;
+    ar >> villus_radius;
+    ar >> villus_length;
+    ar >> domain_width;
 
-    // Retrieve other member variables
-    double radius;
-    ar >> radius;
-    double length;
-    ar >> length;
-
-    // Invoke inplace constructor to initialise instance
-    ::new(t)MultipleCryptGeometryBoundaryCondition<DIM>(p_cell_population, radius, length);
+    // Invoke constructor to initialise instance
+    ::new(t)MultipleCryptGeometryBoundaryCondition(p_cell_population, crypt_radius, crypt_length,
+                                                   villus_radius, villus_length, domain_width);
 }
 }
 } // namespace ...

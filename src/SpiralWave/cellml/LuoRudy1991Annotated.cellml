@@ -136,10 +136,22 @@ The breakdown of the model into components and the definition of encapsulation a
       <unit units="mole" exponent="-1"/>
    </units>
    <component name="environment">
-      <variable units="millisecond" public_interface="out" cmeta:id="environment_time" name="time"/>
+      <variable name="time" public_interface="out" units="millisecond" cmeta:id="time">
+         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#time">
+               <bqbiol:is rdf:resource="https://chaste.comlab.ox.ac.uk/cellml/ns/oxford-metadata#time"/>
+            </rdf:Description>
+         </rdf:RDF>
+      </variable>
    </component>
    <component name="membrane">
-      <variable units="millivolt" public_interface="out" cmeta:id="membrane_voltage" name="V" initial_value="-83.853"/>
+	  <variable name="V" units="millivolt" initial_value="-83.853" public_interface="out" cmeta:id="membrane_voltage">
+         <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/">
+            <rdf:Description rdf:about="#membrane_voltage">
+               <bqbiol:is rdf:resource="https://chaste.comlab.ox.ac.uk/cellml/ns/oxford-metadata#membrane_voltage"/>
+            </rdf:Description>
+         </rdf:RDF>
+      </variable>
       <variable units="joule_per_kilomole_kelvin" public_interface="out" name="R" initial_value="8314"/>
       <variable units="kelvin" public_interface="out" name="T" initial_value="310"/>
       <variable units="coulomb_per_mole" public_interface="out" name="F" initial_value="96484.6"/>
