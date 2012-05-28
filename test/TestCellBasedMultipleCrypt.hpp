@@ -9,6 +9,7 @@
 #include "CryptSimulation2d.hpp"
 #include "CryptCellsGenerator.hpp"
 #include "CellsGenerator.hpp"
+#include "RandomCellKiller.hpp"
 #include "CylindricalHoneycombMeshGenerator.hpp"
 #include "SloughingCellKiller.hpp"
 #include "AbstractCellBasedTestSuite.hpp"
@@ -51,20 +52,12 @@ public:
         double domain_width = 12.0;
         double domain_height = 2.0*crypt_radius+crypt_length+villus_length+2.0*villus_radius;
 
-        // Create mesh Need so many nodes to ensure there are some node pairs setup
+        // Put a single cell at the base of each crypt.
         std::vector<Node<3>*> nodes;
         nodes.push_back(new Node<3>(0u,  false,  0.25*domain_width, 0.25*domain_width, 0.0));
-        nodes.push_back(new Node<3>(1u,  false,  0.25*domain_width+1.0, 0.25*domain_width, 0.0));
-
         nodes.push_back(new Node<3>(2u,  false,  0.25*domain_width, 0.75*domain_width, 0.0));
-        nodes.push_back(new Node<3>(3u,  false,  0.25*domain_width+1.0, 0.75*domain_width, 0.0));
-
-
         nodes.push_back(new Node<3>(4u,  false,  0.75*domain_width, 0.25*domain_width, 0.0));
-        nodes.push_back(new Node<3>(5u,  false,  0.75*domain_width+1.0, 0.25*domain_width, 0.0));
-
         nodes.push_back(new Node<3>(6u,  false,  0.75*domain_width, 0.75*domain_width, 0.0));
-        nodes.push_back(new Node<3>(7u,  false,  0.75*domain_width+1.0, 0.75*domain_width, 0.0));
 
         // Convert this to a NodesOnlyMesh
         NodesOnlyMesh<3> mesh;
@@ -100,10 +93,13 @@ public:
         MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition, p_boundary_condition, (&crypt, crypt_radius, crypt_length, villus_radius, villus_length, domain_width));
         simulator.AddCellPopulationBoundaryCondition(p_boundary_condition);
 
-        // Create cell killers for each of the four edges and pass in to crypt simulation...
+
+        // Main sink of cells is at the top of the villus
         MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
+        MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.008)); // prob of death in an hour
+        simulator.AddCellKiller(p_cell_killer_2);
 
         // Create an instance of a Wnt concentration
         WntConcentration<3>::Instance()->SetType(LINEAR);
@@ -116,7 +112,7 @@ public:
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
-        simulator.SetEndTime(250.0);
+        simulator.SetEndTime(1000.0);
 
         // Run simulation
         simulator.Solve();

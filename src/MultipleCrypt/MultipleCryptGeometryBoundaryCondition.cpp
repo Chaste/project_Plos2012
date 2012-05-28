@@ -131,23 +131,6 @@ void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::
 
         c_vector<double, 3> location_on_surface = cell_location;
 
-        // Edges
-        if (cell_location[0]<0)
-        {
-            location_on_surface[0] = 0;
-        }
-        if (cell_location[0]>mDomainWidth)
-        {
-            location_on_surface[0] = mDomainWidth;
-        }
-        if (cell_location[1]<0)
-        {
-            location_on_surface[1] = 0;
-        }
-        if (cell_location[1]>mDomainWidth)
-        {
-            location_on_surface[1] = mDomainWidth;
-        }
 
         // Now Crypts
         if (norm_2(location_from_centre_1) < 2.0*mRadiusOfCrypt)
@@ -194,6 +177,28 @@ void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::
         {
             //PRINT_VECTOR(location_on_surface);
             location_on_surface[2] = flat_height;
+        }
+
+        // Edges
+        if (cell_location[0] + cell_location[1] < 0.5*mDomainWidth)
+        {
+            location_on_surface[0] -= (cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[1] -= (cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
+        }
+        if (cell_location[0] + cell_location[1] > 1.5*mDomainWidth)
+        {
+            location_on_surface[0] -= (cell_location[0] + cell_location[1]-1.5*mDomainWidth)/2.0;
+            location_on_surface[1] -= (cell_location[0] + cell_location[1]-1.5*mDomainWidth)/2.0;
+        }
+        if (cell_location[1] - cell_location[0] < -0.5*mDomainWidth)
+        {
+            location_on_surface[0] -= (cell_location[0] - cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[1] += (cell_location[0] - cell_location[1]-0.5*mDomainWidth)/2.0;
+        }
+        if (cell_location[1]- cell_location[0] > 0.5*mDomainWidth)
+        {
+            location_on_surface[0] += (-cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[1] -= (-cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
         }
 
         // Move node on to surface

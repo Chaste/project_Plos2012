@@ -2,3 +2,4 @@ TestCellBasedMultipleCrypt.hpp
 TestDeltaNotchSimulation.hpp
 TestElectroMechanicsTwistingCube.hpp
 TestSpiralWave.hpp
+TestTumourSpheroid.hpp
