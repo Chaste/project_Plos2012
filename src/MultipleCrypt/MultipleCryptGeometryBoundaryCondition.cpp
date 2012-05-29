@@ -90,32 +90,32 @@ void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::
         const double flat_height =  2.0*mRadiusOfCrypt + mLengthOfCrypt;
 
         c_vector<double,3> base_centre_1;
-        base_centre_1[0] = 0.25*mDomainWidth;
-        base_centre_1[1] = 0.25*mDomainWidth;
+        base_centre_1[0] = 0.5*mDomainWidth;
+        base_centre_1[1] = 0.0;
         base_centre_1[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_1 = cell_location - base_centre_1;
         location_from_centre_1[2]=0.0;
 
         c_vector<double,3> base_centre_2;
-        base_centre_2[0] = 0.75*mDomainWidth;
-        base_centre_2[1] = 0.25*mDomainWidth;
+        base_centre_2[0] = 0.0;
+        base_centre_2[1] = 0.5*mDomainWidth;
         base_centre_2[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_2 = cell_location - base_centre_2;
         location_from_centre_2[2]=0.0;
 
         c_vector<double,3> base_centre_3;
-        base_centre_3[0] = 0.25*mDomainWidth;
-        base_centre_3[1] = 0.75*mDomainWidth;
+        base_centre_3[0] = 0.5*mDomainWidth;
+        base_centre_3[1] = mDomainWidth;
         base_centre_3[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_3 = cell_location - base_centre_3;
         location_from_centre_3[2]=0.0;
 
         c_vector<double,3> base_centre_4;
-        base_centre_4[0] = 0.75*mDomainWidth;
-        base_centre_4[1] = 0.75*mDomainWidth;
+        base_centre_4[0] = mDomainWidth;
+        base_centre_4[1] = 0.5*mDomainWidth;
         base_centre_4[2] = mRadiusOfCrypt;
 
         c_vector<double,3> location_from_centre_4 = cell_location - base_centre_4;
@@ -179,26 +179,22 @@ void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::
             location_on_surface[2] = flat_height;
         }
 
-        // Edges
-        if (cell_location[0] + cell_location[1] < 0.5*mDomainWidth)
+        // Edges, treat these as reflective boundaries
+        if (cell_location[0] < 0.0)
         {
-            location_on_surface[0] -= (cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
-            location_on_surface[1] -= (cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[0] = -cell_location[0];
         }
-        if (cell_location[0] + cell_location[1] > 1.5*mDomainWidth)
+        if (cell_location[0] > mDomainWidth)
         {
-            location_on_surface[0] -= (cell_location[0] + cell_location[1]-1.5*mDomainWidth)/2.0;
-            location_on_surface[1] -= (cell_location[0] + cell_location[1]-1.5*mDomainWidth)/2.0;
+            location_on_surface[0] = mDomainWidth - (cell_location[0] - mDomainWidth);
         }
-        if (cell_location[1] - cell_location[0] < -0.5*mDomainWidth)
+        if (cell_location[1] < 0.0)
         {
-            location_on_surface[0] -= (cell_location[0] - cell_location[1]-0.5*mDomainWidth)/2.0;
-            location_on_surface[1] += (cell_location[0] - cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[1] = -cell_location[1];
         }
-        if (cell_location[1]- cell_location[0] > 0.5*mDomainWidth)
+        if (cell_location[1] > mDomainWidth)
         {
-            location_on_surface[0] += (-cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
-            location_on_surface[1] -= (-cell_location[0] + cell_location[1]-0.5*mDomainWidth)/2.0;
+            location_on_surface[1] = mDomainWidth - (cell_location[1] - mDomainWidth);
         }
 
         // Move node on to surface

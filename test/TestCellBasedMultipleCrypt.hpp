@@ -6,7 +6,8 @@
 // Must be included before any other cell_based headers
 #include "CellBasedSimulationArchiver.hpp"
 
-#include "CryptSimulation2d.hpp"
+#include "SimplifiedDeltaNotchOffLatticeSimulation.hpp"
+#include "DeltaNotchOffLatticeSimulation.hpp"
 #include "CryptCellsGenerator.hpp"
 #include "CellsGenerator.hpp"
 #include "RandomCellKiller.hpp"
@@ -14,7 +15,8 @@
 #include "SloughingCellKiller.hpp"
 #include "AbstractCellBasedTestSuite.hpp"
 #include "CellBasedEventHandler.hpp"
-#include "SimpleWntCellCycleModel.hpp"
+#include "SimpleWntCellCycleModelWithDeltaNotch.hpp"
+#include "DeltaNotchCellCycleModel.hpp"
 #include "GeneralisedLinearSpringForce.hpp"
 
 #include "NodeBasedCellPopulation.hpp"
@@ -54,10 +56,10 @@ public:
 
         // Put a single cell at the base of each crypt.
         std::vector<Node<3>*> nodes;
-        nodes.push_back(new Node<3>(0u,  false,  0.25*domain_width, 0.25*domain_width, 0.0));
-        nodes.push_back(new Node<3>(2u,  false,  0.25*domain_width, 0.75*domain_width, 0.0));
-        nodes.push_back(new Node<3>(4u,  false,  0.75*domain_width, 0.25*domain_width, 0.0));
-        nodes.push_back(new Node<3>(6u,  false,  0.75*domain_width, 0.75*domain_width, 0.0));
+        nodes.push_back(new Node<3>(0u,  false,  0.5*domain_width, 0.0, 0.0));
+        nodes.push_back(new Node<3>(1u,  false,  0.0, 0.5*domain_width, 0.0));
+        nodes.push_back(new Node<3>(2u,  false,  0.5*domain_width, domain_width, 0.0));
+        nodes.push_back(new Node<3>(3u,  false,  domain_width, 0.5*domain_width, 0.0));
 
         // Convert this to a NodesOnlyMesh
         NodesOnlyMesh<3> mesh;
@@ -65,8 +67,18 @@ public:
 
         // Create cells
         std::vector<CellPtr> cells;
-        CellsGenerator<SimpleWntCellCycleModel, 3> cells_generator;
-        cells_generator.GenerateBasicRandom(cells, mesh.GetNumNodes(), TRANSIT);
+        MAKE_PTR(WildTypeCellMutationState, p_state);
+        for (unsigned i=0; i<mesh.GetNumNodes(); i++)
+        {
+            SimpleWntCellCycleModelWithDeltaNotch* p_model = new SimpleWntCellCycleModelWithDeltaNotch();
+            p_model->SetCellProliferativeType(TRANSIT);
+            p_model->SetDimension(3);
+
+            CellPtr p_cell(new Cell(p_state, p_model));
+            double birth_time = 0.0;
+            p_cell->SetBirthTime(birth_time);
+            cells.push_back(p_cell);
+        }
 
         MAKE_PTR(CellLabel, p_label);
 
@@ -76,12 +88,24 @@ public:
         crypt.SetOutputCellProliferativeTypes(true);
         crypt.SetOutputCellMutationStates(true);
         crypt.SetOutputCellAncestors(true);
+        crypt.SetAbsoluteMovementThreshold(10);
+
+        /* We choose to initialise the concentrations to random levels in each cell. */
+		 for (AbstractCellPopulation<3>::Iterator cell_iter = crypt.Begin();
+			  cell_iter != crypt.End();
+			  ++cell_iter)
+		 {
+			 cell_iter->GetCellData()->SetItem("notch", RandomNumberGenerator::Instance()->ranf());
+			 cell_iter->GetCellData()->SetItem("delta", RandomNumberGenerator::Instance()->ranf());
+			 cell_iter->GetCellData()->SetItem("mean delta", RandomNumberGenerator::Instance()->ranf());
+		 }
+
 
         // Set up cell-based simulation
-        OffLatticeSimulation<3> simulator(crypt);
+		SimplifiedDeltaNotchOffLatticeSimulation<3> simulator(crypt);
         simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
-        simulator.SetDt(1.0/180.0);
-        simulator.SetSamplingTimestepMultiple(60);
+        simulator.SetDt(1.0/120.0);
+        simulator.SetSamplingTimestepMultiple(12);
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
@@ -98,8 +122,7 @@ public:
         MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
-        MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.008)); // prob of death in an hour
-        simulator.AddCellKiller(p_cell_killer_2);
+
 
         // Create an instance of a Wnt concentration
         WntConcentration<3>::Instance()->SetType(LINEAR);
@@ -107,12 +130,15 @@ public:
         WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2*crypt_radius);
 
         // Run simulation
-        simulator.SetEndTime(200);
+        simulator.SetEndTime(100);
         simulator.Solve(); // to 200
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
         simulator.SetEndTime(1000.0);
+
+        MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.008)); // prob of death in an hour
+        simulator.AddCellKiller(p_cell_killer_2);
 
         // Run simulation
         simulator.Solve();
