@@ -122,12 +122,10 @@ public:
         MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
-
-
         // Create an instance of a Wnt concentration
         WntConcentration<3>::Instance()->SetType(LINEAR);
         WntConcentration<3>::Instance()->SetCellPopulation(crypt);
-        WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2*crypt_radius);
+        WntConcentration<3>::Instance()->SetCryptLength(crypt_length);
 
         // Run simulation
         simulator.SetEndTime(100);

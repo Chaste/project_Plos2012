@@ -160,7 +160,7 @@ In these fields, a wide array of models are represented as: continuum ODE/PDE pr
 Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology \highlight{refs?}.
 We therefore set out in 2005 to build a software environment that could be used for simulation of these types of problem, which would overcome many of the pitfalls discussed above.
 Chaste achieves this by providing a library of fully-tested modules for these common elements, which can be easily utilised and readily extended, for the simulation of novel models (and the use of novel numerical algorithms). 
-Chaste is exceptional in being the only open source software available for many of its application areas, and also in the use of industrial software engineering standards for its development. 
+%Chaste is exceptional in being the only open source software available for many of its application areas, and also in the use of industrial software engineering standards for its development. 
 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
 In this article we describe the capabilities of version \highlight{3.1 ?}, scientific applications, and future directions. 
@@ -260,8 +260,9 @@ The \texttt{cell\_based} code provides a range of modelling frameworks for indiv
 Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g. nutrient/oxygen diffusion.
 For cellular mechanics, there are two main types of model: on- and off-lattice. 
 
-On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells. Cellular automata have been widely used for \highlight{... cite some of Nottingham stuff?}.
-Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs including CompuCell3d]}\cite{Graner1992}, and additional sites are included or removed to minimize an energy function.
+On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells.
+Advanced models of angiogenesis have been built using the cellular automata framework \cite{perfahl2011multiscale}.
+Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs including CompuCell3d]}\cite{Graner1992Simulation}, and additional sites are included or removed to minimize an energy function.
 
 The off-lattice models fall into two main types, with cells defined spatially by (i) their centres, or (ii) their vertices.
 
@@ -321,8 +322,9 @@ These examples are simple to enable their reproduction on a typical desktop PC, 
 
 A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
 This component includes code for intestinal crypt geometry, the Wnt signalling pathway and intestinal cell-cycle models. 
-We have extensively used this component with off-lattice mesh-based models, \cite{VanLeeuwen2009,fletcher2012mathematical,Dunn2012,Dunn2012Plos}.
-\highlight{Insights on monoclonality in \cite{VanLeeuwen2009}, and how they have been experimentally proven since...}
+In \cite{VanLeeuwen2009} we studied monoclonal conversion in the colorectal crypt and predicted neutral drift in the stem cell population,
+which has since been proven experimentally \cite{lopez2010intestinal}.
+We have extensively used these off-lattice mesh-based models to examine the concept and role of stem cells in crypt homeostasis \cite{fletcher2012mathematical,Dunn2012,Dunn2012Plos}.
 
 Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres, pretty versatile --- Figure~\ref{fig:FourCrypts}.
 
@@ -373,11 +375,17 @@ In the near future, we are planning to add support for the following types of si
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
 \highlight{ask for permission to say each of these people are working on these if they haven't published...}
-Other groups are starting to use Chaste for a large variety of simulations, including: lattice-based multiple occupancy cellular automata (Nottingham \highlight{cite Holger's stuff?}\cite{Perfahl2011});  the effects of radiation on tissue (NASA); sexually transmitted infection modelling (Nottingham); drug-induced changes to cardiac rhythm (FDA); brain simulations (\highlight{ref for these}).
+Other groups are starting to use Chaste for a large variety of simulations, including: 
+lattice-based multiple occupancy cellular automata (Nottingham);  
+the effects of radiation on tissue (NASA); 
+sexually transmitted infection modelling (Nottingham); 
+electromechanical models of cardiac implants (FDA); 
+drug-induced changes to cardiac rhythm (pharmaceutical companies); 
+brain simulations (\highlight{ref for these}).
 
 \subsection*{How to become an active developer}
 
-Anyone can generate a login for the Chaste wiki at\\
+Anyone can register to create a login for the Chaste wiki at\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
 You can then comment on tickets, and submit patches for inclusion in Chaste.
 We have a large number of tutorials which are easy to adapt to perform many types of simulation.
@@ -391,7 +399,6 @@ Developmental biology...etc
 
 % Do NOT remove this, even if you are not including acknowledgments
 \section*{Acknowledgments}
-
 
 IB: EPSRC, e-Science pilot project in Integrative Biology (GR/S72023/01)
 
