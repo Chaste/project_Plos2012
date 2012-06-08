@@ -1,7 +1,7 @@
 % Template for PLoS
 % Version 1.0 January 2009
 %
-% To compile to pdf, run:
+% To compile to PDF, run:
 % latex plos.template
 % bibtex plos.template
 % latex plos.template
@@ -140,7 +140,7 @@ G. Wilson \cite{wilson2006s}
 \textbf{First}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because we do not re-use previously developed models and methods effectively.
 At the most practical level, these equations and algorithms are encoded as software (or more usefully as mark-up languages for the generation of software), describing unambiguously the computations required for simulations.
 In computational physiology and biology, many problems share a need for the same underlying components and numerical schemes.
-It is still common for each new PhD student or postdoctoral researcher to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
+It is still common for each new PhD student or post-doctoral researcher to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
 This not only slows their progress, but a lack of formal software training on structuring and documenting code leads to `spaghetti code' \cite{Merali2010}. 
 This code rapidly becomes unusable by anyone else, and is typically discarded at the end of their project, leading the next person to work on the research topic to start the process again.
 
@@ -212,7 +212,9 @@ On the other hand, it also leads to constant `re-factoring' of the code, that is
 We have also adopted some other characteristics of XP, notably pair programming. 
 Ideally, all contributed code is written by a pair of developers, sitting side by side, with one writing code, and the other checking this and suggesting improvements.
 In an academic setting we have found that this need not be insisted upon, but we try to use it wherever possible.
-Pair programming has additional benefits. For example, no single person takes sole responsibility for any part of the code; this is especially useful in an academic setting as people move on to new projects on a frequent basis.
+Pair programming has additional benefits. 
+For example, no single person takes sole responsibility for any part of the code; 
+this is especially useful in an academic setting as people move on to new projects on a frequent basis.
 
 To maintain bug-free code that retains its function in this rapid re-writing style of development, we believe that scientific agile programming must also be `test-driven'.
 
@@ -237,7 +239,7 @@ Among all the coding practices we use, \emph{test-driven development} is never d
 
 \subsection*{Code layout / design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
-This involves code for ODEs, PDEs, meshes, i/o, visualization, etc, which is required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
+This involves code for ODEs, PDEs, meshes, i/o, visualization, etc., which is required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
 Here we briefly describe the components of the code base and their capabilities.
 We will discuss new scientific insight Chaste has enabled in the Results section.
 
@@ -250,7 +252,7 @@ We will discuss new scientific insight Chaste has enabled in the Results section
  \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
  \item \texttt{ode} (ODEs and solvers) --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
  \item \texttt{pde} (PDEs, assemblers and solvers) --- \highlight{Get Pras to do this bit!}.
- \item \texttt{continuum\_mechanics} --- code for compressible and incompressible linear and nonlinear elasticity. \highlight{Pras again}.
+ \item \texttt{continuum\_mechanics} --- code for compressible and incompressible linear and non-linear elasticity. \highlight{Pras again}.
 \end{itemize}
 
 These core components are used by two application components that have driven Chaste development to date --- \texttt{cell\_based} and \texttt{heart}.
@@ -274,7 +276,7 @@ and mesh-based (1--3D) --- where neighbours are nodes which share elements of a 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
 
 These models share the central assumption that a cell may be approximated by a polygon (or polyhedron) whose vertices may move in response to forces. 
-It is standard to make the simplifying assumption that the motion of vertices is overdamped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
+It is standard to make the simplifying assumption that the motion of vertices is over-damped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
  This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
 \begin{align}
 \eta_i \frac{\mathrm{d}{\bf r}_i}{\mathrm{d}t} & = {\bf F}_{i}\,,
@@ -336,22 +338,23 @@ Figure~\ref{fig:FourCrypts} --- Off-lattice nearest-neighbour-defined interactio
 \subsection*{Heart}
 
 Chaste is one of the fastest cardiac electrophysiology solvers, and is the only large-scale open source solver available \cite{bordas2009simulation,niederer2011verification}.
-Independent benchmarking has shown \highlight{number here} scaling to 2048 cores \cite{Strazdins2011}.
+Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently.
 
-In Figure~\ref{fig:TwistyWedge} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to learn about the electrical dynamics leading to the initiation of arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
+In Figure~\ref{fig:TwistyWedge} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to understand how electrical dynamics lead to arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
 
-Improvements to the numerical methods have been a large focus of our research efforts \highlight{expand on these} \cite{Bernabeu2009a,Pathmanathan2010ngb,Bernabeu2010,Pathmanathan2011,Southern2012Parallel} \highlight{cite Megan, and include as co-author?}.
+Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, particularly in choice of matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel,arthurs2012efficient}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,pathmanathan2011computational}.
+ \highlight{cite Megan, and include as co-author?}.
 
 These improvements to numerical algorithms have enabled novel biological problems to be studied. 
 For example, a mesh of the human heart embedded within a torso has enabled us to simulate the 12-lead human body surface ECG, and to use this to predict ECG changes under drug action \cite{zemzemi2012}. 
 This technology may soon be used to predict the results of human clinical trials during drug development, to improve the attrition rates in drug development and to prevent dangerous drugs reaching the market \cite{mirams2011time,Mirams2012}.
-Simulation have been performed to study defibrillation of a human heart in arrhythmia \highlight{[Miguel ref?]}, with a view to improving medical devices and interventions.
+Simulations have been performed to study defibrillation of a human heart in arrhythmia \highlight{[Miguel ref?]}, with a view to improving medical devices and interventions.
 
-An automatic conversion of cardiac cell models, defined by CellML files, has been developed \cite{Cooper2011cuc}.
+Automatic consistent units conversion of cardiac cell models, defined by CellML files, has been developed \cite{Cooper2011cuc}.
 This approach has enabled studies that consider the extensive variability between different cell models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
-Our group has also used Chaste to study the effect of stochasticity in action potential models \cite{Walmsley2012,Dutta2011}.
+Our group has also used Chaste to study the effect of stochasticity in action potential models \cite{Walmsley2012,Dutta2011}, a potential cause of variability in experimental recordings.
 
-Recently we have begun to work on electro-mechanics, and the latest code release has made this publically available. 
+Recently we have begun to work on electro-mechanics, and the latest code release has made this publicly available. 
 In Figure~\ref{fig:TwistyWedge} we show the spread of an electrical wave in a slab of cardiac tissue, and its subsequent deformation due to an electrically-dependent contraction model, and tissue mechanics.
 \highlight{Pras sentence here}. 
 Feedback from deformation to electrical activity also occurs through the presence of stretch-activated ion channels in the electrophysiology cell model.
@@ -365,15 +368,15 @@ Alberto's gastric stuff \highlight{citations?}.
 %    Availability and Future Directions – Where the software has been deposited. 
 %    Any future work planned to be carried out by the authors, how others might extend the software.
 %\subsection*{Availability}
-Chaste is freely available to download from \texttt{http://www.cs.ox.ac.uk/chaste/}. 
+Chaste is freely available to download from \texttt{http://www.cs.ox.ac.uk/chaste}. 
 Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible BSD licence, to enable more industrial partners access to the code.
 
 %\subsection*{Future Directions}
 
-In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathways and cell-cycle models.
+In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
-\highlight{ask for permission to say each of these people are working on these if they haven't published...}
+\highlight{Ask for permission to say each of these people are working on these if they haven't published...}
 Other groups are starting to use Chaste for a large variety of simulations, including: 
 lattice-based multiple occupancy cellular automata (Nottingham);  
 the effects of radiation on tissue (NASA); 
@@ -392,12 +395,8 @@ We have a large number of tutorials which are easy to adapt to perform many type
 We have a guide for people who would like to work with the latest development version of Chaste here:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}.
 
-What it is possible you could use Chaste for
-
-Developmental biology...etc
-
-% Do NOT remove this, even if you are not including acknowledgments
-\section*{Acknowledgments}
+% Do NOT remove this, even if you are not including acknowledgements
+\section*{Acknowledgements}
 
 IB: EPSRC, e-Science pilot project in Integrative Biology (GR/S72023/01)
 
@@ -425,47 +424,53 @@ Caption.
 \label{fig:OverallSchematic}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 \includegraphics[width=0.8\linewidth]{images/spheroid.eps}
 \end{center}
 \caption{
-{\bf 3D tumour spheroid?}  
+{\bf 3D off-lattice simulation coupled to PDE: A 3D tumour spheroid with growth and death dependent on diffusion and uptake of oxygen}.
+\highlight{Er - can we make this a 3D cross section that looks like Alex's old 2D sim?}
 The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
 }
 \label{fig:TumourSpheroid}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{images/multi_crypt.eps}
 \end{center}
 \caption{
-{\bf Four-crypts and villus simulation.}  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}. \garycomment{Possibly combine the delta-notch and 4 crypts and a villus simulation? Would get nice pattern of secretory / absorptive cells presumably, which they reckon is delta-notch --- SCIENCE!}
+{\bf 3D off-lattice simulation on a 2D surface: small intestinal crypts and villus}.  
+The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}. 
+\highlight{Possibly combine the delta-notch from Buske with this 4 crypts and a villus simulation? 
+Would get nice pattern of secretory / absorptive cells presumably, which they reckon is delta-notch $\approx$ SCIENCE!
+So one figure like the above with lineage tracing, and one with delta/notch patterning.}
 }
 \label{fig:FourCrypts}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 \includegraphics[width=0.5\linewidth]{images/spiral_wave.eps}
 \end{center}
 \caption{
-{\bf Spiral wave/arrhyhmia?}  
+{\bf Cardiac electrophysiology: a re-entrant spiral wave}.
+This figure displays the membrane voltage in a 2D 3cm x 3cm using the Luo-Rudy 1991 model \cite{luo1991model} with the modifications and protocol suggested in \cite{qu2000origins}.
 The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
 }
 \label{fig:SpiralWave}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 \includegraphics[width=0.4\linewidth]{images/undeformed_cube.eps}
 \includegraphics[width=0.4\linewidth]{images/deformed_cube.eps}
 \end{center}
 \caption{
-{\bf Mechanics - twisting wedge?}  
+{\bf Cardiac electromechanics: simulation of electrical propogation and subsequent deformation in a ventricular wedge with non-uniform fibre orientation}.  
 The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
+\highlight{Can we have three figures - fibre directions, electrical wave propogation at about half way (still mostly undeformed), and a fully deformed (depolarized) cube?}
 }
 \label{fig:TwistyWedge}
 \end{figure}
