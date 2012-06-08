@@ -153,17 +153,18 @@ Minimum information standards have been suggested for models (MIRIAM \cite{Nover
 Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
 Given the complexity of modern mathematical models and numerical algorithms, we believe the use of such standards in open source software is a pre-requisite for \emph{rapid progress}, \emph{reliability} and \emph{reproducibility}.
 
-\highlight{Short tribute to other open source efforts: OpenCMISS \cite{Bradley2011}, CompuCell3D \cite{Cickovski2007}.}
-
 To date, the applications we have focussed on have been in computational physiology and biophysics.
 In these fields, a wide array of models are represented as: continuum ODE/PDE problems; individual or agent-based discrete models; or a hybrid of these two.
-Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology \highlight{refs?}.
+Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology.
 We therefore set out in 2005 to build a software environment that could be used for simulation of these types of problem, which would overcome many of the pitfalls discussed above.
 Chaste achieves this by providing a library of fully-tested modules for these common elements, which can be easily utilised and readily extended, for the simulation of novel models (and the use of novel numerical algorithms). 
+
+Other notable open source codes include OpenCMISS for continuum modelling \cite{Bradley2011}, and CompuCell3D for cellular Potts modelling \cite{Cickovski2007}. 
+Chaste is unique in being well-advanced for both continuum and discrete modelling approaches, and is in an excellent position to investigate hybrid approaches \cite{Osborne2010}.
 %Chaste is exceptional in being the only open source software available for many of its application areas, and also in the use of industrial software engineering standards for its development. 
 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
-In this article we describe the capabilities of version \highlight{3.1 ?}, scientific applications, and future directions. 
+In this article we describe the capabilities of version \highlight{3.1}, scientific applications, and future directions. 
 All of the figures in this article can be reproduced by downloading and running the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
 
 \section*{Design and Implementation}
@@ -184,7 +185,7 @@ All of the figures in this article can be reproduced by downloading and running 
 
 In this section we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
 We then introduce the code layout and the available model types and algorithms.
-Chaste is built with C++, which is a reasonably low-level compiled language that allows object-oriented class definitions.
+Chaste is built with C++, which is a fairly low-level compiled language that allows object-oriented class definitions.
 This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
 
 \subsection*{Development Strategy}
@@ -195,12 +196,12 @@ We have found the following practices invaluable in terms of rapid development, 
 
 Simple rules for the naming of variables, methods and classes enables developers to navigate their way through the code efficiently, and makes mistakes less likely. 
 Using a standardised code layout and in-line documentation makes the code more readable.
-The documentation is compiled into an auto-generated website, publicly available.
+The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
 We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
 These standards are all available on the Chaste website for any developers and users of the code\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}.
 
 \subsubsection*{Agile programming}
-Chaste is developed using a so-called `agile' approach. \highlight{ref?}
+Chaste is developed using a so-called `agile' approach, in particular eXtreme Programming (XP) \cite{beck1999embracing}. 
 A feature of this approach is to avoid planning too far ahead at any stage.  
 This limits the scope of coding work at any time to a goal that is achievable in a reasonable time frame (typically around a month). 
 
@@ -208,7 +209,7 @@ This approach has pros and cons.
 It leads to fast development of working prototypes, and removes `paralysis through planning', which can occur when trying to accommodate a myriad of possible future requirements. 
 On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use. 
 
-We have also adopted some other characteristics of the `agile' approach, notably pair programming. 
+We have also adopted some other characteristics of XP, notably pair programming. 
 Ideally, all contributed code is written by a pair of developers, sitting side by side, with one writing code, and the other checking this and suggesting improvements.
 In an academic setting we have found that this need not be insisted upon, but we try to use it wherever possible.
 Pair programming has additional benefits. For example, no single person takes sole responsibility for any part of the code; this is especially useful in an academic setting as people move on to new projects on a frequent basis.
@@ -217,7 +218,7 @@ To maintain bug-free code that retains its function in this rapid re-writing sty
 
 \subsubsection*{Test-driven development}
 
-Test-driven development \highlight{ref?} is fundamental to our approach, and is the opposite of what computational scientists typically do. 
+Test-driven development is fundamental to our approach, and is the opposite of what computational scientists typically do. 
 In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
 Once a test is in place, the source code is then written to make the test pass.
 This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test the source code performs its function correctly. 
@@ -232,7 +233,6 @@ In a nightly test run, we: check all of the standard tests for memory leaks;
 profile certain tests for speed; 
 check for documentation on all source code; 
 and check that every line of the source code is called by at least one of the tests.
-
 Among all the coding practices we use, \emph{test-driven development} is never discarded, and is the feature most highly regarded by the development team, who commonly apply it to their other projects.
 
 \subsection*{Code layout / design}
@@ -245,7 +245,7 @@ We will discuss new scientific insight Chaste has enabled in the Results section
 
 \begin{itemize}
  \item \texttt{global} --- mathematics (including a random number generator), time stepping classes, code for checkpointing (saving and loading, which utilises the boost serialization library), wrappers for libraries such as PETSc, and code to handle warnings and exceptions.
- \item \texttt{io} (input/output) --- contains code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \highlight{[ref]}, which enables distributed data to be collated and stored in a single file.
+ \item \texttt{io} (input/output) --- contains code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
  \item \texttt{mesh} --- contains code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle, meshalyzer, cmgui and VTK (paraview) formats.
  \item \texttt{linalg} (linear algebra) --- contains code which uses UBLAS and PETSc for matrix operations.
  \item \texttt{ode} (ODEs and solvers) --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
@@ -260,17 +260,17 @@ The \texttt{cell\_based} code provides a range of modelling frameworks for indiv
 Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g. nutrient/oxygen diffusion.
 For cellular mechanics, there are two main types of model: on- and off-lattice. 
 
-On-lattice models which are supported include cellular automata (1--3D) \highlight{[ref]}, in which one lattice site is associated with one or more cells.
+On-lattice models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which one lattice site is associated with one or more cells.
 Advanced models of angiogenesis have been built using the cellular automata framework \cite{perfahl2011multiscale}.
-Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \highlight{[refs including CompuCell3d]}\cite{Graner1992Simulation}, and additional sites are included or removed to minimize an energy function.
+Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \cite{Graner1992Simulation,Cickovski2007}, and additional sites are included or removed to minimize an energy function.
 
 The off-lattice models fall into two main types, with cells defined spatially by (i) their centres, or (ii) their vertices.
 
 (i) In cell-centre models cells are represented by points, which move according to interactions with neighbouring cells, that can be defined in two main ways: 
-node-based (1--3D) --- neighbours are any nodes within a certain interaction distance \highlight{e.g. [refs], include force equation sum over neighbours here?};
-mesh-based (1--3D) --- neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}.) \highlight{e.g. [refs]}.
+node-based (1--3D) --- where neighbours are any nodes within a certain interaction distance;
+and mesh-based (1--3D) --- where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}).
 
-(ii) vertex dynamics models (2D, 3D planned in future). \highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
+(ii) Vertex dynamics models (2D, 3D planned in future). \highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
 
 These models share the central assumption that a cell may be approximated by a polygon (or polyhedron) whose vertices may move in response to forces. 
@@ -286,14 +286,14 @@ Elsewhere, the forces acting on each vertex are provided explicitly \cite{Weliky
 \subsubsection*{Heart code}
 
 The \texttt{heart} component provides fast and accurate solution  of electromechanics problems on large meshes, optimized for high-performance computing facilities by using PETSc for parallel linear algebra \cite{petsc}, and METIS for mesh distribution \cite{karypis1998fast}.
-Simulations can be performed based upon single cell ODE systems using CVODE \cite{hindmarsh2005sundials}, or tissue PDE systems including monodomain\highlight{[ref]}, bidomain\highlight{[ref]}, bidomain-with-bath\highlight{[ref]}, and our new extended-bidomain system \cite{corrias2012modelling}.
+Simulations can be performed based upon single cell ODE systems using CVODE \cite{hindmarsh2005sundials}, or tissue PDE systems including monodomain, bidomain, bidomain-with-bath, and our new extended-bidomain system \cite{corrias2012modelling}.
 
 Chaste also includes the following modelling capabilities: 
 dynamic loading of CellML files, including units conversion \cite{Cooper2011cuc}; 
 heterogeneities in fibre directions and cell models; 
 simulation of ECGs; 
 and defibrillation with electrodes.
-Post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \highlight{[ref]}, and conduction velocities.
+Post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \cite{gima2002ionic}, and conduction velocities.
 
 \subsubsection*{User Projects}
 
@@ -322,17 +322,16 @@ These examples are simple to enable their reproduction on a typical desktop PC, 
 
 A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
 This component includes code for intestinal crypt geometry, the Wnt signalling pathway and intestinal cell-cycle models. 
-In \cite{VanLeeuwen2009} we studied monoclonal conversion in the colorectal crypt and predicted neutral drift in the stem cell population,
-which has since been proven experimentally \cite{lopez2010intestinal}.
-We have extensively used these off-lattice mesh-based models to examine the concept and role of stem cells in crypt homeostasis \cite{fletcher2012mathematical,Dunn2012,Dunn2012Plos}.
+In van Leeuwen \emph{et al.} \cite{VanLeeuwen2009} we observed monoclonal conversion in the colorectal crypt as a result of postulated simple competition in the stem cell population,
+which has since been confirmed experimentally \cite{lopez2010intestinal}.
+We have extensively used the Chaste off-lattice mesh-based simulations to examine the concept and role of stem cells in crypt homeostasis \cite{fletcher2012mathematical,Dunn2012,Dunn2012Plos}. 
+We have also used Chaste to study the suitability of different modelling approaches and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
 
-Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres, pretty versatile --- Figure~\ref{fig:FourCrypts}.
+\highlight{Following two examples to finish.}
 
-We have studied the suitability of above models and any `quirks' they introduce \cite{Pathmanathan2009,Osborne2010}.
+Figure~\ref{fig:TumourSpheroid} --- Tumour spheroids (oxygen PDE) \highlight{Can we get one of these in 3D with a cut-away view?}.
 
-Tumour spheroids (oxygen PDE) --- see Figure~\ref{fig:TumourSpheroid} \highlight{Can we get one of these in 3D with a cut-away view?}.
-
-Delta-Notch patterning --- see Figure~\ref{fig:FourCrypts}.
+Figure~\ref{fig:FourCrypts} --- Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres, delta-notch patterning, pretty versatile.
 
 \subsection*{Heart}
 
@@ -350,16 +349,16 @@ Simulation have been performed to study defibrillation of a human heart in arrhy
 
 An automatic conversion of cardiac cell models, defined by CellML files, has been developed \cite{Cooper2011cuc}.
 This approach has enabled studies that consider the extensive variability between different cell models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
+Our group has also used Chaste to study the effect of stochasticity in action potential models \cite{Walmsley2012,Dutta2011}.
 
-Our group has used Chaste to study the effect of stochasticity in action potential models \cite{Walmsley2012}. 
-\highlight{ and \cite{Dutta2011}}.
-
-Recently we have begun to work on electro-mechanics, and the latest code release has made this available. In Figure~\ref{fig:TwistyWedge} we show the spread of an electrical wave in a slab of cardiac tissue, and its subsequent deformation due to an electrically-dependent contraction model, and tissue mechanics \highlight{Pras sentence here}. 
+Recently we have begun to work on electro-mechanics, and the latest code release has made this publically available. 
+In Figure~\ref{fig:TwistyWedge} we show the spread of an electrical wave in a slab of cardiac tissue, and its subsequent deformation due to an electrically-dependent contraction model, and tissue mechanics.
+\highlight{Pras sentence here}. 
 Feedback from deformation to electrical activity also occurs through the presence of stretch-activated ion channels in the electrophysiology cell model.
 
 \subsection*{Other application areas}
 
-Alberto's gastric stuff \highlight{citations?}
+Alberto's gastric stuff \highlight{citations?}.
 
 \section*{Availability and Future Directions}
 % PLoS Instructions:
@@ -479,6 +478,7 @@ The code for this is available to download as supplementary material and can als
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% THIS WILL BE ONLINE - NOT TO BE INCLUDED IN WORD COUNT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newpage
 \section*{Supplementary Material}
 
