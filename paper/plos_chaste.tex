@@ -380,15 +380,15 @@ Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future re
 
 %\subsection*{Future Directions}
 
-In the near future, we are planning to add support for the following types of simulation: Navier-Stokes fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
+Currently, we are adding support for the following types of simulation: fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
 \highlight{Ask for permission to say each of these people are working on these if they haven't published...}
-Other groups are starting to use Chaste for a large variety of simulations, including: 
+A number of other groups using Chaste for a large variety of simulations, including: 
 lattice-based multiple occupancy cellular automata (Nottingham);  
 the effects of radiation on tissue (NASA); 
 sexually transmitted infection modelling (Nottingham); 
-electromechanical models of cardiac implants (FDA); 
+cardiac electro-physiological modelling (FDA); 
 drug-induced changes to cardiac rhythm (pharmaceutical companies); 
 brain simulations (\highlight{ref for these}).
 
@@ -497,16 +497,18 @@ The code for this is available to download as supplementary material and can als
 \section{Installation}
 
 In this section we summarise how to install and run Chaste.
-The simplest method is to use the linux Ubuntu operating system, as a debian package is available for this platform.
+The simplest method is to use the Linux Ubuntu operating system, as a debian package is available for this platform.
 Instructions for this are at:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
 In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
 
-Chaste can also be installed on any other linux system, although this requires manual installation of a number of dependencies.
+Chaste can also be installed on any other Linux system. 
+Manual installation of a number of dependencies is required, but scripts
+are provided to simplify this process.
 Instructions are here:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
 
-The bolt-on project \texttt{Plos2012} is available to download from 
+The bolt-on project \texttt{Plos2012} is available to download from \highlight{finsh}
 
 \section{Dependencies}
 
