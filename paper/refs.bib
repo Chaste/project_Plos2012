@@ -85,7 +85,6 @@
   volume = 	{57},
   number = 	{12},
   pages = 	{2806--2815},
-  abstract = 	{The efficient solution of the bidomain equations is a fundamental tool in the field of cardiac electrophysiology. When choosing a finite element discretization of the coupled system, one has to deal with the solution of a large, highly sparse system of linear equations. The conjugate gradient algorithm, along with suitable preconditioning, is the natural choice in this scenario. In this study, we identify the optimal preconditioners with respect to both stimulus protocol and mesh geometry. The results are supported by a comprehensive study of the mesh-dependence properties of several preconditioning techniques found in the literature. Our results show that when only intracellular stimulus is considered, incomplete LU factorization remains a valid choice for current cardiac geometries. However, when extracellular shocks are delivered to tissue, preconditioners that take into account the structure of the system minimize execution time and ensure mesh-independent convergence},
   issn = 	{00189294},
   doi = 	{10.1109/TBME.2010.2078817}
 }
@@ -171,32 +170,8 @@
   pages = {3022--3030},
   number = {9},
   month = {Sep},
-  abstract = {Interstitial cells of Cajal (ICC) isolated from different regions
-	of the stomach generate spontaneous electrical slow wave activity
-	at different frequencies, with cells from the proximal stomach pacing
-	faster than their distal counterparts. However, in vivo there exists
-	a uniform pacing frequency; slow waves propagate aborally from the
-	proximal stomach and subsequently entrain distal tissues. Significant
-	resting membrane potential (RMP) gradients also exist within the
-	stomach whereby membrane polarization generally increases from the
-	fundus to the antrum. Both of these factors play a major role in
-	the macroscopic electrical behavior of the stomach and as such, any
-	tissue or organ level model of gastric electrophysiology should ensure
-	that these phenomena are properly described. This study details a
-	dual-cable model of gastric electrical activity that incorporates
-	biophysically detailed single-cell models of the two predominant
-	cell types, the ICC and smooth muscle cells. Mechanisms for the entrainment
-	of the intrinsic pacing frequency gradient and for the establishment
-	of the RMP gradient are presented. The resulting construct is able
-	to reproduce experimentally recorded slow wave activity and provides
-	a platform on which our understanding of gastric electrical activity
-	can advance.},
   doi = {10.1007/s10439-010-0051-1},
   institution = {National University of Singapore, Singapore. biebml@nus.edu.sg},
-  keywords = {Animals; Carbon Monoxide, physiology; Guinea Pigs; Humans; Interstitial
-	Cells of Cajal, physiology; Membrane Potentials, physiology; Mice;
-	Models, Biological; Muscle, Smooth, physiology; Myoelectric Complex,
-	Migrating, physiology; Stomach, physiology},
   language = {eng},
   medline-pst = {ppublish},
   pmid = {20437204},
@@ -652,8 +627,6 @@ url = {http://www.jsf.mil/downloads/documents/JSF\_AV\_C++\_Coding\_Standards\_R
   volume = 	{368},
   number = 	{1930},
   pages = 	{5013--5028},
-  abstract = 	{In this paper, we review multi-scale models of solid tumour growth and discuss a middleout framework that tracks individual cells. By focusing on the cellular dynamics of a healthy colorectal crypt and its invasion by mutant, cancerous cells, we compare a cellcentre, a cell-vertex and a continuum model of cell proliferation and movement. All models reproduce the basic features of a healthy crypt: cells proliferate near the crypt base, they migrate upwards and are sloughed off near the top. The models are used to establish conditions under which mutant cells are able to colonize the crypt either by top-down or by bottom-up invasion. While the continuum model is quicker and easier to implement, it can be difficult to relate system parameters to measurable biophysical quantities. Conversely, the greater detail inherent in the multi-scale models means that experimentally derived parameters can be incorporated and, therefore, these models offer greater scope for understanding normal and diseased 
-crypts, for testing and identifying new therapeutic targets and for predicting their impacts. {\textcopyright} 2010 The Royal Society},
   issn = 	{1364503X},
   doi = 	{10.1098/rsta.2010.0173},
   url = 	{http://dx.doi.org/10.1098/rsta.2010.0173}
@@ -677,7 +650,6 @@ crypts, for testing and identifying new therapeutic targets and for predicting t
   volume = 	{6},
   number = 	{3},
   pages = 	{036001},
-  abstract = 	{A computational study of discrete 'cell-centre' approaches to modelling the evolution of a collection of cells is undertaken. The study focuses on the mechanical aspects of the tissue, in order to separate the passive mechanical response of the model from active effects such as cell-growth and cell division. Issues which arise when implementing these models are described, and a series of numerical mechanical experiments is performed. It is shown that discrete tissues modelled this way typically exhibit elastic-plastic behaviour under slow compression, and act as a brittle linear elastic solid under slow tension. Both overlapping spheres and Voronoi-tessellation-based models are examined, and the effect of different cell-cell interaction force laws on the bulk mechanical properties of the tissue is determined. This correspondence allows parameters in the cell-based model to be chosen to be compatible with bulk tissue measurements},
   issn = 	{1478396714783975},
   url = 	{http://iopscience.iop.org/1478-3975/6/3/036001/pdf/1478-3975_6_3_036001.pdf}
 }
@@ -724,8 +696,6 @@ crypts, for testing and identifying new therapeutic targets and for predicting t
   keywords = 	{mechanics},
   keywords = 	{muscle},
   keywords = 	{issues},
-  abstract = 	{Models of cardiac electromechanics usually contain a contraction model determining the active tension induced at the cellular level and the equations of nonlinear elasticity to determine tissue deformation in response to this active tension. All contraction models are dependent on cardiac electrophysiology but can also be dependent on the stretch and stretch rate in the fibre direction. This fundamentally affects the mathematical problem being solved, through classification of the governing partial differential equations, which affects numerical schemes that can be used to solve the governing equations. We categorise contraction models into three types, and for each consider questions such as classification and the most appropriate choice from two numerical methods (the explicit and implicit schemes). In terms of mathematical classification, we consider the question of strong ellipticity of the total strain energy (important for precluding 'unnatural' material behaviour) for stretch-rate-
-independent contraction models; whereas for stretch-rate-dependent contraction models, we introduce a corresponding third-order problem and explain how certain choices of boundary condition could lead to constraints on allowable initial condition. In terms of suitable numerical methods, we show that an explicit approach (where the contraction model is integrated in the time step prior to the bulk deformation being computed) is (i) appropriate for stretch-independent contraction models; (ii) only conditionally stable, with the stability criterion independent of time step, for contractions models which just depend on stretch (but not stretch rate) and (iii) inappropriate for stretch-rate-dependent models},
   issn = 	{00335614}
 }
 
@@ -740,8 +710,6 @@ independent contraction models; whereas for stretch-rate-dependent contraction m
   volume = 	{27},
   number = 	{11},
   pages = 	{1751 - 1770},
-  abstract = 	{Abstract Finite element (FE) cardiac electro-physiology solvers commonly have ionic current determined at mesh nodes but required element interiors. We consider two interpolation approaches: (i) ionic current interpolation (ICI), where nodal ionic currents are linearly interpolated into the element and (ii) state variable interpolation (SVI), where cell model state variables are interpolated instead, from which the ionic current is evaluated. We explain why SVI leads to a method which is massively more computationally demanding than ICI (more than might originally be expected), and then demonstrate that the difference in results can be surprisingly large even on what are generally considered suitably fine meshes. We explain why the conduction velocity in ICI simulations is generally too large, identify how ICI can give `accidentally' accurate conduction velocities through two particular sources of error balancing, and illustrate how the difference between ICI and SVI can be huge in anisotropic 
-problems. We also characterize the ICI/SVI difference over a range of cell models, in terms of model upstroke-velocity and formulation of the fast sodium current. Finally, we propose and evaluate a hybrid method which provides the accuracy of SVI, while retaining the efficiency of ICI. Copyright {\textcopyright} 2011 John Wiley \& Sons, Ltd.},
   doi = 	{10.1002/cnm.1438},
   url = 	{http://dx.doi.org/10.1002/cnm.1438}
 }
@@ -793,41 +761,15 @@ problems. We also characterize the ICI/SVI difference over a range of cell model
 	P Nanasi and Kevin Burrage and Blanca Rodriguez},
   title = {A multiscale investigation of repolarization variability and its
 	role in cardiac arrhythmogenesis.},
-  journal = {Biophys J},
+  journal = {Biophysical Journal},
   year = {2011},
   volume = {101},
   pages = {2892--2902},
   number = {12},
   month = {Dec},
-  abstract = {Enhanced temporal and spatial variability in cardiac repolarization
-	has been related to increased arrhythmic risk both clinically and
-	experimentally. Causes and modulators of variability in repolarization
-	and their implications in arrhythmogenesis are however not well understood.
-	At the ionic level, the slow component of the delayed rectifier potassium
-	current (I(Ks)) is an important determinant of ventricular repolarization.
-	In this study, a combination of experimental and computational multiscale
-	studies is used to investigate the role of intrinsic and extrinsic
-	noise in I(Ks) in modulating temporal and spatial variability in
-	ventricular repolarization in human and guinea pig. Results show
-	that under physiological conditions: i), stochastic fluctuations
-	in I(Ks) gating properties (i.e., intrinsic noise) cause significant
-	beat-to-beat variability in action potential duration (APD) in isolated
-	cells, whereas cell-to-cell differences in channel numbers (i.e.,
-	extrinsic noise) also contribute to cell-to-cell APD differences;
-	ii), in tissue, electrotonic interactions mask the effect of I(Ks)
-	noise, resulting in a significant decrease in APD temporal and spatial
-	variability compared to isolated cells. Pathological conditions resulting
-	in gap junctional uncoupling or a decrease in repolarization reserve
-	uncover the manifestation of I(Ks) noise at cellular and tissue level,
-	resulting in enhanced ventricular variability and abnormalities in
-	repolarization such as afterdepolarizations and alternans.},
   doi = {10.1016/j.bpj.2011.09.060},
   institution = {Department of Computer Science, University of Oxford, Oxford, United
 	Kingdom.},
-  keywords = {Action Potentials; Animals; Arrhythmias, Cardiac, physiopathology;
-	Computer Simulation; Dogs; Guinea Pigs; Heart Conduction System,
-	physiopathology; Heart Rate; Humans; Models, Cardiovascular; Myocytes,
-	Cardiac; Species Specificity},
   language = {eng},
   medline-pst = {ppublish},
   pii = {S0006-3495(11)01241-0},
@@ -858,26 +800,9 @@ problems. We also characterize the ICI/SVI difference over a range of cell model
   year = {2006},
   volume = {68},
   pages = {307--343},
-  abstract = {In the gastrointestinal tract, phasic contractions are caused by electrical
-	activity termed slow waves. Slow waves are generated and actively
-	propagated by interstitial cells of Cajal (ICC). The initiation of
-	pacemaker activity in the ICC is caused by release of Ca2+ from inositol
-	1,4,5-trisphosphate (IP3) receptor-operated stores, uptake of Ca2+
-	into mitochondria, and the development of unitary currents. Summation
-	of unitary currents causes depolarization and activation of a dihydropyridine-resistant
-	Ca2+ conductance that entrains pacemaker activity in a network of
-	ICC, resulting in the active propagation of slow waves. Slow wave
-	frequency is regulated by a variety of physiological agonists and
-	conditions, and shifts in pacemaker dominance can occur in response
-	to both neural and nonneural inputs. Loss of ICC in many human motility
-    disorders suggests exciting new hypotheses for the etiology of these
-	disorders.},
   doi = {10.1146/annurev.physiol.68.040504.094718},
   institution = {Department of Physiology and Cell Biology, University of Nevada School
 	of Medicine, Reno, Nevada 89557, USA. kent@unr.edu},
-  keywords = {Animals; Biological Clocks, physiology; Digestive System Physiological
-	Phenomena; Digestive System, cytology; Electrophysiology; Humans;
-	Muscle, Smooth, innervation/physiology},
   language = {eng},
   medline-pst = {ppublish},
   owner = {alberto},
@@ -943,7 +868,6 @@ note = {From the First ACM Workshop on Applied Computational Geometry}
   address = 	{New York, NY, USA},
   pages = 	{29--32},
   keywords = 	{chaste},
-  abstract = 	{This paper details our experiences in performing a detailed performance analysis on a large-scale parallel cardiac simulation by the Chaste software on an Nehalem and Infiniband-based cluster. Our methodology achieves good accuracy for relatively modest amounts of cluster time. The use of sections in the Chaste internal profiler, coupled with the IPM tool, enabled some detailed insights into the performance and scalability of the application. For large core counts, our analysis showed that performance was no longer dominated by the linear systems solver. The computationally-intensive components scaled well up to 2048 cores, and poorly scaling and highly imbalanced components associated with program output and miscellaneous functions were limiting scalability.},
   location = 	{Seattle, Washington, USA},
   isbn = 	{978-1-4503-1180-9},
   doi = 	{10.1145/2133173.2133186},
