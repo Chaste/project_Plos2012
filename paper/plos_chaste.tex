@@ -24,7 +24,6 @@
 \usepackage{cite}
 
 \usepackage{color} 
-\usepackage{url}
 
 % Use doublespacing - comment out for single spacing
 \usepackage{setspace} 
@@ -56,6 +55,7 @@
 %% ** EDIT HERE **
 
 %% ** EDIT HERE **
+\usepackage{url}
 %% PLEASE INCLUDE ALL MACROS BELOW
 \newcommand{\highlight}[1]{{\color{red} \bf{#1}}}
 \newcommand{\garycomment}[1]{{\color{green} \bf{Gary: #1}}}
@@ -130,10 +130,10 @@ together with details of a mailing list and links to documentation and tutorials
 
 It is often the case that scientific software is written for a specific purpose, by a single researcher. 
 Moreover, such code can be discarded after it has served its purpose, or inherited by a new user who is forced to translate the style, purpose and possible errors encoded by the original developer, which can delay new progress. 
-To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted industrial approach to software development in the design of Chaste: providing a library of commonly required numerical tools within a framework that simplifies the simulation of computational biology problems. 
+To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted industrial approach to software development in the design of Chaste: 
+providing a library of commonly required numerical tools within a framework that simplifies the simulation of computational biology problems. 
 The Chaste software environment is at the forefront of the cardiac and cell-based modelling fields, being one of the few open source software platforms available for each of these applications. 
-Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development 
-of cancers. 
+Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development of cancers. 
 The Chaste structure admits quick extensions for new projects, which can inherit many of the necessary models and algorithms from the existing code, and we believe there are many  components that could be used, and contributed to, by the wider scientific community. 
 The code is open source and freely available to download.
 
@@ -243,7 +243,7 @@ Simple rules are adhered to for the naming of variables, methods and classes, wh
 In addition a standardised code layout is adopted, with in-line documentation, which makes the code more readable.
 The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
 We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
-These standards are all available on the Chaste website for any developers and users of the code.\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}
+These standards are documented and publicly accessible on the Chaste wiki.
 
 \subsection*{Code Layout and Design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
@@ -253,9 +253,10 @@ We will discuss new scientific insight Chaste has enabled in the Results section
 
 \highlight{Add an overall schematic figure --- Figure~\ref{fig:OverallSchematic}??}.
 
-\comment{JC: Should we add footnote URLs for the various external packages mentioned?}
+%\comment{JC: Should we add footnote URLs for the various external packages mentioned?}
+% PloS Comp Biol doesn't seem to have footnotes, so I think Supplementary Material table will have to do.
 \begin{itemize}
- \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations, which utilises the Boost serialization library\footnote{\url{http://www.boost.org/}}), wrappers for libraries such as PETSc\comment{JC: most of the PETSc wrapping is in linalg!}, and code to handle warnings and errors.
+ \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations, which utilises the Boost serialization library), parallel vector classes, and code to handle warnings and errors.
  \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
  \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; readers and writers for triangle/tetgen, meshalyzer, cmgui and VTK (Paraview) formats.
  \item \texttt{linalg} (linear algebra) --- code which uses Boost uBLAS and PETSc for vector and matrix operations.
@@ -318,7 +319,8 @@ If common code occurs in more than one user project, then generally it is moved 
 %    including results obtained with the deposited test data and associated parameters.
 Here we provide some examples of the types of scientific problems that Chaste has been used for to date.
 This section is structured around four examples, which can all be reproduced by running the tests in the project which accompanies this paper. 
-Each example is simple, so as to enable reproduction on a typical desktop PC. For examples of state-of-the-art simulation results obtained using Chaste, please refer to the papers cited herein.
+Each example is simple, so as to enable reproduction on a typical desktop PC. 
+For examples of state-of-the-art simulation results obtained using Chaste, please refer to the papers cited herein.
 
 % What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
 % \begin{enumerate}
