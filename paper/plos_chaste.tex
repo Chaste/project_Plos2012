@@ -24,6 +24,7 @@
 \usepackage{cite}
 
 \usepackage{color} 
+\usepackage{url}
 
 % Use doublespacing - comment out for single spacing
 \usepackage{setspace} 
@@ -141,18 +142,18 @@ G. Wilson \cite{wilson2006s}
 \end{quotation}
 
 \textbf{First}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because we do not re-use previously developed models and methods effectively.
-At the most practical level, these equations and algorithms are encoded as software (or more usefully as mark-up languages for the generation of software), describing unambiguously the computations required for simulations.
+At the most practical level, these equations and algorithms are encoded as software (or more usefully as mark-up languages for the generation of software \cite{Cooper2010virtual}), describing unambiguously the computations required for simulations.
 In computational physiology and biology, many problems share a need for the same underlying components and numerical schemes.
 It is still common for each new PhD student or post-doctoral researcher to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
 This not only slows progress, but a lack of formal software training on structuring and documenting code can lead to `spaghetti code' \cite{Merali2010}. 
-Such code rapidly becomes unusable by anyone else, and is typically discarded at the end of a project, leading the next person to work on the research topic to start the process again.
+Such code rapidly becomes unusable by anyone else, and is typically discarded at the end of a project, requiring the next person to work on the research topic to start the process again.
 
 \textbf{Second}, the \emph{reliability} of code, and subsequent results, is often uncertain and unprovable.
-As discussed in Baxter \emph{et al.} in a perspective on software development in this journal \cite{Baxter2006}, there is generally no rigorous software testing approach taken, and testing comes down to whether results `look about right' \cite{Merali2010}. 
+As discussed by Baxter \emph{et al.} in a perspective on software development in this journal \cite{Baxter2006}, there is generally no rigorous software testing approach taken, and testing comes down to whether results `look about right' \cite{Merali2010}. 
 This may soon become safety-critical, as clinical interventions become guided by the results of computational biology simulations. 
 
 Both problems discussed above lead to it being very difficult, if not impossible, to guarantee the \emph{reproducibility} of computational results. 
-Minimum information standards have been suggested for models (MIRIAM \cite{Novere2005}) and simulations (MIASE \cite{Waltemath2011}) which are a vital step in defining the models and algorithms used in their solution.
+Minimum information standards have been suggested for models (MIRIAM \cite{Novere2005}) and simulations (MIASE \cite{Waltemath2011}), defining vital requirements underpinning reuse and reproducibility.
 Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
 Given the complexity of modern mathematical models and numerical algorithms, we believe the use of such standards in open source software is a pre-requisite for \emph{rapid progress}, \emph{reliability} and \emph{reproducibility}.
 
@@ -160,14 +161,14 @@ To date, the applications we have focussed on have been in computational physiol
 In these fields, a wide array of models are represented as: continuum ODE/PDE problems; individual or agent-based discrete models; or a hybrid of these two.
 Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology.
 We therefore set out in 2005 to build a software environment that could be used for simulation of these types of problem, which would overcome many of the pitfalls discussed above.
-Chaste achieves this by providing a library of fully-tested modules for these common elements, which can be easily utilised and readily extended, for the simulation of novel models (and the use of novel numerical algorithms). 
+Chaste achieves this by providing a library of fully-tested modules for these common elements, which can be easily utilised and readily extended for the simulation of novel models (and the use of novel numerical algorithms). 
 
 Other notable open source codes include OpenCMISS for continuum modelling \cite{Bradley2011}, and CompuCell3D for cellular Potts modelling \cite{Cickovski2007}. 
-Chaste is unique in being well-advanced for both continuum and discrete modelling approaches, and is in an excellent position to investigate hybrid approaches \cite{Osborne2010}.
+Chaste is unique in being well suited for both continuum and discrete modelling approaches, and is in an excellent position to investigate hybrid approaches \cite{Osborne2010}.
 %Chaste is exceptional in being the only open source software available for many of its application areas, and also in the use of industrial software engineering standards for its development. 
 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
-In this article we describe the capabilities of version \highlight{3.1}, scientific applications, and future directions. 
+In this article we describe the capabilities of version \highlight{3.1}, novel scientific applications, and future directions. 
 All of the figures in this article can be reproduced by downloading and running the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
 
 \section*{Design and Implementation}
@@ -188,7 +189,7 @@ All of the figures in this article can be reproduced by downloading and running 
 
 In this section we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
 We then introduce the code layout and the available model types and algorithms.
-Chaste is built with C++, which is a fairly low-level compiled language that allows object-oriented class definitions.
+Chaste is written in C++, which is a fairly low-level compiled language that allows object-oriented class definitions.
 This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
 
 \subsection*{Development Strategy}
@@ -196,7 +197,8 @@ This makes the code suitable for applications where efficient memory management 
 We have found the following practices invaluable in terms of rapid development, delivering fast performance, and ensuring reliable results.
 
 \comment{PP: The following three should IMO be in the opposite order, testing first, then agile, then coding standards. Certainly coding
-standards should be last as it is the most underwhelming}
+standards should be last as it is the most underwhelming.}
+\comment{JC: Agile then testing then coding standards would also work, and is I think more similar to other papers we've done.}
 
 \subsubsection*{Coding Standards}
 
@@ -204,16 +206,17 @@ Simple rules for the naming of variables, methods and classes enables developers
 Using a standardised code layout and in-line documentation makes the code more readable.
 The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
 We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
-These standards are all available on the Chaste website for any developers and users of the code\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}.
+These standards are all available on the Chaste website for any developers and users of the code.\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}
 
 \subsubsection*{Agile programming}
-Chaste is developed using a so-called `agile' approach, in particular eXtreme Programming (XP) \cite{beck1999embracing}. 
-A feature of this approach is to avoid planning too far ahead at any stage.  
-This limits the scope of coding work at any time to a goal that is achievable in a reasonable time frame (typically around a month). 
+Chaste is developed using an `agile' development methodology, using many features of eXtreme Programming (XP) \cite{beck1999embracing} in particular.
+A feature of this approach is to avoid planning too far ahead at any stage.
+This limits the scope of coding work at any time to a goal that is achievable in a reasonable time frame (typically around a month).
 
 This approach has pros and cons.
-It leads to fast development of working prototypes, and removes `paralysis through planning', which can occur when trying to accommodate a myriad of possible future requirements. 
-On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use. 
+It leads to fast development of working prototypes, and removes `paralysis through planning', which can occur when trying to accommodate a myriad of possible future requirements.
+On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use.
+\comment{JC: This implies that refactoring is bad, which many agile proponents would disagree with!  It has benefits in producing more readable and effective code over time.  The argument is that it's impossible to get it right first time round, so you'd better plan for refactoring anyway.}
 
 We have also adopted some other characteristics of XP, notably pair programming. 
 Ideally, all contributed code is written by a pair of developers, sitting side by side, with one writing code, and the other checking this and suggesting improvements.
@@ -224,50 +227,52 @@ this is especially useful in an academic setting as people move on to new projec
 
 
 To maintain bug-free code that retains its function in this rapid re-writing style of development, we believe that scientific agile programming must also be `test-driven'. \comment{PP: If reordering might need to remove / move this line}
+\comment{JC: test-driven is actually a key feature of agile; this sentence implies we added it}
 
 \subsubsection*{Test-driven development}
 
 Test-driven development is fundamental to our approach, and is the opposite of what computational scientists typically do. 
 In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
 Once a test is in place, the source code is then written to make the test pass.
-This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test the source code performs its function correctly. 
+This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test that the source code performs its function correctly. 
 
 The test code is committed to the central repository with the source code that it tests.
-Upon each commit, the test code is run in order to check that no functionality has been inadvertently broken.
+Upon each commit, all the tests are run in order to check that no functionality has been inadvertently broken.
 This ensures the code always does what it was written to do, and developers `protect' their new code from any future changes to either the code itself, or any code it relies on.
 This does not guarantee bug-free code, but in practice this approach makes bugs very rare.
 When bugs do occur, this is typically because functionality is expected that has not been fully tested, and the first step in the solution is to write more tests.
 
-In a nightly test run, we: check all of the standard tests for memory leaks; 
+Additional tests are run each night, which: check all of the standard tests for memory leaks; 
 profile certain tests for speed; 
 check for documentation on all source code; 
 and check that every line of the source code is called by at least one of the tests.
 Among all the coding practices we use, \emph{test-driven development} is never discarded, and is the feature most highly regarded by the development team, who commonly apply it to their other projects.
 
-\subsection*{Code layout / design}
+\subsection*{Code layout and design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
-This involves code for ODEs, PDEs, meshes, IO, visualization, etc., which is required by many different application areas in mathematical biology, along with specialised modules for particular application areas.
+This includes code for ODEs, PDEs, meshes, IO, visualization, etc., which is required by many different application areas, along with specialised modules for particular application areas.
 Here we briefly describe the components of the code base and their capabilities.
 We will discuss new scientific insight Chaste has enabled in the Results section.
 
 \highlight{Add an overall schematic figure --- Figure~\ref{fig:OverallSchematic}??}.
 
+\comment{JC: Should we add footnote URLs for the various external packages mentioned?}
 \begin{itemize}
- \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading, which utilises the boost serialization library), wrappers for libraries such as PETSc, and code to handle warnings and errors.
+ \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations, which utilises the Boost serialization library\footnote{\url{http://www.boost.org/}}), wrappers for libraries such as PETSc\comment{JC: most of the PETSc wrapping is in linalg!}, and code to handle warnings and errors.
  \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
- \item \texttt{mesh} --- code for storing linear/quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh reading; generation; writers for triangle/tetgen, meshalyzer, cmgui and VTK (paraview) formats.
- \item \texttt{linalg} (linear algebra) --- code which uses UBLAS and PETSc for vector and matrix operations.
- \item \texttt{ode} (ODEs and solvers) --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
- \item \texttt{pde} (PDEs and solvers) --- code for defining elliptic and parabolic second-order PDEs, parallel finite element solvers of generic coupled systems of PDEs 
+ \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; readers and writers for triangle/tetgen, meshalyzer, cmgui and VTK (Paraview) formats.
+ \item \texttt{linalg} (linear algebra) --- code which uses Boost uBLAS and PETSc for vector and matrix operations.
+ \item \texttt{ode} --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
+ \item \texttt{pde} --- code for defining elliptic and parabolic second-order PDEs; parallel finite element solvers of generic coupled systems of PDEs.
  \item \texttt{continuum\_mechanics} --- code for solving compressible and incompressible general non-linear elasticity problems.
 \end{itemize}
 
 These core components are used by two application components that have driven Chaste development to date --- \texttt{cell\_based} and \texttt{heart}.
 
 \subsubsection*{Cell-based code}
-The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell based simulations. 
-Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g. nutrient/oxygen diffusion.
-For cellular mechanics, there are two main types of model: on- and off-lattice. 
+The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell-based simulations.
+Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g.\ nutrient/oxygen diffusion.
+For cellular mechanics, there are two main types of model: on- and off-lattice.
 
 On-lattice models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which one lattice site is associated with one or more cells.
 Advanced models of angiogenesis have been built using the cellular automata framework \cite{perfahl2011multiscale}.
@@ -277,14 +282,14 @@ The off-lattice models fall into two main types, with cells defined spatially by
 
 (i) In cell-centre models cells are represented by points, which move according to interactions with neighbouring cells, that can be defined in two main ways: 
 node-based (1--3D) --- where neighbours are any nodes within a certain interaction distance;
-and mesh-based (1--3D) --- where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}).
+or mesh-based (1--3D) --- where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}).
+\comment{JC: Triangle and Tetgen were mentioned in the description of \texttt{mesh}; the citations should perhaps be moved.}
 
 (ii) Vertex dynamics models (2D, 3D planned in future). \highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
-
 These models share the central assumption that a cell may be approximated by a polygon (or polyhedron) whose vertices may move in response to forces. 
 It is standard to make the simplifying assumption that the motion of vertices is over-damped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
- This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
+This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
 \begin{align}
 \eta_i \frac{\mathrm{d}{\bf r}_i}{\mathrm{d}t} & = {\bf F}_{i}\,,
 \end{align}
@@ -316,7 +321,7 @@ If common code occurs in more than one user project, then generally it is moved 
 %    including results obtained with the deposited test data and associated parameters.
 In this section we will provide some examples of the types of scientific problems that Chaste has been used for to date.
 We structure this around four figures, which can all be reproduced by running the tests in the bolt-on project for Chaste which accompanies this paper.
-These examples are simple to enable their reproduction on a typical desktop PC, for some of the more state-of-the-art simulation results please refer to the papers cited herein.
+These examples are simple to enable their reproduction on a typical desktop PC; for some of the more state-of-the-art simulation results please refer to the papers cited herein.
 
 % What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
 % \begin{enumerate}
@@ -347,8 +352,9 @@ Figure~\ref{fig:FourCrypts} --- Off-lattice nearest-neighbour-defined interactio
 Chaste is one of the fastest cardiac electrophysiology solvers, and is the only large-scale open source solver available \cite{bordas2009simulation}.
 Chaste displayed exceptional performance in terms of accuracy in a recent independent study surveying major cardiac electro-physiology solvers~\cite{niederer2011verification,pathmanathan2011computational}.
 Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently.
+\comment{JC: May be able to cite scalability paper soon.}
 
-In Figure~\ref{fig:TwistyWedge} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to understand how electrical dynamics lead to arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
+In Figure~\ref{fig:SpiralWave} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to understand how electrical dynamics lead to arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
 
 Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, particularly in choice of matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel,arthurs2012efficient}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011}.
  \highlight{cite Megan, and include as co-author?}.
@@ -375,7 +381,7 @@ The Chaste electrophysiology solvers found applications in other areas of comput
 %    Any future work planned to be carried out by the authors, how others might extend the software.
 %\subsection*{Availability}
 Chaste is freely available to download from \texttt{http://www.cs.ox.ac.uk/chaste}. 
-Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible BSD licence, to enable more industrial partners access to the code.
+Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible 3-clause BSD licence, to facilitate use of the code by industrial partners.
 
 %\subsection*{Future Directions}
 
@@ -392,6 +398,8 @@ drug-induced changes to cardiac rhythm (pharmaceutical companies);
 brain simulations (\highlight{ref for these}).
 
 \subsection*{How to become an active developer}
+
+\comment{JC: Use the url latex package?}
 
 Anyone can register to create a login for the Chaste wiki at\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
@@ -418,6 +426,8 @@ PreDiCT: European Commission, Prediction of Drug Impact in Cardiac Toxicity (Pre
 \bibliography{refs}
 
 \section*{Figure Legends}
+
+\comment{JC: Do we want the `The code for this is available\ldots' in every caption?}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -496,25 +506,25 @@ The code for this is available to download as supplementary material and can als
 \section{Installation}
 
 In this section we summarise how to install and run Chaste.
-The simplest method is to use the Linux Ubuntu operating system, as a debian package is available for this platform.
+The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
 Instructions for this are at:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}
-In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
+In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other Linux system. 
-Manual installation of a number of dependencies is required, but scripts
-are provided to simplify this process.
+Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
 Instructions are here:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
 
-The bolt-on project \texttt{Plos2012} is available to download from \highlight{finsh}
+The bolt-on project \texttt{Plos2012} is available to download from \highlight{finish}
 
 \section{Dependencies}
 
 \begin{table}[!ht]
     \caption{
     \bf{Chaste Dependencies.} For the full text of all licences examine the contents of \texttt{docs/licences.html} 
-    or visit \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}}
+    or visit \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}
+    \comment{JC: Update to a release version.}}
     \begin{tabular}{|l|l|l|}
       \hline
       Dependency & Available from & Licence \\
