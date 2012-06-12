@@ -113,9 +113,13 @@ $\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
 % details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
 Chaste --- \textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment --- 
 is an open source C++ library for computational simulation of mathematical models developed for physiology and biology.
-Code development has been driven by two main applications. (1) In cardiac electrophysiology a large number of studies have been enabled and performed, including high-performance computational investigations of defibrillation on realistic human cardiac geometry. (2) New models for the initiation and growth of cancer have been developed; individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
-Chaste is now being applied to a far wider range of problems. 
-The code provides modules for handling common components of computational models, such as meshes and solvers of ordinary and partial differential equations (ODEs/PDEs), thereby avoiding the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
+Code development has been driven by two initial applications: cardiac electrophysiology and cancer development. 
+In cardiac electrophysiology a large number of studies have been enabled and performed, including high-performance computational investigations of defibrillation on realistic human cardiac geometry. 
+New models for the initiation and growth of tumours have been developed.
+In particular, individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
+Chaste is in constant evolution and is now being applied to a far wider range of problems. 
+The code provides modules for handling common components of numerical analysis, such as meshes and solvers of ordinary and partial differential equations (ODEs/PDEs).
+Re-use of these components avoids the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
 Chaste is developed using industrial techniques, in particular test-driven development, to ensure reliability.
 The source code, for releases and the development version, is available under an open source BSD licence to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
@@ -134,7 +138,7 @@ The code is open source and freely available to download.
 \section*{Introduction}
 % PLoS Instructions:
 % Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
-Chaste (\textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment) has been developed to enable the study of novel problems in computational physiology and biology. The following quotation highlights two problems that Chaste has been designed to overcome:
+\textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment (Chaste) has been developed to enable the study of novel problems in computational physiology and biology. The following quotation highlights two problems that Chaste has been designed to overcome:
 %Keep this quite short
 \begin{quotation}
 ``Increasingly, the real limit on what computational scientists can accomplish is how quickly and reliably they can translate their ideas into working code.''
@@ -187,7 +191,7 @@ All of the figures in this article can be reproduced by downloading and running 
 %4) use data standards where possible; 
 %and 5) incorporate project management.''
 
-In this section we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
+In this section, we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
 We then introduce the code layout and the available model types and algorithms.
 Chaste is written in C++, which is a fairly low-level compiled language that allows object-oriented class definitions.
 This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
@@ -196,43 +200,10 @@ This makes the code suitable for applications where efficient memory management 
 
 We have found the following practices invaluable in terms of rapid development, delivering fast performance, and ensuring reliable results.
 
-\comment{PP: The following three should IMO be in the opposite order, testing first, then agile, then coding standards. Certainly coding
-standards should be last as it is the most underwhelming.}
-\comment{JC: Agile then testing then coding standards would also work, and is I think more similar to other papers we've done.}
-
-\subsubsection*{Coding Standards}
-
-Simple rules for the naming of variables, methods and classes enables developers to navigate their way through the code efficiently, and makes mistakes less likely. 
-Using a standardised code layout and in-line documentation makes the code more readable.
-The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
-We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
-These standards are all available on the Chaste website for any developers and users of the code.\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}
-
-\subsubsection*{Agile programming}
-Chaste is developed using an `agile' development methodology, using many features of eXtreme Programming (XP) \cite{beck1999embracing} in particular.
-A feature of this approach is to avoid planning too far ahead at any stage.
-This limits the scope of coding work at any time to a goal that is achievable in a reasonable time frame (typically around a month).
-
-This approach has pros and cons.
-It leads to fast development of working prototypes, and removes `paralysis through planning', which can occur when trying to accommodate a myriad of possible future requirements.
-On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use.
-\comment{JC: This implies that refactoring is bad, which many agile proponents would disagree with!  It has benefits in producing more readable and effective code over time.  The argument is that it's impossible to get it right first time round, so you'd better plan for refactoring anyway.}
-
-We have also adopted some other characteristics of XP, notably pair programming. 
-Ideally, all contributed code is written by a pair of developers, sitting side by side, with one writing code, and the other checking this and suggesting improvements.
-In an academic setting we have found that this need not be insisted upon, but we use it in regular coding sessions.
-Pair programming has additional benefits. 
-For example, no single person takes sole responsibility for any part of the code; 
-this is especially useful in an academic setting as people move on to new projects on a frequent basis.
-
-
-To maintain bug-free code that retains its function in this rapid re-writing style of development, we believe that scientific agile programming must also be `test-driven'. \comment{PP: If reordering might need to remove / move this line}
-\comment{JC: test-driven is actually a key feature of agile; this sentence implies we added it}
-
 \subsubsection*{Test-driven development}
 
 Test-driven development is fundamental to our approach, and is the opposite of what computational scientists typically do. 
-In this style of development `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
+In this style of development, `test code' is written \emph{before} the `source code' which will actually perform the function we are interested in.
 Once a test is in place, the source code is then written to make the test pass.
 This has the advantage of forcing developers to consider the best interface for their new code, and to consider how to test that the source code performs its function correctly. 
 
@@ -247,6 +218,31 @@ profile certain tests for speed;
 check for documentation on all source code; 
 and check that every line of the source code is called by at least one of the tests.
 Among all the coding practices we use, \emph{test-driven development} is never discarded, and is the feature most highly regarded by the development team, who commonly apply it to their other projects.
+
+\subsubsection*{Agile programming}
+Chaste is developed using an `agile' development methodology, using many features of eXtreme Programming (XP) \cite{beck1999embracing} in particular.
+A feature of this approach is to avoid planning too far ahead at any stage.
+This limits the scope of coding work at any time to a goal that is achievable in a reasonable time frame (typically around a month).
+
+This approach has pros and cons.
+It leads to fast development of working prototypes, and removes `paralysis through planning', which can occur when trying to accommodate a myriad of possible future requirements.
+On the other hand, it also leads to constant `re-factoring' of the code, that is: re-thinking the class structures and interfaces, re-writing and re-organising for efficiency in terms of speed, and also readability and ease of re-use.
+\comment{JC: This implies that refactoring is bad, which many agile proponents would disagree with!  It has benefits in producing more readable and effective code over time.  The argument is that it's impossible to get it right first time round, so you'd better plan for refactoring anyway.}
+
+We have also adopted some other characteristics of XP, notably pair programming. 
+Ideally, all contributed code is written by a pair of developers, sitting side by side, with one writing code, and the other checking and suggesting improvements.
+In an academic setting, we have found that this need not be insisted upon, but we use it in regular coding sessions.
+Pair programming has additional benefits: 
+no single person takes sole responsibility for any part of the code; 
+this is especially useful in an academic setting as people move on to new projects on a frequent basis.
+
+\subsubsection*{Coding Standards}
+
+Simple rules for the naming of variables, methods and classes enable developers to navigate their way through the code efficiently, and make mistakes less likely. 
+In addition, using a standardised code layout and in-line documentation makes the code more readable.
+The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
+We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
+These standards are all available on the Chaste website for any developers and users of the code.\footnote{\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteStrategies}}
 
 \subsection*{Code layout and design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
@@ -272,7 +268,7 @@ These core components are used by two application components that have driven Ch
 \subsubsection*{Cell-based code}
 The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell-based simulations.
 Common code is provided for cell cycle models, cell death, intracellular signalling pathways, and for coupling to PDEs, for e.g.\ nutrient/oxygen diffusion.
-For cellular mechanics, there are two main types of model: on- and off-lattice.
+For cellular simulations, there are two main types of model: on- and off-lattice.
 
 On-lattice models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which one lattice site is associated with one or more cells.
 Advanced models of angiogenesis have been built using the cellular automata framework \cite{perfahl2011multiscale}.
@@ -285,17 +281,17 @@ node-based (1--3D) --- where neighbours are any nodes within a certain interacti
 or mesh-based (1--3D) --- where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}).
 \comment{JC: Triangle and Tetgen were mentioned in the description of \texttt{mesh}; the citations should perhaps be moved.}
 
-(ii) Vertex dynamics models (2D, 3D planned in future). \highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
+(ii) Vertex dynamics models (2D, 3D planned in future). 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
 These models share the central assumption that a cell may be approximated by a polygon (or polyhedron) whose vertices may move in response to forces. 
-It is standard to make the simplifying assumption that the motion of vertices is over-damped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
-This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
-\begin{align}
-\eta_i \frac{\mathrm{d}{\bf r}_i}{\mathrm{d}t} & = {\bf F}_{i}\,,
-\end{align}
-\noindent where ${\bf F}_{i}(t)$ denotes the total force acting on vertex $i$ at time $t$ and $\eta_i$ denotes its drag coefficient. 
+%It is standard to make the simplifying assumption that the motion of vertices is over-damped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
+%This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
+%\begin{align}
+%\eta_i \frac{\mathrm{d}{\bf r}_i}{\mathrm{d}t} & = {\bf F}_{i}\,,
+%\end{align}
+%\noindent where ${\bf F}_{i}(t)$ denotes the total force acting on vertex $i$ at time $t$ and $\eta_i$ denotes its drag coefficient. 
 In some vertex dynamics models, a free energy function is specified, whose gradient is assumed to exert a force on each vertex \cite{Honda1980}. 
-Elsewhere, the forces acting on each vertex are provided explicitly \cite{Weliky1990}.
+Elsewhere, the forces acting on each vertex are provided explicitly \cite{Weliky1990}.\highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
 
 \subsubsection*{Heart code}
 
@@ -309,18 +305,19 @@ simulation of ECGs;
 and defibrillation with electrodes.
 Post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \cite{gima2002ionic}, and conduction velocities.
 
-\subsubsection*{User Projects}
+\subsubsection*{Projects}
 
-We support `user projects' for individual studies using Chaste. 
+We support `bolt-on' projects for individual studies using Chaste. 
 This allows storage of code in the version-control repository and provides an interface to the testing framework.
+We aim to release a project with each new publication, allowing all of the results and figures in an article to be reproduced with a given version of Chaste, see Supplementary Material for instructions on downloading the project associated with this article.
 If common code occurs in more than one user project, then generally it is moved to the central Chaste repository, thus becoming publicly available.
 
 \section*{Results}
 % PloS Instructions:
 %    Results – Examples of biological problems solved using the software, 
 %    including results obtained with the deposited test data and associated parameters.
-In this section we will provide some examples of the types of scientific problems that Chaste has been used for to date.
-We structure this around four figures, which can all be reproduced by running the tests in the bolt-on project for Chaste which accompanies this paper.
+Here we provide some examples of the types of scientific problems that Chaste has been used for to date.
+We structure this section around four examples, which can all be reproduced by running the tests in the project which accompanies this paper.
 These examples are simple to enable their reproduction on a typical desktop PC; for some of the more state-of-the-art simulation results please refer to the papers cited herein.
 
 % What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
@@ -373,7 +370,10 @@ In Figure~\ref{fig:TwistyWedge} we show the spread of an electrical wave in a sl
 tension development in response to electrical activation, coupled to a model of mechanical properties of cardiac tissue. 
 
 \subsection*{Other application areas}
-The Chaste electrophysiology solvers found applications in other areas of computational biology. Over the last decade, there has been a strong interest in building a multi-scale modelling framework to study the contractile function of the human gastrointestinal (GI) system \cite{Buist2010}.  The organs along the GI tract are larger than the heart and their electrophysiology arguably even more complex \cite{Sanders2006}. The efficiency and versatility of Chaste made it possible to integrate the detailed cellular electrophysiology of the stomach into a whole organ framework with a view to studying the effects of genetic mutations as well as highly prevalent diseases such as diabetes \cite{corrias2012modelling}\highlight{CITE BOOK CHAPTER WHEN DETAILS ARE AVAILABLE}.
+The Chaste electrophysiology solvers have found applications in other areas of computational biology. 
+Over the last decade, there has been a strong interest in building a multi-scale modelling framework to study the contractile function of the human gastrointestinal (GI) system \cite{Sanders2006,Buist2010}.  
+%The organs along the GI tract are larger than the heart and their electrophysiology arguably even more complex \cite{Sanders2006}. 
+The efficiency and versatility of Chaste has made it possible to integrate the detailed cellular electrophysiology of the stomach into a whole organ framework with a view to studying the effects of genetic mutations as well as diseases such as diabetes \cite{corrias2012modelling}. \highlight{CITE BOOK CHAPTER WHEN DETAILS ARE AVAILABLE}.
 
 \section*{Availability and Future Directions}
 % PLoS Instructions:
@@ -393,33 +393,35 @@ A number of other groups are using Chaste for a large variety of simulations, in
 lattice-based multiple occupancy cellular automata (Nottingham);  
 the effects of radiation on tissue (NASA); 
 sexually transmitted infection modelling (Nottingham); 
-cardiac electro-physiological modelling (FDA); 
+cardiac electrophysiological modelling (FDA); 
 drug-induced changes to cardiac rhythm (pharmaceutical companies); 
-brain simulations (\highlight{ref for these}).
+brain simulations (\highlight{ref for these?}).
 
 \subsection*{How to become an active developer}
 
 \comment{JC: Use the url latex package?}
 
-Anyone can register to create a login for the Chaste wiki at\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
-You can then comment on tickets, and submit patches for inclusion in Chaste.
-We have a large number of tutorials which are easy to adapt to perform many types of simulation.
-
-We have a guide for people who would like to work with the latest development version of Chaste here:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}.
+The main Chaste website is at \texttt{http://www.cs.ox.ac.uk/chaste}, from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
+You can also register to create a login for the Chaste wiki to view/comment on work tickets, and submit patches for inclusion in Chaste.
+We have a large number of tutorials which are easy to adapt to perform many types of simulation. There is a guide for people who would like to work with the latest development version of Chaste here:\\
+\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
 
-IB: EPSRC, e-Science pilot project in Integrative Biology (GR/S72023/01)
+\begin{itemize}
+\item IB: EPSRC, e-Science pilot project in Integrative Biology (GR/S72023/01).
 
-Original EPSRC grant: EPSRC, Software for High Performance Computing project (EP/F011628/1)
+\item Original EPSRC grant: EPSRC, Software for High Performance Computing project (EP/F011628/1).
 
-PreDiCT: European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT) Framework 7 grant (DG-INFSO 224381)
+\item PreDiCT: European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT). Framework 7 grant (DG-INFSO 224381)
 
-2020 Science: EPRSC (EP/I017909/1) and Microsoft Research, Cambridge
+\item 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\texttt{www.2020science.net}).
 
+\item OCISB: BBSRC grant BB/D020190/1.
+
+\item KAUST: This publication was based on work supported in part by Award No. KUK-C1-013-04, made by King Abdullah University of Science and Technology (KAUST).
+\end{itemize}
 
 %\section*{References}
 % The bibtex filename
@@ -509,7 +511,7 @@ In this section we summarise how to install and run Chaste.
 The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
 Instructions for this are at:\\
 \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
-In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
+In practice many users find it easiest to install Chaste on a `VirtualBox' running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other Linux system. 
 Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
