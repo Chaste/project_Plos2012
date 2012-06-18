@@ -80,7 +80,7 @@
 % Insert Author names, affiliations and corresponding author email.
 \\
 Gary R. Mirams$^{1,\ast}$, Christopher J. Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
-Rafael Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
+Rafel Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
 Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel G. Harvey$^{1}$, 
 James M. Osborne$^{1}$, Pras Pathmanathan$^{1,7}$, Joe Pitt-Francis$^{1}$, 
 James Southern$^8$, Nejib Zemzemi$^9$, David J. Gavaghan$^{1}$
@@ -114,13 +114,13 @@ $\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
 Chaste --- \textbf{C}ancer, \textbf{H}eart \textbf{A}nd \textbf{S}oft \textbf{T}issue \textbf{E}nvironment --- 
 is an open source C++ library for the computational simulation of mathematical models developed for physiology and biology.
 Code development has been driven by two initial applications: cardiac electrophysiology and cancer development. 
-In cardiac electrophysiology a large number of studies have been enabled and performed, including high-performance computational investigations of defibrillation on realistic human cardiac geometry. 
+A large number of cardiac electrophysiology studies have been enabled and performed, including high-performance computational investigations of defibrillation on realistic human cardiac geometry. 
 New models for the initiation and growth of tumours have been developed.
 In particular, individual-cell-based simulations have provided novel insight into the role of stem cells in the colorectal crypt.
-Chaste is in constant evolution and is now being applied to a far wider range of problems. 
-The code provides modules for handling common components of numerical analysis, such as meshes and solvers of ordinary and partial differential equations (ODEs/PDEs).
+Chaste is constantly evolving and is now being applied to a far wider range of problems. 
+The code provides modules for handling common scientific computing components, such as meshes and solvers of ordinary and partial differential equations (ODEs/PDEs).
 Re-use of these components avoids the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
-Chaste is developed using industrial techniques, in particular test-driven development, to ensure reliability.
+Chaste is developed using industrial techniques, in particular test-driven development, to ensure code quality, re-use and reliability.
 The source code, both for releases and the development version, is available under an open source BSD licence to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
 % Please keep the Author Summary between 150 and 200 words
@@ -129,8 +129,8 @@ together with details of a mailing list and links to documentation and tutorials
 % Lay-person summary 
 
 It is often the case that scientific software is written for a specific purpose, by a single researcher. 
-Moreover, such code can be discarded after it has served its purpose, or inherited by a new user who is forced to translate the style, purpose and possible errors encoded by the original developer, which can delay new progress. 
-To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted industrial approach to software development in the design of Chaste: 
+Moreover, such code can be discarded after it has served its purpose, or inherited by a new user who is forced to contend with the style, purpose and possible errors encoded by the original developer, which can delay new progress. 
+To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted an industrial approach to software development in the design of Chaste: 
 providing a library of commonly required numerical tools within a framework that simplifies the simulation of computational biology problems. 
 The Chaste software environment is at the forefront of the cardiac and cell-based modelling fields, being one of the few open source software platforms available for each of these applications. 
 Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development of cancers. 
@@ -147,8 +147,8 @@ The code is open source and freely available to download.
 G. Wilson \cite{wilson2006s}
 \end{quotation}
 
-\textbf{First}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because we do not re-use previously developed models and methods effectively.
-At the most practical level, model equations and algorithms are encoded as software (or more usefully as mark-up languages for the generation of software \cite{Cooper2010virtual}), describing unambiguously the computations required for simulations.
+\textbf{First}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because previously developed models and methods are often not re-used effectively.
+At the most practical level, model equations and algorithms are encoded as software (or, more usefully, as mark-up languages for the generation of software \cite{Cooper2010virtual}), describing unambiguously the computations required for simulations.
 In computational physiology and biology, many problems share a need for the same underlying components and numerical schemes.
 It is still common for each new PhD student or post-doctoral researcher to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
 This not only slows progress, but a lack of formal software training on structuring and documenting code can lead to `spaghetti code' \cite{Merali2010}. 
@@ -195,7 +195,7 @@ All of the figures in this article can be reproduced by downloading and running 
 
 In this section, we briefly discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
 We then introduce the code layout and the available model types and algorithms.
-Chaste is written in C++, which is a fairly low-level compiled language that allows object-oriented class definitions.
+Chaste is written in C++, a fairly low-level compiled language that allows object-oriented class definitions.
 This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
 
 \subsection*{Development Strategy}
@@ -296,6 +296,8 @@ Elsewhere, the forces acting on each vertex are provided explicitly \cite{Weliky
 
 \subsubsection*{Heart Code}
 
+\comment{RB: I think this section needs a few sentences or a paragraph on electromechanics}
+
 The \texttt{heart} component of Chaste provides fast and accurate solution of electro-mechanical problems on large meshes, optimised for high-performance computing facilities by using PETSc for parallel linear algebra \cite{petsc}, and METIS for mesh distribution \cite{karypis1998fast}.
 Simulations can be performed based upon single-cell ODE systems using CVODE \cite{hindmarsh2005sundials}, or at the tissue or whole-organ level using PDE formulations such as monodomain, bidomain, bidomain-with-bath, \comment{[need ref here]} and our new extended-bidomain system \cite{corrias2012modelling}.
 
@@ -387,7 +389,9 @@ Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future re
 
 %\subsection*{Future Directions}
 
-Currently, we are adding support for the following types of simulation: fluid flow; parallel cardiac electro-mechanics; Purkinje-myocyte coupling in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
+\comment{RB: Fluid flow looks out of place in the list below. Do we have an application for it? Something like: blood flow in haemodynamics}
+
+Currently, we are adding support for the following types of simulation: fluid flow; parallel cardiac electro-mechanics; His-Purkinje system in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
 \highlight{Ask for permission to say each of these people are working on these if they haven't published...}
@@ -396,7 +400,7 @@ lattice-based multiple occupancy cellular automata (Markus Owen, Nottingham);  %
 the effects of radiation on tissue (Shaowen Hu, NASA); % approved
 sexually transmitted infection modelling (Martin Nelson, Nottingham); % approved
 cardiac electrophysiological modelling (FDA); % to ask for approval
-drug-induced changes to cardiac rhythm (GlaxoSmithKline); % approved
+drug-induced changes to cardiac rhythm (Safety Pharmacology, GlaxoSmithKline); % approved
 brain simulations (\highlight{ref for these?}). % to ask for approval
 
 \subsection*{How to become an active developer}
