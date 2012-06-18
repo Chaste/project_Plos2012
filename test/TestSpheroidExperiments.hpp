@@ -93,6 +93,9 @@ public:
 		p_model->SetDimension(3);
 		p_model->SetCellProliferativeType(STEM);
 		p_model->SetStemCellG1Duration(2.0);
+		p_model->SetHypoxicConcentration(0.3);
+        p_model->SetQuiescentConcentration(0.5);
+        p_model->SetCriticalHypoxicDuration(2);
 
 		CellPtr p_cell(new Cell(p_state, p_model));
 		double birth_time = -RandomNumberGenerator::Instance()->ranf()*18.0;
@@ -109,8 +112,9 @@ public:
 
 		// Set up cell-based simulation
 		OffLatticeSimulation<3> simulator(cell_population);
-		simulator.SetEndTime(100);
+		simulator.SetEndTime(50);
 		simulator.SetSamplingTimestepMultiple(120);
+        simulator.SetOutputDirectory("TestSpheroidWithPde");
 
         // Set up PDE and pass to simulation via handler
         AveragedSourcePde<3> pde(cell_population, -1.0);
@@ -122,9 +126,6 @@ public:
         CellBasedPdeHandler<3> pde_handler(&cell_population);
         pde_handler.AddPdeAndBc(&pde_and_bc);
 		simulator.SetCellBasedPdeHandler(&pde_handler);
-
-		// Set output directory
-		simulator.SetOutputDirectory("TestSpheroidWithPde");
 
         // Create a force law and pass it to the simulation
         MAKE_PTR(GeneralisedLinearSpringForce<3>, p_force);
