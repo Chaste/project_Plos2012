@@ -43,14 +43,17 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "NonlinearElasticityTools.hpp"
 #include "CardiacElectroMechanicsProblem.hpp"
 
-// Notes: this test requires comments. Takes 3.5 mins to run with b=GccOpt_ndebug on
-// PP laptop.
-
+// This example is based on one of the cardiac electro-mechanics tutorials, see there for
+// further details.
+//
+// Remember to run with build=GccOpt_ndebug
+//
 class TestElectroMechanicsTwisingCube : public CxxTest::TestSuite
 {
 public:
     void TestTwistingCube() throw(Exception)
     {
+    	// stimulate X=0 surface
         PlaneStimulusCellFactory<CellLuoRudy1991FromCellML, 3> cell_factory(-1000*1000);
 
         // set up two meshes of 1mm by 1mm by 1mm
