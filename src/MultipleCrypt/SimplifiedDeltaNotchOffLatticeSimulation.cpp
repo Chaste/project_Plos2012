@@ -84,7 +84,6 @@ void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateCellData()
         double this_delta = p_model->GetDelta();
         double this_notch = p_model->GetNotch();
 
-        // Note that the state variables must be in the same order as listed in DeltaNotchOdeSystem
         cell_iter->GetCellData()->SetItem("notch", this_notch);
         cell_iter->GetCellData()->SetItem("delta", this_delta);
     }

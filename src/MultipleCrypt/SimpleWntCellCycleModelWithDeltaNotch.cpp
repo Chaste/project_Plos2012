@@ -77,7 +77,6 @@ AbstractCellCycleModel* SimpleWntCellCycleModelWithDeltaNotch::CreateCellCycleMo
      */
     p_model->SetBirthTime(mBirthTime);
     p_model->SetDimension(mDimension);
-    p_model->SetCellProliferativeType(mCellProliferativeType);
     p_model->SetMinimumGapDuration(mMinimumGapDuration);
     p_model->SetStemCellG1Duration(mStemCellG1Duration);
     p_model->SetTransitCellG1Duration(mTransitCellG1Duration);
@@ -88,6 +87,8 @@ AbstractCellCycleModel* SimpleWntCellCycleModelWithDeltaNotch::CreateCellCycleMo
     p_model->SetWntStemThreshold(mWntStemThreshold);
     p_model->SetWntTransitThreshold(mWntTransitThreshold);
     p_model->SetWntLabelledThreshold(mWntLabelledThreshold);
+    p_model->SetWntLabelledThreshold(mWntLabelledThreshold);
+    p_model->SetLastTime(mLastTime);
 
     // Create the new cell-cycle model's ODE system
     double mean_neighbouring_delta = GetMeanNeighbouringDelta();
@@ -106,7 +107,7 @@ void SimpleWntCellCycleModelWithDeltaNotch::UpdateCellCyclePhase()
     assert(SimulationTime::Instance()->IsStartTimeSetUp());
     UpdateDeltaNotch();
     SolveOdeToTime(SimulationTime::Instance()->GetTime());
-    AbstractSimpleCellCycleModel::UpdateCellCyclePhase();
+    SimpleWntCellCycleModel::UpdateCellCyclePhase();
 }
 
 void SimpleWntCellCycleModelWithDeltaNotch::Initialise()
