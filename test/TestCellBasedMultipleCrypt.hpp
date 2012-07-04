@@ -149,8 +149,8 @@ public:
         // Set up cell-based simulation
 		SimplifiedDeltaNotchOffLatticeSimulation<3> simulator(crypt);
         simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
-        simulator.SetDt(1.0/120.0);
-        simulator.SetSamplingTimestepMultiple(120);
+        simulator.SetDt(1.0/100.0);
+        simulator.SetSamplingTimestepMultiple(100);
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
@@ -173,16 +173,16 @@ public:
         WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2.0*crypt_radius);
 
         // Run simulation
-        simulator.SetEndTime(500.0);
+        simulator.SetEndTime(250.0);
         simulator.Solve(); // to 500
 
         // Add a random cell killer to represent random death in the epithelial layer.
-		MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.008)); // prob of death in an hour
+		MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
 		simulator.AddCellKiller(p_cell_killer_2);
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
-        simulator.SetEndTime(1000.0);
+        simulator.SetEndTime(2250.0);
         simulator.Solve(); // to 1000
     }
 
