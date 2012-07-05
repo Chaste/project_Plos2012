@@ -115,18 +115,9 @@ public:
 
             /* We choose to initialise the concentrations to random levels in each cell TODO check this does work with random ICS. */
             std::vector<double> initial_conditions;
-            if (i%2==1)
-            {
-            	initial_conditions.push_back(0.011);
-            	initial_conditions.push_back(0.98);
-            }
-            else
-            {
-            	initial_conditions.push_back(0.01);
-            	initial_conditions.push_back(0.97);
-            }
-            initial_conditions.push_back(0.98);
-
+            initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
+            initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
+            initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
             p_model->SetInitialConditions(initial_conditions);
 
             CellPtr p_cell(new Cell(p_state, p_model));
@@ -174,7 +165,7 @@ public:
 
         // Run simulation
         simulator.SetEndTime(250.0);
-        simulator.Solve(); // to 500
+        simulator.Solve(); // to 250
 
         // Add a random cell killer to represent random death in the epithelial layer.
 		MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
@@ -182,7 +173,7 @@ public:
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
-        simulator.SetEndTime(2250.0);
+        simulator.SetEndTime(1000.0);
         simulator.Solve(); // to 1000
     }
 
