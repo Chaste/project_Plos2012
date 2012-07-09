@@ -113,7 +113,8 @@ public:
             SimpleWntCellCycleModelWithDeltaNotch* p_model = new SimpleWntCellCycleModelWithDeltaNotch();
             p_model->SetDimension(3);
 
-            /* We choose to initialise the concentrations to random levels in each cell TODO check this does work with random ICS. */
+            /* We choose to initialise the concentrations to random levels in each cell 
+               TODO check this does work with random ICS. */
             std::vector<double> initial_conditions;
             initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
             initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
@@ -150,12 +151,16 @@ public:
         p_linear_force->SetCutOffLength(1.5);
         simulator.AddForce(p_linear_force);
 
-        MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition, p_boundary_condition, (&crypt, crypt_radius, crypt_length, villus_radius, villus_length, domain_width));
+        MAKE_PTR_ARGS(MultipleCryptGeometryBoundaryCondition, 
+                      p_boundary_condition, 
+                      (&crypt, crypt_radius, crypt_length, villus_radius, villus_length, domain_width));
         simulator.AddCellPopulationBoundaryCondition(p_boundary_condition);
 
 
         // Main sink of cells is at the top of the villus
-        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, p_cell_killer_1,(&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
+        MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, 
+                      p_cell_killer_1,
+                      (&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
         // Create an instance of a Wnt concentration
@@ -168,8 +173,8 @@ public:
         simulator.Solve(); // to 250
 
         // Add a random cell killer to represent random death in the epithelial layer.
-		MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
-		simulator.AddCellKiller(p_cell_killer_2);
+        MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
+        simulator.AddCellKiller(p_cell_killer_2);
 
         // Label each cell according to its current node index
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();

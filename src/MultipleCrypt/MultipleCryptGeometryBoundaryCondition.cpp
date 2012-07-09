@@ -80,7 +80,7 @@ double MultipleCryptGeometryBoundaryCondition::GetDomainWidth() const
 void MultipleCryptGeometryBoundaryCondition::ImposeBoundaryCondition(const std::vector<c_vector<double, 3> >& rOldLocations)
 {
     // Iterate over the cell population
-    for (typename AbstractCellPopulation<3>::Iterator cell_iter = this->mpCellPopulation->Begin();
+    for (AbstractCellPopulation<3>::Iterator cell_iter = this->mpCellPopulation->Begin();
          cell_iter != this->mpCellPopulation->End();
          ++cell_iter)
     {

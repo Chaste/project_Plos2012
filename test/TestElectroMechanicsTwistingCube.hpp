@@ -92,6 +92,7 @@ public:
         problem_defn.SetVariableFibreSheetDirectionsFile("projects/Plos2012/test/data/5by5by5_fibres.ortho", false);
 
         CardiacElectroMechanicsProblem<3> problem(COMPRESSIBLE,
+                                                  MONODOMAIN,
                                                   &electrics_mesh,
                                                   &mechanics_mesh,
                                                   &cell_factory,
