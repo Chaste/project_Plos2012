@@ -42,6 +42,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "LuoRudy1991.hpp"
 #include "NonlinearElasticityTools.hpp"
 #include "CardiacElectroMechanicsProblem.hpp"
+#include "FileFinder.hpp"
+#include "VtkMeshWriter.hpp"
 
 // This example is based on one of the cardiac electro-mechanics tutorials, see there for
 // further details.
@@ -54,50 +56,70 @@ public:
     void TestTwistingCube() throw(Exception)
     {
     	// stimulate X=0 surface
-        PlaneStimulusCellFactory<CellLuoRudy1991FromCellML, 3> cell_factory(-1000*1000);
+        PlaneStimulusCellFactory<CellLuoRudy1991FromCellML, 3u> cell_factory(-1000*1000);
 
         // set up two meshes of 1mm by 1mm by 1mm
-        TetrahedralMesh<3,3> electrics_mesh;
+        TetrahedralMesh<3u,3u> electrics_mesh;
         electrics_mesh.ConstructRegularSlabMesh(0.01, 0.1, 0.1, 0.1);
 
         QuadraticMesh<3> mechanics_mesh(0.02, 0.1, 0.1, 0.1);
 
         // fix the nodes on Z=0
         std::vector<unsigned> fixed_nodes
-          = NonlinearElasticityTools<3>::GetNodesByComponentValue(mechanics_mesh, 2, 0.0);
+          = NonlinearElasticityTools<3u>::GetNodesByComponentValue(mechanics_mesh, 2, 0.0);
 
         HeartConfig::Instance()->SetSimulationDuration(36.0);
 
-        ElectroMechanicsProblemDefinition<3> problem_defn(mechanics_mesh);
+        ElectroMechanicsProblemDefinition<3u> problem_defn(mechanics_mesh);
         problem_defn.SetContractionModel(KERCHOFFS2003,1.0);
         problem_defn.SetUseDefaultCardiacMaterialLaw(COMPRESSIBLE);
         problem_defn.SetZeroDisplacementNodes(fixed_nodes);
         problem_defn.SetMechanicsSolveTimestep(1.0);
 
-//// This is how to generate a fibre file for this mesh
-//        OutputFileHandler handler("FibreFile");
-//        out_stream p_file = handler.OpenOutputFile("5by5by5_fibres.ortho");
-//        *p_file << mechanics_mesh.GetNumElements() << "\n"; // first line is number of entries
-//        for(unsigned i=0; i<mechanics_mesh.GetNumElements(); i++)
-//        {
-//            double X = mechanics_mesh.GetElement(i)->CalculateCentroid()(0);
-//            double theta = M_PI/3 - 10*X*2*M_PI/3; // 60 degrees when X=0, -60 when X=0.1;
-//            *p_file <<  "0 " << cos(theta)  << " " << sin(theta)  // first three entries are fibre direction
-//                    << " 0 " << -sin(theta) << " " << cos(theta)  // next three are sheet direction
-//                    << " 1 0 0\n";                                // then normal to sheet direction
-//        }
-//        p_file->close();
+        std::string output_directory = "Plos2012_ElectroMechanics";
 
-        // NOTE: the following assumes the local project folder is named 'Plos2012'
-        problem_defn.SetVariableFibreSheetDirectionsFile("projects/Plos2012/test/data/5by5by5_fibres.ortho", false);
 
-        CardiacElectroMechanicsProblem<3> problem(COMPRESSIBLE,
+        // This is how to generate a fibre file for this mesh, we use a Streeter-style formula here.
+        OutputFileHandler handler(output_directory + "Fibres");
+        out_stream p_file = handler.OpenOutputFile("5by5by5_fibres.ortho");
+        *p_file << mechanics_mesh.GetNumElements() << "\n"; // first line is number of entries
+        std::vector<c_vector<double,3u> > fibre_directions;
+        for(unsigned i=0; i<mechanics_mesh.GetNumElements(); i++)
+        {
+            double X = mechanics_mesh.GetElement(i)->CalculateCentroid()(0);
+            double theta = M_PI/3 - 10*X*2*M_PI/3; // 60 degrees when X=0, -60 when X=0.1;
+
+            c_vector<double,3u> fibre_direction;
+            fibre_direction[0] = 0;
+            fibre_direction[1] = cos(theta);
+            fibre_direction[2] = sin(theta);
+            *p_file <<  fibre_direction[0] << " " << fibre_direction[1]  << " " << fibre_direction[2]  // first three entries are fibre direction
+                    << " 0 " << -sin(theta) << " " << cos(theta)  // next three are sheet direction
+                    << " 1 0 0\n";                                // then normal to sheet direction
+            fibre_directions.push_back(fibre_direction);
+        }
+        p_file->close();
+
+#ifdef CHASTE_VTK
+        // We only compile the following if VTK is installed and set up.
+        // This is optional - just for visualizing the fibre directions as in the paper.
+        VtkMeshWriter<3u,3u> mesh_writer(output_directory+ "Fibres", "mesh", false);
+
+        mesh_writer.AddCellData("Fibre Directions", fibre_directions);
+        mesh_writer.WriteFilesUsingMesh(mechanics_mesh);
+#endif // CHASTE_VTK
+
+        // Load up the file we just wrote to use as fibre directions for this mechanics problem.
+        FileFinder fibre_file_finder(output_directory + "Fibres/5by5by5_fibres.ortho", RelativeTo::ChasteTestOutput);
+        problem_defn.SetVariableFibreSheetDirectionsFile(fibre_file_finder, false);
+
+        CardiacElectroMechanicsProblem<3u> problem(COMPRESSIBLE,
                                                   MONODOMAIN,
                                                   &electrics_mesh,
                                                   &mechanics_mesh,
                                                   &cell_factory,
                                                   &problem_defn,
-                                                  "Plos2012_TwistingCube");
+                                                  output_directory);
 
         problem.Solve();
 
