@@ -91,8 +91,7 @@ AbstractCellCycleModel* SimpleWntCellCycleModelWithDeltaNotch::CreateCellCycleMo
     p_model->SetLastTime(mLastTime);
 
     // Create the new cell-cycle model's ODE system
-    double mean_neighbouring_delta = GetMeanNeighbouringDelta();
-    p_model->SetOdeSystem(new DeltaNotchOdeSystem(mean_neighbouring_delta));
+    p_model->SetOdeSystem(new DeltaNotchOdeSystem());
 
     // Use the current values of the state variables in mpOdeSystem as an initial condition for the new cell-cycle model's ODE system
     assert(mpOdeSystem);

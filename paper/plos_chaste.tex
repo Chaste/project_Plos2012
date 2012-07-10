@@ -121,20 +121,23 @@ Chaste is constantly evolving and is now being applied to a far wider range of p
 The code provides modules for handling common scientific computing components, such as meshes and solvers of ordinary and partial differential equations (ODEs/PDEs).
 Re-use of these components avoids the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
 Chaste is developed using industrial techniques, in particular test-driven development, to ensure code quality, re-use and reliability.
+In this article we provide examples that illustrate the types of problems Chaste can be used to solve, which can easily be run on a desktop computer.
 The source code, both for releases and the development version, is available under an open source BSD licence to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
+
 % Please keep the Author Summary between 150 and 200 words
 % Use first person. 
 \section*{Author Summary}
 % Lay-person summary 
 
+% 200 words exactly at present - if editing keep to this limit.
 It is often the case that scientific software is written for a specific purpose, by a single researcher. 
-Moreover, such code can be discarded after it has served its purpose, or inherited by a new user who is forced to contend with the style, purpose and possible errors encoded by the original developer, which can delay new progress. 
+Moreover, such code can be discarded after it has served its purpose, or inherited by a new user who is forced to contend with the style, purpose and possible errors encoded by the original developer, which can delay progress. 
 To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted an industrial approach to software development in the design of Chaste: 
 providing a library of commonly required numerical tools within a framework that simplifies the simulation of computational biology problems. 
 The Chaste software environment is at the forefront of the cardiac and cell-based modelling fields, being one of the few open source software platforms available for each of these applications. 
-Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, or to investigate cell behaviour in the development of cancers. 
-The Chaste structure admits quick extensions for new projects, which can inherit many of the necessary models and algorithms from the existing code, and we believe there are many  components that could be used, and contributed to, by the wider scientific community. 
+Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, and investigate cell behaviour in the development of cancers. 
+The Chaste structure admits quick extensions for new projects, and we believe there are many  components that could be used, and contributed to, by the wider scientific community. 
 The code is open source and freely available to download.
 
 \section*{Introduction}
@@ -160,7 +163,7 @@ This may soon become safety-critical, as clinical interventions become guided by
 
 Both problems discussed above lead to it being very difficult, if not impossible, to guarantee the \emph{reproducibility} of computational results. 
 Minimum information standards have been suggested for models (MIRIAM \cite{Novere2005}) and simulations (MIASE \cite{Waltemath2011}), defining vital requirements underpinning reuse and reproducibility.
-Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
+Mark-up languages such as SBML \cite{hucka2003systems}, CellML \cite{Garny2008}, FieldML \cite{christie2009fieldml} and SED-ML \cite{waltemath2011sed} help to satisfy these requirements in a machine-readable format.
 Given the complexity of modern mathematical models and numerical algorithms, we believe the use of such standards in open source software is a pre-requisite for \emph{rapid progress}, \emph{reliability} and \emph{reproducibility}.
 
 To date, the applications we have focussed on have been in computational physiology and biophysics.
@@ -175,7 +178,8 @@ Chaste is unique in being well suited for both continuum and discrete modelling 
 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
 In this article we describe the capabilities of version \highlight{3.1}, novel scientific applications, and future directions. 
-All of the figures in this article can be reproduced by downloading and running the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
+It is our intention that all of the examples in this article can be easily reproduced on a desktop PC, they are therefore less computationally intensive than many of the simulations performed in active research.
+The example simulations can be run, and figures recreated, by downloading the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
 
 \section*{Design and Implementation}
 % PLoS Instructions:
@@ -357,7 +361,7 @@ Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins201
 
 In Figure~\ref{fig:SpiralWave} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to understand how electrical dynamics lead to arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
 
-Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, particularly in choice of matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel,arthurs2012efficient}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011}.
+Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, particularly in choice of matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
  \highlight{cite Megan, and include as co-author?}.
 
 These improvements to numerical algorithms have enabled novel biological problems to be studied. 
