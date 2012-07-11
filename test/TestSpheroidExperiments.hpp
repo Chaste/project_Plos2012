@@ -184,8 +184,8 @@ public:
         // Create cell population
         MeshBasedCellPopulation<3> cell_population(mesh, cells);
         cell_population.SetAbsoluteMovementThreshold(DBL_MAX);
-        cell_population.SetOutputCellPopulationVolumes(true);
         cell_population.SetOutputCellVolumes(true);
+        cell_population.SetWriteVtkAsPoints(true);
         
         // Set up cell data on the cell population
         cell_population.SetDataOnAllCells("oxygen", 1.0);
