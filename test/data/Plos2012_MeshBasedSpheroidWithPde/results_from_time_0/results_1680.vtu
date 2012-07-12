@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="12"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="136"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="528"                 />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="536"                 />
+        <DataArray type="UInt8" Name="types" format="appended" offset="544"                 />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _YAAAAAAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/zvvx0Yav7D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPw==IAEAABn+tG/fvr2/uwnBzKAjvL8OZ3mqftvEv+xaXbfYG+8/LZ3G+fez8T9yuu7d8KlcP/Esjr/0UWE/HAWuyy9iyL/lve7rD/vpP7FspidMSOA/Z3ySVlAN4D9Jd2nGpmj3P5V+WZKpF9Y/E0fKd7O63j9uTj/5RHfhPyy54/rWdOo/lp/to1dltj/AuoZPvlemP5hUSRPEbc8/TsYywsPs8z+iF8nl+ubmP/8Q/HUXL+8/AfwHf10JzL8vLNhIdvzuP9Z70iVzLvM/u1hTL79+5z/M5TYzOT/qP1qjAiDR3cA/THUwm0bp6j/YFxSiylbSv2c3rHkl3eG/5KZ8O9Z34z85kE3mXc3WP8VZ//rTqNi/EGJ7gWvD5D8w4dtAGUP0Pw==AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:24 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

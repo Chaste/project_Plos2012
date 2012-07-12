@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="22"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="240"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="952"                 />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="960"                 />
+        <DataArray type="UInt8" Name="types" format="appended" offset="968"                 />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _sAAAAF6qQiNJKu4/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/yDkngOVr6z8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwP5IAp5Wu6Oo/AAAAAAAA8D+Rxts9SJLrPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/EAIAAByA8R/J99U/qpYAA91plT/X5pNVrBTFvxvLQGZKduc/V+7xRTn6+T8IlDchN3bUPw45aHm1Jsm/H/ptxHfz3r8tJ/zy95TeP63Zzp7wd+c/ShWI6E+52T8M6k3vGNb3P30Rby2Uhs8/18t7S8Wg6T/P1jJz+DjPP11zqbBaLfM/zy5WtRmV0j/fS1AqNybAv/V0iQudtdC/rhDNbXpS9T9acznIam3XP2636HfMd+E/XR4YrzsQ478aC3su2K/zP6lykaxUQPc/OLMwFTo97j+9Jfm3kCHqP0UTCDEnb9+/I35qSSeA7D9s7PC5Einbv2stwwtssOG/kzILacx7zT8h+7+MXZuaP0oDnuHB4ca/0BJQY5l37D9bFdSjc6r0PxOSUK1PIuk/qb5g4ewn4L88BkhvsqzRPwUFESB+XeE/JEAXbpGu8z9PIC1uoEPxPyglRmM1SfU/XIpH0awNsL+jriwJK1HsP5CqTK1JTNA/Dc3DfDlLxz+62AI4Dz3pP+mhkxraqNC//L97AVXzsr96mDMNbln3Pz5IFUSHLew/wCQosGKo4j9jLHvWqgreP8mfVdfHr94/6fX7QMkI8D8hy3qbqlXdvw0fJB4DPPU/VI1cKy7p8j+tofe64lnCvywp8Wf/VOW/h0fZlDO53z8PnC/KabjlP4NmOEMONsg/8C2eQ5W+pj8kfZEVdmTevw==AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:27 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

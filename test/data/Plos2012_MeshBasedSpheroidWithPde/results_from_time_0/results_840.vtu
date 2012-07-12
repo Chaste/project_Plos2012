@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="10"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="112"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="440"                 />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="448"                 />
+        <DataArray type="UInt8" Name="types" format="appended" offset="456"                 />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _UAAAAAAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/XVbQbSiF7T8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/8AAAAEE8ZX93TNW/vXBegNd32j8kRljfHI/QPxp8/1DOues/lKlEWQOq8D+nPi29sZG6v1PI2lcld5g/NKuHfNyS2L/7BIWcbe3mP5fVkLdUOLc/ZZQuwt0S4D8QUSxuKjf0Pz9qEibhPto/mGIvrcD73T/pRRfGBffgP4lzPh7BdOc/c0ZrqcpFoD/CRgMRzpWwP4xT/dxFOcM/k/FD16+39D+WX4CbqpPiP/sWdPQSqOw/tFh68kelwb9x/wr2tV3xPzsLoh3R1vA/sH+uCFjh6T8I0yH6tQvrP5L1Uu1MptM/X0QUJNL16z9poNb5tw/Wvw==AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:23 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

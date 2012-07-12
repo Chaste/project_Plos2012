@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="42"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="456"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="1808"                />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="1816"                />
+        <DataArray type="UInt8" Name="types" format="appended" offset="1824"                />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _UAEAAHlccIrSBuo/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/+2KrlXqe6T8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/j9z195oQ7j8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwP/On+ym78ug/jrcOsnau6j9629fLuXLqPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D83NRQ3DbDpPwAAAAAAAPA/AAAAAAAA8D/4nLcs5nTqPwAAAAAAAPA/Ey4EDzn85z8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPzw/znRBHuk/AAAAAAAA8D8AAAAAAADwP/FkM+HqxOk/LU5c0CXK6D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPw==8AMAAHU++5d+zug/Fd4TqinN3z96mzhJoTrTv9gB5bxuS72/TTF11dpP+j8JRbZeq1fkv9f7jLZqHMA/nFBPlhCo579dss2F2dXAP8JjqDQJ0e8/QPM+Lrvh5D/HKEuk40D8PxXQj6l6bc2/tQXeHPk/8D95+5neZFjkP4SXVPUvtPo/7WZBtgS/1T9Tj2eitJXGPybAdRJvbMG/MJ5N+aHv+j9vYnMwnKjvP+NyZnzIasI/19Qg7qAD6b+XDnrIEwz7Pxcomgb+3vc/mmRON2Qp8z+vR/o3Cu/tP4zMiV8tSeK/TnAZwa/I5T/QDiloV+rpv2H3kPn48ea/A6OxTDGp2T/CaBmXc6WkvyisKijdfrW/PfjdHO4A7z+901QgTtn7Px5eZQQBOfE/LblBnMQ847+bKTwM+V/Hv5AoCdWQWuc/VyK9cmQw/z/DSOUPnADYP3kIJgI8GvI/xXDr9WP22L9KFbiMk6H6P1ffKb5mq9w/SRXnulIjwr8AE2IcZnDxP4Xcz9GoS9q/3LxyLBrhzT/hbOoYm8vsP519iTMRDvI/EB7vBNDn1j96o5Wk8TfxP7Gqu/xp3Oc/QzO3WQBA+T9w6NzuU+ffvxxR1glsx/U/EVe05fYC7j/u40ag2dPgvyhc7wSMb+u/KWU69gTC7z8D88aMhozzPx3ZrXDfVsM/PoRGp5qAqb927PYhL2Livy8MoAOuZ9U/8KAIShReuj/6cQdAtnwAQCsRWC56Xs4/Uolin0935T88BLHsvr/yP7lO3CYXuOq/YSl55VR19D9txrCI3+DCP++/Qxaz+PI/ny9CWtTooj+gCZy6bcLpv2YdFWxeWuo//UErFDRjxL8rjwGi03PNPwdPnjf63OU/YK8rF5Hd9T9uYpcAWlvzPwjcyfRHaL0/Y5gVpJD8yz+XSCz4DOXTP8z4l80Kr+U/pCy0Rc5y7r9pwUADOJ/qP6GlLacHff4/nGdi/UBz0z/x4aFKe230PzuoWwxRdtm/FtAkMLeH4r8KYe/vknHrP1QI8bT1a/c/Wor6vLyi2b9WjETyhQroP8Jy3hsUKeM/5oNWAB3t8j+RV76k9frUP/x29lwVw9+/ljJo+qrArz/HVpd3Mir6P5ojjZRetdw/Vvyt8LL76T850cZ2ejHxv4vix3p0s30/9XB/yK0C7j8QDk091+bPv7G11Hqnq+8/HpN41P/h4z+m/SeqJdbfP7AjHLUqhbm/tCgHNG9n/j+dmaDcDi2/P/HGR0cZ0fg/6EBkLEbr9j+mXCaoqUO+P9gIMfjhzPG/s+mtRV271j/nz3i/mUPoP8oZG1tvC+a/dHxMBwaryr9fndNquVOlvw==AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:35 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

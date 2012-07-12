@@ -78,7 +78,7 @@ private:
 
 public:
 
-    void TestSpheroidWithPde() throw(Exception)
+    void DONTTestSpheroidWithPde() throw(Exception)
     {
         // Create a single node
         std::vector<Node<3>* > nodes;
@@ -169,9 +169,9 @@ public:
             StochasticOxygenBasedCellCycleModel* p_model = new StochasticOxygenBasedCellCycleModel();
             p_model->SetDimension(3);
             p_model->SetStemCellG1Duration(2.0);
-            p_model->SetHypoxicConcentration(0.3);
-            p_model->SetQuiescentConcentration(0.5);
-            p_model->SetCriticalHypoxicDuration(2);
+            p_model->SetHypoxicConcentration(0.1);
+            p_model->SetQuiescentConcentration(0.3);
+            p_model->SetCriticalHypoxicDuration(8);
             double birth_time = -RandomNumberGenerator::Instance()->ranf()*
                                 (  p_model->GetStemCellG1Duration()
                                  + p_model->GetSG2MDuration() );
@@ -192,7 +192,7 @@ public:
 
         // Set up cell-based simulation
         OffLatticeSimulation<3> simulator(cell_population);
-        simulator.SetEndTime(500);
+        simulator.SetEndTime(100);
         simulator.SetSamplingTimestepMultiple(120);
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
 
@@ -218,6 +218,9 @@ public:
 
         // Solve the system
         simulator.Solve();
+
+        // Save results
+        CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(&simulator);
 
         CellBasedEventHandler::Headings();
         CellBasedEventHandler::Report();

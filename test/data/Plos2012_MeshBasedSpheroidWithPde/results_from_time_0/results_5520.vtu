@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="82"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="880"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="3512"                />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="3520"                />
+        <DataArray type="UInt8" Name="types" format="appended" offset="3528"                />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _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AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:56 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

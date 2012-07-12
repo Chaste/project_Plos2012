@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="20"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="220"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="868"                 />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="876"                 />
+        <DataArray type="UInt8" Name="types" format="appended" offset="884"                 />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _oAAAAAAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/qf4t97mU6z8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPxWf4/Lj8uo/AAAAAAAA8D+oKjgHV3jsPwAAAAAAAPA/AAAAAAAA8D8=4AEAAJGWinIO4Lw/34bicGdJsT9K52bSNLPQv8I1m7/n5eg/XY49JkwU+j9XyPAIIWzUPwzblTnsH8i/jlFjisJ84r+1mToWH53fP4RtKnX5aeY/WyQxieKM2T8auqCqV+n3P20KoBUM7dE/SeUuI0ge6z/v/d4BdDjMP8Ms42R0KfE/xjnh0ukG0z8xIa5/vBG1v1+vE4v6OM6/QS5Yo0PI9j88WoA5K8LVPxzvC19J4uE/jVap/7g347+v9AzEiKXzP+Oog/vNXvc/MpTMJ7nB7j8XGx7B9eHqP03fBU6HXuC/N6gSPBHZ6j8hQMlEPx7bv7/AtsUC6uG/Q25FOQ3i1z9Knhzc5RHcP9xJGXbZsM2/5QyEHjH26j+SLu2PJcbyP2kt4xR13+g/TupE8ci9379YY3Jph2fQP1rYAZHwkeA/L4oORfXJ8z8AtV8te2TxP5rHfDdWtfU/jJ4ff/v9tL/KKN2YW67sPwhhBP0eidU/lODzTVSBxT9LTODUi/vmP8xavzNfTdG/ZZfnkQ3ntL/YFa3blO71PyDftInlk+4/vkstboMr4z90J9mg0yniP2aW2Ti/19s/Oako9ukb8T/opkuopIrgv5ELkDzwVvU/+jx1vgRb8j9ZN73zoFfEvw==AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:26 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<VTKFile type="UnstructuredGrid" version="0.1" byte_order="LittleEndian">
+  <UnstructuredGrid>
+    <Piece NumberOfPoints="68"                   NumberOfCells="0"                   >
+      <PointData>
+        <DataArray type="Float64" Name="oxygen" format="appended" offset="0"                   />
+      </PointData>
+      <CellData>
+      </CellData>
+      <Points>
+        <DataArray type="Float64" Name="Vertex positions" NumberOfComponents="3" format="appended" offset="732"                 />
+      </Points>
+      <Cells>
+        <DataArray type="Int32" Name="connectivity" format="appended" offset="2916"                />
+        <DataArray type="Int32" Name="offsets" format="appended" offset="2924"                />
+        <DataArray type="UInt8" Name="types" format="appended" offset="2932"                />
+      </Cells>
+    </Piece>
+  </UnstructuredGrid>
+  <AppendedData encoding="base64">
+   _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AAAAAA==AAAAAA==AAAAAA==
+  </AppendedData>
+</VTKFile>
+
+<!-- Created by Chaste version 3.0.16132 on Thu, 12 Jul 2012 15:01:42 +0000.  Chaste was built on Thu, 12 Jul 2012 14:58:38 +0000 by machine (uname) 'Linux clpc298.comlab 2.6.27.25-78.2.57b.fc9.x86_64 #1 SMP Fri Sep 17 18:52:57 BST 2010 x86_64' using settings: GccOpt, no Chaste libraries.  Checked-out project versions: AlexF=15773M; CellBasedComparison=15766M; CryptInvasion=15961; Plos2012=16132M; SaraJaneD=15655M; SarahChacko=15349; VertexComparison2012=15687:15688; ocisb=15686:15712M; ozzy=14297; website=15909:15911.
+-->
