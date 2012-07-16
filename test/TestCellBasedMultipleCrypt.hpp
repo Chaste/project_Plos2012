@@ -118,7 +118,6 @@ public:
             std::vector<double> initial_conditions;
             initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
             initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
-            initial_conditions.push_back(RandomNumberGenerator::Instance()->ranf());
             p_model->SetInitialConditions(initial_conditions);
 
             CellPtr p_cell(new Cell(p_state, p_model));
