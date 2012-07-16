@@ -1,0 +1,29 @@
+Process 0 of 1.
+uname sysname  = Linux
+uname nodename = clpc298.comlab
+uname release  = 2.6.27.25-78.2.57b.fc9.x86_64
+uname version  = #1 SMP Fri Sep 17 18:52:57 BST 2010
+uname machine  = x86_64
+
+Information on number and type of processors:
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+model name	: Intel(R) Xeon(R) CPU           E5440  @ 2.83GHz
+
+Information on processor caches, in the same order as above:
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+cache size	: 6144 KB
+
+Information on system memory:
+MemTotal:     16471808 kB

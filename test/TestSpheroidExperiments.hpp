@@ -42,6 +42,9 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // Must be included before other cell_based headers
 #include "CellBasedSimulationArchiver.hpp"
 
+#include <iomanip>
+#include <boost/foreach.hpp>
+
 #include "OffLatticeSimulation.hpp"
 #include "CellBasedEventHandler.hpp"
 #include "MeshBasedCellPopulation.hpp"
@@ -78,7 +81,7 @@ private:
 
 public:
 
-    void TestMeshBasedSpheroidWithPde() throw(Exception)
+    void DONTTestMeshBasedSpheroidWithPde() throw(Exception)
     {
         // Create a simple 3D mesh
         std::vector<Node<3>*> nodes;
@@ -149,6 +152,38 @@ public:
 
         // Save results
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(&simulator);
+
+        CellBasedEventHandler::Headings();
+        CellBasedEventHandler::Report();
+    }
+
+    void TestLongerMeshBasedSpheroidWithPde() throw(Exception)
+    {
+        // The archive must be copied from crypt/test/data/<test_to_profile>
+        FileFinder test_data_directory("projects/Plos2012/test/data/Plos2012_MeshBasedSpheroidWithPde/archive",RelativeTo::ChasteSourceRoot);
+
+        // to the testoutput/archive directory to continue running the simulation
+        OutputFileHandler archive_handler("Plos2012_LongerMeshBasedSpheroidWithPde/archive");
+
+        // Following is done in two lines to avoid a bug in Intel compiler v12.0
+        std::vector<FileFinder> temp_files = test_data_directory.FindMatches("*");
+        BOOST_FOREACH(FileFinder temp_file, temp_files)
+        {
+            archive_handler.CopyFileTo(temp_file);
+        }
+
+        OffLatticeSimulation<3>* p_simulator
+            = CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Load("Plos2012_LongerMeshBasedSpheroidWithPde", 100);
+
+        p_simulator->SetEndTime(200);
+        p_simulator->SetSamplingTimestepMultiple(120);
+        p_simulator->SetOutputDirectory("Plos2012_LongerMeshBasedSpheroidWithPde");
+
+        // Solve the system
+        p_simulator->Solve();
+
+        // Save results
+        CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(p_simulator);
 
         CellBasedEventHandler::Headings();
         CellBasedEventHandler::Report();

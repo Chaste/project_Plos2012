@@ -325,6 +325,7 @@ If common code occurs in more than one user project, then generally it is moved 
 Here we provide some examples of the types of scientific problems that Chaste has been used for to date.
 This section is structured around four examples, which can all be reproduced by running the tests in the project which accompanies this paper. 
 Each example is simple, so as to enable reproduction on a typical desktop PC. 
+The code for each example is available to download as supplementary material and can also be found at \protect\url{http://chaste.here}. \highlight{Fix link.}
 For examples of state-of-the-art simulation results obtained using Chaste, please refer to the papers cited herein.
 
 % What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
@@ -363,7 +364,8 @@ Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins201
 In Figure~\ref{fig:SpiralWave} we present a snapshot of a spiral wave simulation, commonly studied in cardiac electrophysiology to understand how electrical dynamics lead to arrhythmic behaviour. \highlight{This example should run in xxx seconds on a xx machine?}
 
 Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, particularly in choice of matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
- \highlight{cite Megan, and include as co-author?}.
+\highlight{Currently \cite{Pathmanathan2010} isn't cited anywhere - include this?}
+\highlight{cite Megan, and include as co-author?}.
 
 These improvements to numerical algorithms have enabled novel biological problems to be studied. 
 For example, a mesh of the human heart embedded within a torso has enabled us to simulate the 12-lead human body surface ECG, and to use this to predict ECG changes under drug action \cite{zemzemi2012}. 
@@ -441,7 +443,7 @@ We have a large number of tutorials which are easy to adapt to perform many type
 
 \section*{Figure Legends}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 %\includegraphics[width=4in]{images/schematic.eps}
 \end{center}
@@ -455,24 +457,23 @@ Caption.
 \begin{figure}[!htbp]
 \begin{center}
 %\includegraphics[width=0.8\linewidth]{images/spheroid.eps}
-\includegraphics[width=0.8\linewidth]{images/MeshBasedSpheroidVtkAsPointsCrossSection.eps}
+\includegraphics[width=0.6\linewidth]{images/MeshBasedSpheroidVtkAsPointsCrossSection.eps}
 \end{center}
 \caption{
-{\bf 3D off-lattice simulation coupled to PDE: A 3D tumour spheroid with growth and death dependent on diffusion and uptake of oxygen}.
-\highlight{To do: run for longer than 100 h. 
-See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}}
+{\bf 3D off-lattice simulation coupled to PDE: A 3D simulation of a tumour spheroid, in which cell proliferation and death are dependent on the diffusion and uptake of oxygen within the spheroid}.
+\highlight{See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
+}
 \label{fig:TumourSpheroid}
 \end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[width=0.5\linewidth]{images/multi_crypt.eps}
+%\includegraphics[width=0.5\linewidth]{images/multi_crypt.eps}
+\includegraphics[width=0.4\linewidth]{images/multi_crypt_white_background.eps}
 \end{center}
 \caption{
 {\bf 3D off-lattice simulation on a 2D surface: small intestinal crypts and villus}.  
-\highlight{Possibly combine the delta-notch from Buske with this 4 crypts and a villus simulation? 
-Would get nice pattern of secretory / absorptive cells presumably, which they reckon is delta-notch $\approx$ SCIENCE!
-So one figure like the above with lineage tracing, and one with delta/notch patterning.}
+\highlight{Mention lineage tracing. In another figure, consider combining Buske's delta-notch model with this simulation, to obtain a pattern of secretory/absorptive cells.}
 }
 \label{fig:FourCrypts}
 \end{figure}
@@ -483,7 +484,7 @@ So one figure like the above with lineage tracing, and one with delta/notch patt
 \end{center}
 \caption{
 {\bf Cardiac electrophysiology: a re-entrant spiral wave}.
-This figure displays the membrane voltage in a 2D 3cm x 3cm using the Luo-Rudy 1991 model \cite{luo1991model} with the modifications and protocol suggested in \cite{qu2000origins}.
+This figure displays the membrane voltage in a 2D 3cm $\times$ 3cm using the Luo-Rudy 1991 model \cite{Luo1991Model} with the modifications and protocol suggested in \cite{Qu2000Origins}.
 }
 \label{fig:SpiralWave}
 \end{figure}
@@ -517,14 +518,12 @@ This figure displays the membrane voltage in a 2D 3cm x 3cm using the Luo-Rudy 1
 
 In this section we summarise how to install and run Chaste.
 The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
-Instructions for this are at:\\
-\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
+Instructions for this can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
 In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other Linux system. 
 Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
-Instructions are here:\\
-\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
+Instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
 
 The bolt-on project \texttt{Plos2012} is available to download from \highlight{finish}
 
@@ -532,8 +531,8 @@ The bolt-on project \texttt{Plos2012} is available to download from \highlight{f
 
 \begin{table}[!ht]
     \caption{
-    \bf{Chaste Dependencies.} For the full text of all licences examine the contents of \texttt{docs/licences.html} 
-    or visit \texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}
+    \bf{Chaste Dependencies.} For the full text of all licences examine the contents of \protect\url{docs/licences.html} 
+    or visit \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}
     \comment{JC: Update to a release version.}}
     \begin{tabular}{|l|l|l|}
       \hline
