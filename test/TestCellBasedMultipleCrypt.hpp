@@ -128,15 +128,17 @@ public:
             cells.push_back(p_cell);
         }
 
-        MAKE_PTR(CellLabel, p_label);
-
         // Create a node-based cell population
         NodeBasedCellPopulation<3> crypt(mesh, cells);
         crypt.SetMechanicsCutOffLength(1.5);
+
+        crypt.SetAbsoluteMovementThreshold(10);
+
+        // Output some useful information for plotting in VTK format.
         crypt.SetOutputCellProliferativeTypes(true);
         crypt.SetOutputCellMutationStates(true);
         crypt.SetOutputCellAncestors(true);
-        crypt.SetAbsoluteMovementThreshold(10);
+
 
         // Set up cell-based simulation
 		SimplifiedDeltaNotchOffLatticeSimulation<3> simulator(crypt);
@@ -146,6 +148,7 @@ public:
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
+        // We use linear springs between cells up to 1.5 (cell diameters) apart
         MAKE_PTR(GeneralisedLinearSpringForce<3>, p_linear_force);
         p_linear_force->SetMeinekeSpringStiffness(30.0); //normally 15.0;
         p_linear_force->SetCutOffLength(1.5);
@@ -163,23 +166,25 @@ public:
                       (&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
-        // Create an instance of a Wnt concentration
+        // Create an instance of a Wnt concentration, this dictates where cell division occurs
+        // in the SimpleWntCellCycleModelWithDeltaNotch
         WntConcentration<3>::Instance()->SetType(LINEAR);
         WntConcentration<3>::Instance()->SetCellPopulation(crypt);
         WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2.0*crypt_radius);
 
         // Run simulation
         simulator.SetEndTime(250.0);
-        simulator.Solve(); // to 250
+        simulator.Solve(); // to 250 hours
 
         // Add a random cell killer to represent random death in the epithelial layer.
         MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
         simulator.AddCellKiller(p_cell_killer_2);
 
-        // Label each cell according to its current node index
+        // Label each cell according to its current node index so we can track clonal spread
         simulator.rGetCellPopulation().SetCellAncestorsToLocationIndices();
+
         simulator.SetEndTime(1000.0);
-        simulator.Solve(); // to 1000
+        simulator.Solve(); // to 1000 hours
     }
 
 };

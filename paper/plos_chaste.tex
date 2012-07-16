@@ -103,7 +103,7 @@ James Southern$^8$, Nejib Zemzemi$^9$, David J. Gavaghan$^{1}$
 \\
 \bf{9} INRIA, Bordeaux, France
 \\
-$\ast$ E-mail: \texttt{gary.mirams@cs.ox.ac.uk}
+$\ast$ E-mail: \url{gary.mirams@cs.ox.ac.uk}
 \end{flushleft}
 
 % Please keep the abstract between 250 and 300 words
@@ -122,7 +122,7 @@ The code provides modules for handling common scientific computing components, s
 Re-use of these components avoids the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
 Chaste is developed using industrial techniques, in particular test-driven development, to ensure code quality, re-use and reliability.
 In this article we provide examples that illustrate the types of problems Chaste can be used to solve, which can easily be run on a desktop computer.
-The source code, both for releases and the development version, is available under an open source BSD licence to download at \texttt{http://www.cs.ox.ac.uk/chaste}, 
+The source code, both for releases and the development version, is available under an open source BSD licence to download at \url{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
 
 % Please keep the Author Summary between 150 and 200 words
@@ -179,7 +179,7 @@ Chaste is unique in being well suited for both continuum and discrete modelling 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
 In this article we describe the capabilities of version \highlight{3.1}, novel scientific applications, and future directions. 
 It is our intention that all of the examples in this article can be easily reproduced on a desktop PC, they are therefore less computationally intensive than many of the simulations performed in active research.
-The example simulations can be run, and figures recreated, by downloading the associated Chaste project from \texttt{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
+The example simulations can be run, and figures recreated, by downloading the associated Chaste project from \url{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
 
 \section*{Design and Implementation}
 % PLoS Instructions:
@@ -245,7 +245,7 @@ this is especially useful in an academic setting as people move on to new projec
 
 Simple rules are adhered to for the naming of variables, methods and classes, which enables developers to navigate their way through the code efficiently, and makes mistakes less likely. 
 In addition a standardised code layout is adopted, with in-line documentation, which makes the code more readable.
-The documentation is compiled into an auto-generated website, publicly available, using doxygen (\texttt{http://www.doxygen.org}).
+The documentation is compiled into an auto-generated website, publicly available, using doxygen (\url{http://www.doxygen.org}).
 We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
 These standards are documented and publicly accessible on the Chaste wiki.
 
@@ -262,7 +262,7 @@ We will discuss new scientific insight Chaste has enabled in the Results section
 \begin{itemize}
  \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations, which utilises the Boost serialization library), parallel vector classes, and code to handle warnings and errors.
  \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
- \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; readers and writers for triangle/tetgen, meshalyzer, cmgui and VTK (Paraview) formats.
+ \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; readers and writers for Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}, meshalyzer, cmgui and VTK (Paraview) formats.
  \item \texttt{linalg} (linear algebra) --- code which uses Boost uBLAS and PETSc for vector and matrix operations.
  \item \texttt{ode} --- code for defining ODEs; solvers, basic finite difference schemes, CVODE; termination on root-finding capabilities.
  \item \texttt{pde} --- code for defining elliptic and parabolic second-order PDEs; parallel finite element solvers of generic coupled systems of PDEs.
@@ -284,8 +284,7 @@ The off-lattice models fall into two main types, with cells defined spatially by
 
 (i) In cell-centre models cells are represented by points, which move according to interactions with neighbouring cells that can be defined in two main ways: 
 node-based (1--3D), where neighbours are any nodes within a certain interaction distance;
-or mesh-based (1--3D), where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres using Triangle (2D) \cite{shewchuk96b} or Tetgen (3D) \cite{si2005}).
-\comment{JC: Triangle and Tetgen were mentioned in the description of \texttt{mesh}; the citations should perhaps be moved.}
+or mesh-based (1--3D), where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres).
 
 (ii) Vertex dynamics models (2D) share the central assumption that a cell may be approximated by a polygon (or polyhedron) whose vertices move in response to forces. 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
@@ -352,6 +351,8 @@ Figure~\ref{fig:TumourSpheroid} --- Tumour spheroids (oxygen PDE) \highlight{Can
 
 Figure~\ref{fig:FourCrypts} --- Off-lattice nearest-neighbour-defined interactions, springs, overlapping spheres, delta-notch patterning, pretty versatile.
 
+\highlight{Gary: In the MultipleCrypts code we seem to set the ``Mechanics Cut off length'' twice, once via the population and once via the force law. Is this necessary - if so why?! - if not can we remove one of the calls?}
+
 \subsection*{Heart}
 
 Chaste is one of the fastest cardiac electrophysiology solvers, and is the only large-scale open source solver available \cite{bordas2009simulation}.
@@ -388,14 +389,17 @@ The efficiency and versatility of Chaste has made it possible to integrate the d
 %    Availability and Future Directions – Where the software has been deposited. 
 %    Any future work planned to be carried out by the authors, how others might extend the software.
 %\subsection*{Availability}
-Chaste is freely available to download from \texttt{http://www.cs.ox.ac.uk/chaste}. 
+Chaste is freely available to download from \url{http://www.cs.ox.ac.uk/chaste}. 
 Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, current code and future releases are under the more flexible 3-clause BSD licence, to facilitate use of the code by industrial partners.
 
 %\subsection*{Future Directions}
 
-\comment{RB: Fluid flow looks out of place in the list below. Do we have an application for it? Something like: blood flow in haemodynamics}
-
-Currently, we are adding support for the following types of simulation: fluid flow; parallel cardiac electro-mechanics; His-Purkinje system in cardiac electrophysiology; lung mechanics; import of SBML models for signalling pathway and cell-cycle models.
+Currently, we are adding support for the following types of simulation: 
+parallel cardiac electro-mechanics; 
+His-Purkinje system in cardiac electrophysiology; 
+lung mechanics; 
+import of SBML models for signalling pathway and cell-cycle models; 
+fluid flow for haemodynamics.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
 \highlight{Ask for permission to say each of these people are working on these if they haven't published...}
@@ -409,12 +413,10 @@ brain simulations (\highlight{ref for these?}). % to ask for approval
 
 \subsection*{How to become an active developer}
 
-\comment{JC: Use the url latex package?}
-
-The main Chaste website is at \texttt{http://www.cs.ox.ac.uk/chaste}, from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
+The main Chaste website is at \url{http://www.cs.ox.ac.uk/chaste}, from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
 You can also register to create a login for the Chaste wiki to view and comment on work tickets, and submit patches for inclusion in Chaste.
 We have a large number of tutorials which are easy to adapt to perform many types of simulation. There is a guide for people who would like to work with the latest development version of Chaste here:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}
+\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
@@ -426,7 +428,7 @@ We have a large number of tutorials which are easy to adapt to perform many type
 
 \item PreDiCT: European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT). Framework 7 grant (DG-INFSO 224381)
 
-\item 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\texttt{www.2020science.net}).
+\item 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net}).
 
 \item OCISB: BBSRC grant BB/D020190/1.
 
@@ -438,8 +440,6 @@ We have a large number of tutorials which are easy to adapt to perform many type
 \bibliography{refs}
 
 \section*{Figure Legends}
-
-\comment{JC: Do we want the `The code for this is available\ldots' in every caption?}
 
 \begin{figure}[!ht]
 \begin{center}
@@ -459,9 +459,8 @@ Caption.
 \end{center}
 \caption{
 {\bf 3D off-lattice simulation coupled to PDE: A 3D tumour spheroid with growth and death dependent on diffusion and uptake of oxygen}.
-\highlight{To do: run for longer than 100 h. See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
-}
+\highlight{To do: run for longer than 100 h. 
+See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}}
 \label{fig:TumourSpheroid}
 \end{figure}
 
@@ -471,7 +470,6 @@ The code for this is available to download as supplementary material and can als
 \end{center}
 \caption{
 {\bf 3D off-lattice simulation on a 2D surface: small intestinal crypts and villus}.  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}. 
 \highlight{Possibly combine the delta-notch from Buske with this 4 crypts and a villus simulation? 
 Would get nice pattern of secretory / absorptive cells presumably, which they reckon is delta-notch $\approx$ SCIENCE!
 So one figure like the above with lineage tracing, and one with delta/notch patterning.}
@@ -486,20 +484,19 @@ So one figure like the above with lineage tracing, and one with delta/notch patt
 \caption{
 {\bf Cardiac electrophysiology: a re-entrant spiral wave}.
 This figure displays the membrane voltage in a 2D 3cm x 3cm using the Luo-Rudy 1991 model \cite{luo1991model} with the modifications and protocol suggested in \cite{qu2000origins}.
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
 }
 \label{fig:SpiralWave}
 \end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
-\includegraphics[width=0.4\linewidth]{images/undeformed_cube.eps}
-\includegraphics[width=0.4\linewidth]{images/deformed_cube.eps}
+\includegraphics[width=0.35\linewidth]{images/cube_fibre_directions.eps}
+\includegraphics[width=0.28\linewidth]{images/undeformed_cube.eps}
+\includegraphics[width=0.28\linewidth]{images/deformed_cube.eps}
 \end{center}
 \caption{
-{\bf Cardiac electromechanics: simulation of electrical propogation and subsequent deformation in a ventricular wedge with non-uniform fibre orientation}.  
-The code for this is available to download as supplementary material and can also be found at \texttt{http://chaste.here}.
-\highlight{Can we have three figures - fibre directions, electrical wave propogation at about half way (still mostly undeformed), and a fully deformed (depolarized) cube?}\comment{PP: put electrical activity in these figures and make them colour}
+{\bf Cardiac electromechanics in a ventricular wedge:} left, fibre orientation; middle and right, simulation of electrical propagation and deformation (middle: 10ms after stimulus on left face; right: 40ms after stimulus).
+\highlight{Times need checking, still needs tidying up and a voltage colourbar.}
 }
 \label{fig:TwistyWedge}
 \end{figure}
@@ -521,13 +518,13 @@ The code for this is available to download as supplementary material and can als
 In this section we summarise how to install and run Chaste.
 The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
 Instructions for this are at:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
+\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
 In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other Linux system. 
 Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
 Instructions are here:\\
-\texttt{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
+\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}
 
 The bolt-on project \texttt{Plos2012} is available to download from \highlight{finish}
 
@@ -542,22 +539,22 @@ The bolt-on project \texttt{Plos2012} is available to download from \highlight{f
       \hline
       Dependency & Available from & Licence \\
 \hline
-Amara & \texttt{http://wiki.xml3k.org/Amara} & Apache 1.1\\
-Boost & \texttt{http://www.boost.org} & Custom\\
-CodeSynthesis XSD &  \texttt{http://codesynthesis.com/products/xsd} & GPL\\
-CVODE (SUNDIALS) & \texttt{https://computation.llnl.gov/casc/sundials} & BSD\\
-CxxTest & \texttt{http://cxxtest.tigris.org} & LGPL\\
-HDF5 &  \texttt{http://www.hdfgroup.org/HDF5/HDF5.txt} & Custom\\
-(Par)METIS &  \texttt{http://glaros.dtc.umn.edu/gkhome/views/metis} & Custom\\
-MPICH &  \texttt{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
-PETSc &  \texttt{http://www.mcs.anl.gov/petsc} & Custom\\
-Pyparsing &  \texttt{http://pyparsing.wikispaces.com} & MIT\\
-RDFLib &  \texttt{https://github.com/RDFLib} & BSD\\
-RNV &  \texttt{http://www.davidashen.net/rnv.html} & BSD\\
+Amara & \url{http://wiki.xml3k.org/Amara} & Apache 1.1\\
+Boost & \url{http://www.boost.org} & Custom\\
+CodeSynthesis XSD &  \url{http://codesynthesis.com/products/xsd} & GPL\\
+CVODE (SUNDIALS) & \url{https://computation.llnl.gov/casc/sundials} & BSD\\
+CxxTest & \url{http://cxxtest.tigris.org} & LGPL\\
+HDF5 &  \url{http://www.hdfgroup.org/HDF5/HDF5.txt} & Custom\\
+(Par)METIS &  \url{http://glaros.dtc.umn.edu/gkhome/views/metis} & Custom\\
+MPICH &  \url{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
+PETSc &  \url{http://www.mcs.anl.gov/petsc} & Custom\\
+Pyparsing &  \url{http://pyparsing.wikispaces.com} & MIT\\
+RDFLib &  \url{https://github.com/RDFLib} & BSD\\
+RNV &  \url{http://www.davidashen.net/rnv.html} & BSD\\
 TetGen &  packaged with Chaste & Custom\\
 triangle &  packaged with Chaste & Custom\\
-VTK &  \texttt{http://www.vtk.org} & BSD\\
-Xerces &  \texttt{http://xerces.apache.org/xerces-c} & Apache 2 \\
+VTK &  \url{http://www.vtk.org} & BSD\\
+Xerces &  \url{http://xerces.apache.org/xerces-c} & Apache 2 \\
       \hline
     \end{tabular}
     \begin{flushleft}

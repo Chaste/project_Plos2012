@@ -132,7 +132,7 @@ void SimpleWntCellCycleModelWithDeltaNotch::Initialise()
 
 void SimpleWntCellCycleModelWithDeltaNotch::SetInitialConditions(std::vector<double> initialConditions)
 {
-    assert(initialConditions.size() == 3);
+    assert(initialConditions.size() == 2);
     mInitialConditions = initialConditions;
 }
 
@@ -142,7 +142,7 @@ void SimpleWntCellCycleModelWithDeltaNotch::UpdateDeltaNotch()
     assert(mpCell != NULL);
 
     double mean_delta = mpCell->GetCellData()->GetItem("mean delta");
-    mpOdeSystem->rGetStateVariables()[2] = mean_delta;
+    mpOdeSystem->SetParameter("Mean Delta", mean_delta);
 }
 
 double SimpleWntCellCycleModelWithDeltaNotch::GetNotch()
@@ -162,7 +162,7 @@ double SimpleWntCellCycleModelWithDeltaNotch::GetDelta()
 double SimpleWntCellCycleModelWithDeltaNotch::GetMeanNeighbouringDelta()
 {
     assert(mpOdeSystem != NULL);
-    double mean_neighbouring_delta = mpOdeSystem->rGetStateVariables()[2];
+    double mean_neighbouring_delta = mpOdeSystem->GetParameter("Mean Delta");
     return mean_neighbouring_delta;
 }
 
