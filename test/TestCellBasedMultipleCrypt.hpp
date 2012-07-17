@@ -64,7 +64,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 class TestCellBasedMultipleCrypt : public AbstractCellBasedTestSuite
 {
 private:
-
+    /*
+     * These methods are cxx-test specific and just report the time the
+     * test took.
+     */
     double mLastStartTime;
     void setUp()
     {
@@ -81,8 +84,13 @@ private:
 
 public:
 
+    /**
+     * In this test we use an off-lattice cell representation to model how cells proliferate in crypts
+     * and move up a villus in the small intestine.
+     */
     void Test3dCrypt() throw (Exception)
     {
+        // Set up some numbers that will define the geometry
         double crypt_length = 4.0;
         double crypt_radius = 1.0;
         double villus_length = 10.0;
@@ -90,13 +98,14 @@ public:
         double domain_width = 12.0;
         double domain_height = 2.0*crypt_radius+crypt_length+villus_length+2.0*villus_radius;
 
-        // Put a single cell at the base of each crypt. TODO Change this back to one cell and check its OK
+        // Put a couple of cells at the base of each crypt
+        // (to set off delta-notch patterning)
         std::vector<Node<3>*> nodes;
         nodes.push_back(new Node<3>(0u,  false,  0.5*domain_width, 0.0, 0.0));
         nodes.push_back(new Node<3>(1u,  false,  0.5*domain_width+0.1, 0.1, 0.0));
         nodes.push_back(new Node<3>(2u,  false,  0.0, 0.5*domain_width, 0.0));
         nodes.push_back(new Node<3>(3u,  false,  0.1, 0.5*domain_width+0.1, 0.0));
-        nodes.push_back(new Node<3>(4u,  false,  0.5*domain_width, domain_width, 0.0));
+        nodes.push_back(new Node<3>(3u,  false,  0.5*domain_width, domain_width, 0.0));
         nodes.push_back(new Node<3>(5u,  false,  0.5*domain_width+0.1, domain_width-0.1, 0.0));
         nodes.push_back(new Node<3>(6u,  false,  domain_width, 0.5*domain_width, 0.0));
         nodes.push_back(new Node<3>(7u,  false,  domain_width-0.1, 0.5*domain_width+0.1, 0.0));
@@ -158,15 +167,14 @@ public:
                       (&crypt, crypt_radius, crypt_length, villus_radius, villus_length, domain_width));
         simulator.AddCellPopulationBoundaryCondition(p_boundary_condition);
 
-
-        // Main sink of cells is at the top of the villus
+        // Main sink of cells is at the top of the villus - remove any cells reaching here
         MAKE_PTR_ARGS(PlaneBasedCellKiller<3>, 
                       p_cell_killer_1,
                       (&crypt, (domain_height-0.25)*unit_vector<double>(3,2), unit_vector<double>(3,2)));
         simulator.AddCellKiller(p_cell_killer_1);
 
         // Create an instance of a Wnt concentration, this dictates where cell division occurs
-        // in the SimpleWntCellCycleModelWithDeltaNotch
+        // in the SimpleWntCellCycleModelWithDeltaNotch cell cycle model
         WntConcentration<3>::Instance()->SetType(LINEAR);
         WntConcentration<3>::Instance()->SetCellPopulation(crypt);
         WntConcentration<3>::Instance()->SetCryptLength(crypt_length+2.0*crypt_radius);

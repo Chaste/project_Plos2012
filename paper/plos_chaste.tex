@@ -445,7 +445,7 @@ We have a large number of tutorials which are easy to adapt to perform many type
 
 \highlight{Gary: todo, make sure there is a movie of each of these available as supplementary material...}
 
-\begin{figure}[!ht]
+\begin{figure}[!htbp]
 \begin{center}
 %\includegraphics[width=4in]{images/schematic.eps}
 \end{center}
@@ -458,12 +458,16 @@ Caption.
 
 \begin{figure}[!htbp]
 \begin{center}
-%\includegraphics[width=0.8\linewidth]{images/spheroid.eps}
-\includegraphics[width=0.6\linewidth]{images/MeshBasedSpheroidVtkAsPointsCrossSection.eps}
+\includegraphics[width=0.6\linewidth]{images/spheroid.eps}
+%\includegraphics[width=0.6\linewidth]{images/MeshBasedSpheroidVtkAsPointsCrossSection.eps}
 \end{center}
 \caption{
-{\bf 3D off-lattice simulation coupled to PDE: A 3D simulation of a tumour spheroid, in which cell proliferation and death are dependent on the diffusion and uptake of oxygen within the spheroid}.
-\highlight{See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
+{\bf 3D off-lattice simulation coupled to PDE: 3D simulation of a tumour spheroid.}
+A cross-section of a tumour spheroid is presented. 
+Cell centres, nodes of a mesh, are coloured according to oxygen concentration. 
+Proliferation is dependent on the diffusion and uptake of oxygen within the spheroid, so only cells near the rim of the spheroid divide.
+Cell death occurs under low oxygen conditions, leaving a necrotic core at the spheroid centre.
+%\highlight{See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
 }
 \label{fig:TumourSpheroid}
 \end{figure}
@@ -486,7 +490,7 @@ Right: cells are labelled according to Delta levels (nondimensionalised), Delta-
 \end{center}
 \caption{
 {\bf Cardiac electrophysiology: a re-entrant spiral wave}.
-This figure displays the membrane voltage in a 2D 3cm $\times$ 3cm using the Luo-Rudy 1991 model \cite{Luo1991Model} with the modifications and protocol suggested in \cite{Qu2000Origins}.
+This figure displays the membrane voltage in a two-dimensional 3cm $\times$ 3cm monodomain simulation using the Luo-Rudy 1991 action-potential model \cite{Luo1991Model} with the modifications and protocol suggested in \cite{Qu2000Origins}.
 }
 \label{fig:SpiralWave}
 \end{figure}

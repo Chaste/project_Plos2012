@@ -65,6 +65,10 @@ class TestSpheroidExperiments : public AbstractCellBasedTestSuite
 {
 private:
 
+    /*
+     * These methods are cxx-test specific and just report the time the
+     * test took.
+     */
     double mLastStartTime;
     void setUp()
     {
@@ -81,9 +85,19 @@ private:
 
 public:
 
-    void DONTTestMeshBasedSpheroidWithPde() throw(Exception)
+    /*
+     * This example is split into two separate codes to showcase the checkpointing
+     * abilities of Chaste.
+     *
+     * The first test runs from t=0 to t=100,
+     * and the second from t=100 to t=160.
+     *
+     * It could equally well be reproduced by setting the end time in the first
+     * test to 160.
+     */
+    void TestMeshBasedSpheroidWithPde() throw(Exception)
     {
-        // Create a simple 3D mesh
+        // Create a simple 3D mesh, initially comprised of just five nodes
         std::vector<Node<3>*> nodes;
         nodes.push_back(new Node<3>(0, true,  0.0, 0.0, 0.0));
         nodes.push_back(new Node<3>(1, true,  1.0, 1.0, 0.0));
@@ -92,7 +106,7 @@ public:
         nodes.push_back(new Node<3>(4, false, 0.5, 0.5, 0.5));
         MutableMesh<3,3> mesh(nodes);
 
-        // Set up cells
+        // Set up cells for each of the nodes in the mesh
         boost::shared_ptr<AbstractCellMutationState> p_state(new WildTypeCellMutationState);
         std::vector<CellPtr> cells;
         for (unsigned i=0; i<nodes.size(); i++)
@@ -112,7 +126,7 @@ public:
             cells.push_back(p_cell);
         }
 
-        // Create cell population
+        // Create cell population - a mapping between a mesh and cells.
         MeshBasedCellPopulation<3> cell_population(mesh, cells);
         cell_population.SetAbsoluteMovementThreshold(DBL_MAX);
         cell_population.SetOutputCellVolumes(true);
@@ -123,19 +137,23 @@ public:
 
         // Set up cell-based simulation
         OffLatticeSimulation<3> simulator(cell_population);
-        simulator.SetEndTime(100);
-        simulator.SetSamplingTimestepMultiple(120);
+        simulator.SetEndTime(100); // hours
+        simulator.SetSamplingTimestepMultiple(120); // Default timestep is 30 seconds,
+                                                    //so this gives one set of output each hour.
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
 
-        // Set up PDE and pass to simulation via handler
+        // Set up PDE and boundary conditions
         CellwiseSourcePde<3> pde(cell_population, -1.0);
         ConstBoundaryCondition<3> bc(1.0);
         bool is_neumann_bc = false;
         PdeAndBoundaryConditions<3> pde_and_bc(&pde, &bc, is_neumann_bc);
         pde_and_bc.SetDependentVariableName("oxygen");
 
+        // Create a handler (for any number of PDEs+BCs, in this case we just add one).
         CellBasedPdeHandler<3> pde_handler(&cell_population);
         pde_handler.AddPdeAndBc(&pde_and_bc);
+
+        // Pass PDE handler to the simulation
         simulator.SetCellBasedPdeHandler(&pde_handler);
 
         // Create a force law and pass it to the simulation
@@ -147,7 +165,7 @@ public:
         MAKE_PTR_ARGS(OxygenBasedCellKiller<3>, p_killer, (&cell_population));
         simulator.AddCellKiller(p_killer);
 
-        // Solve the system
+        // Run the simulation
         simulator.Solve();
 
         // Save results
@@ -159,24 +177,26 @@ public:
 
     void TestLongerMeshBasedSpheroidWithPde() throw(Exception)
     {
-        // The archive must be copied from crypt/test/data/<test_to_profile>
-        FileFinder test_data_directory("projects/Plos2012/test/data/Plos2012_MeshBasedSpheroidWithPde/archive",RelativeTo::ChasteSourceRoot);
+        // The archive is to be copied from crypt/test/data/<test_to_profile>
+        FileFinder test_data_directory("projects/Plos2012/test/data/Plos2012_MeshBasedSpheroidWithPde/archive",
+                                       RelativeTo::ChasteSourceRoot);
 
         // to the testoutput/archive directory to continue running the simulation
         OutputFileHandler archive_handler("Plos2012_LongerMeshBasedSpheroidWithPde/archive");
 
-        // Following is done in two lines to avoid a bug in Intel compiler v12.0
+        // Following is done in two lines to avoid a bug in Intel compiler v12.0!
         std::vector<FileFinder> temp_files = test_data_directory.FindMatches("*");
         BOOST_FOREACH(FileFinder temp_file, temp_files)
         {
             archive_handler.CopyFileTo(temp_file);
         }
 
+        // Load the simulation up
         OffLatticeSimulation<3>* p_simulator
             = CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Load("Plos2012_LongerMeshBasedSpheroidWithPde", 100);
 
-        p_simulator->SetEndTime(200);
-        p_simulator->SetSamplingTimestepMultiple(120);
+        // Change some settings
+        p_simulator->SetEndTime(160);
         p_simulator->SetOutputDirectory("Plos2012_LongerMeshBasedSpheroidWithPde");
 
         // Solve the system
