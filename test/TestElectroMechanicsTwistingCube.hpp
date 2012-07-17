@@ -79,7 +79,7 @@ public:
         std::string output_directory = "Plos2012_ElectroMechanics";
 
 
-        // This is how to generate a fibre file for this mesh, we use a Streeter-style formula here.
+        // This is how to generate a fibre file for this mesh. We use a Streeter-style formula here.
         OutputFileHandler handler(output_directory + "Fibres");
         out_stream p_file = handler.OpenOutputFile("5by5by5_fibres.ortho");
         *p_file << mechanics_mesh.GetNumElements() << "\n"; // first line is number of entries
@@ -94,8 +94,8 @@ public:
             fibre_direction[1] = cos(theta);
             fibre_direction[2] = sin(theta);
             *p_file <<  fibre_direction[0] << " " << fibre_direction[1]  << " " << fibre_direction[2]  // first three entries are fibre direction
-                    << " 0 " << -sin(theta) << " " << cos(theta)  // next three are sheet direction
-                    << " 1 0 0\n";                                // then normal to sheet direction
+                    << " 0 " << -sin(theta) << " " << cos(theta)                                       // next three are sheet direction
+                    << " 1 0 0\n";                                                                     // then normal to sheet direction
             fibre_directions.push_back(fibre_direction);
         }
         p_file->close();
@@ -114,12 +114,12 @@ public:
         problem_defn.SetVariableFibreSheetDirectionsFile(fibre_file_finder, false);
 
         CardiacElectroMechanicsProblem<3u> problem(COMPRESSIBLE,
-                                                  MONODOMAIN,
-                                                  &electrics_mesh,
-                                                  &mechanics_mesh,
-                                                  &cell_factory,
-                                                  &problem_defn,
-                                                  output_directory);
+                                                   MONODOMAIN,
+                                                   &electrics_mesh,
+                                                   &mechanics_mesh,
+                                                   &cell_factory,
+                                                   &problem_defn,
+                                                   output_directory);
 
         problem.Solve();
 
