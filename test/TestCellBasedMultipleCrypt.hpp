@@ -146,13 +146,14 @@ public:
         crypt.SetOutputCellProliferativeTypes(true);
         crypt.SetOutputCellMutationStates(true);
         crypt.SetOutputCellAncestors(true);
+        //crypt.SetMeinekeDivisionSeparation(0.1); // Default is 0.3
 
 
         // Set up cell-based simulation
 		SimplifiedDeltaNotchOffLatticeSimulation<3> simulator(crypt);
         simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
-        simulator.SetDt(1.0/100.0);
-        simulator.SetSamplingTimestepMultiple(100);
+        simulator.SetDt(1.0/200.0);
+        simulator.SetSamplingTimestepMultiple(200);
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
