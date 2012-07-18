@@ -65,21 +65,22 @@ class TestCellBasedMultipleCrypt : public AbstractCellBasedTestSuite
 {
 private:
     /*
-     * These methods are cxx-test specific and just report the time the
+     * These methods are cxx-test instructions
+     * running before and after each test below.
+     * They just report the time the
      * test took.
      */
-    double mLastStartTime;
     void setUp()
     {
-        mLastStartTime = std::clock();
         AbstractCellBasedTestSuite::setUp();
+        CellBasedEventHandler::Reset();
     }
     void tearDown()
     {
-        double time = std::clock();
-        double elapsed_time = (time - mLastStartTime)/(CLOCKS_PER_SEC);
-        std::cout << "Elapsed time: " << elapsed_time << std::endl;
         AbstractCellBasedTestSuite::tearDown();
+
+        CellBasedEventHandler::Headings();
+        CellBasedEventHandler::Report();
     }
 
 public:
@@ -146,14 +147,13 @@ public:
         crypt.SetOutputCellProliferativeTypes(true);
         crypt.SetOutputCellMutationStates(true);
         crypt.SetOutputCellAncestors(true);
-        //crypt.SetMeinekeDivisionSeparation(0.1); // Default is 0.3
 
 
         // Set up cell-based simulation
 		SimplifiedDeltaNotchOffLatticeSimulation<3> simulator(crypt);
         simulator.SetOutputDirectory("Plos2012_MultipleCrypt");
-        simulator.SetDt(1.0/200.0);
-        simulator.SetSamplingTimestepMultiple(200);
+        simulator.SetDt(1.0/120.0);
+        simulator.SetSamplingTimestepMultiple(120);
         simulator.SetOutputNodeVelocities(true);
 
         // Create a force law and pass it to the simulation
@@ -184,6 +184,10 @@ public:
         simulator.SetEndTime(250.0);
         simulator.Solve(); // to 250 hours
 
+        CellBasedEventHandler::Headings();
+        CellBasedEventHandler::Report();
+        CellBasedEventHandler::Reset();
+
         // Add a random cell killer to represent random death in the epithelial layer.
         MAKE_PTR_ARGS(RandomCellKiller<3>, p_cell_killer_2,(&crypt, 0.005)); // prob of death in an hour
         simulator.AddCellKiller(p_cell_killer_2);
@@ -193,6 +197,7 @@ public:
 
         simulator.SetEndTime(1000.0);
         simulator.Solve(); // to 1000 hours
+
     }
 
 };

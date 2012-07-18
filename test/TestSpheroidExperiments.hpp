@@ -66,21 +66,22 @@ class TestSpheroidExperiments : public AbstractCellBasedTestSuite
 private:
 
     /*
-     * These methods are cxx-test specific and just report the time the
+     * These methods are cxx-test instructions
+     * running before and after each test below.
+     * They just report the time the
      * test took.
      */
-    double mLastStartTime;
     void setUp()
     {
-        mLastStartTime = std::clock();
         AbstractCellBasedTestSuite::setUp();
+        CellBasedEventHandler::Reset();
     }
     void tearDown()
     {
-        double time = std::clock();
-        double elapsed_time = (time - mLastStartTime)/(CLOCKS_PER_SEC);
-        std::cout << "Elapsed time: " << elapsed_time << std::endl;
         AbstractCellBasedTestSuite::tearDown();
+
+        CellBasedEventHandler::Headings();
+        CellBasedEventHandler::Report();
     }
 
 public:
@@ -170,16 +171,16 @@ public:
 
         // Save results
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(&simulator);
-
-        CellBasedEventHandler::Headings();
-        CellBasedEventHandler::Report();
     }
 
     void TestLongerMeshBasedSpheroidWithPde() throw(Exception)
     {
-        // The archive is to be copied from crypt/test/data/<test_to_profile>
-        FileFinder test_data_directory("projects/Plos2012/test/data/Plos2012_MeshBasedSpheroidWithPde/archive",
-                                       RelativeTo::ChasteSourceRoot);
+        // The archive is to be copied from previous test output
+        // It could be stored and re-loaded from anywhere you like
+        // if you want to experiment with different interventions on
+        // an existing spheroid.
+        FileFinder test_data_directory("Plos2012_MeshBasedSpheroidWithPde/archive",
+                                       RelativeTo::ChasteTestOutput);
 
         // to the testoutput/archive directory to continue running the simulation
         OutputFileHandler archive_handler("Plos2012_LongerMeshBasedSpheroidWithPde/archive");
@@ -204,9 +205,6 @@ public:
 
         // Save results
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(p_simulator);
-
-        CellBasedEventHandler::Headings();
-        CellBasedEventHandler::Report();
     }
 };
 
