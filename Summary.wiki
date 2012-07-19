@@ -1,0 +1,5 @@
+= Chaste: an open source C++ library for computational physiology and biology =
+
+This section contains pages generated automatically from the source code accompanying our paper under submission to PLoS CB.
+
+Content describing paper to follow...
