@@ -34,8 +34,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef TESTSPIRALWAVE_HPP_
-#define TESTSPIRALWAVE_HPP_
+#ifndef TESTSPIRALWAVELITERATEPAPER_HPP_
+#define TESTSPIRALWAVELITERATEPAPER_HPP_
 
 #include <cxxtest/TestSuite.h>
 
@@ -47,7 +47,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*
  * Having included all the necessary header files, we proceed by defining the test class.
  */
-class TestSpiralWave : public CxxTest::TestSuite
+class TestSpiralWaveLiteratePaper : public CxxTest::TestSuite
 {
 public:
     void TestSpiralWaveSimulation() throw (Exception)
@@ -100,4 +100,4 @@ public:
     }
 };
 
-#endif /*TESTSPIRALWAVE_HPP_*/
+#endif /*TESTSPIRALWAVELITERATEPAPER_HPP_*/

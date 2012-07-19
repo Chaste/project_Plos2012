@@ -1,4 +1,4 @@
-TestCellBasedMultipleCrypt.hpp
-TestElectroMechanicsTwistingCube.hpp
-TestSpiralWave.hpp
-TestSpheroidExperiments.hpp
+TestCryptsAndVillusLiteratePaper.hpp
+TestElectroMechanicsLiteratePaper.hpp
+TestSpiralWaveLiteratePaper.hpp
+TestSpheroidExperimentsLiteratePaper.hpp

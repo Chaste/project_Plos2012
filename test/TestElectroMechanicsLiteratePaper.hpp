@@ -32,8 +32,8 @@ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
 OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-#ifndef TESTELECTROMECHANICSTWISTINGCUBE_HPP_
-#define TESTELECTROMECHANICSTWISTINGCUBE_HPP_
+#ifndef TESTELECTROMECHANICSLITERATEPAPER_HPP_
+#define TESTELECTROMECHANICSLITERATEPAPER_HPP_
 
 
 #include <cxxtest/TestSuite.h>
@@ -51,7 +51,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
 * Remember to run with build=GccOptNative_ndebug for speed
 */
-class TestElectroMechanicsTwisingCube : public CxxTest::TestSuite
+class TestElectroMechanicsLiteratePaper : public CxxTest::TestSuite
 {
 public:
     void TestTwistingCube() throw(Exception)
@@ -140,4 +140,4 @@ public:
     }
 };
 
-#endif /* TESTELECTROMECHANICSTWISTINGCUBE_HPP_ */
+#endif /* TESTELECTROMECHANICSLITERATEPAPER_HPP_ */

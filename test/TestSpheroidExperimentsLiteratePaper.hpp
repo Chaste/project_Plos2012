@@ -34,8 +34,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef TESTSPHEROIDEXPERIMENTS_HPP_
-#define TESTSPHEROIDEXPERIMENTS_HPP_
+#ifndef TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
+#define TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
 
 #include <cxxtest/TestSuite.h>
 
@@ -61,7 +61,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "OxygenBasedCellKiller.hpp"
 #include "AbstractCellBasedTestSuite.hpp"
 
-class TestSpheroidExperiments : public AbstractCellBasedTestSuite
+class TestSpheroidExperimentsLiteratePaper : public AbstractCellBasedTestSuite
 {
 private:
 
@@ -107,7 +107,7 @@ public:
         nodes.push_back(new Node<3>(4, false, 0.5, 0.5, 0.5));
         MutableMesh<3,3> mesh(nodes);
 
-        // Set up cells for each of the nodes in the mesh
+        /* Set up cells for each of the nodes in the mesh */
         boost::shared_ptr<AbstractCellMutationState> p_state(new WildTypeCellMutationState);
         std::vector<CellPtr> cells;
         for (unsigned i=0; i<nodes.size(); i++)
@@ -127,30 +127,32 @@ public:
             cells.push_back(p_cell);
         }
 
-        // Create cell population - a mapping between a mesh and cells.
+        /* Create cell population - a mapping between a mesh and cells. */
         MeshBasedCellPopulation<3> cell_population(mesh, cells);
         cell_population.SetAbsoluteMovementThreshold(DBL_MAX);
         cell_population.SetOutputCellVolumes(true);
         cell_population.SetWriteVtkAsPoints(true);
         
-        // Set up cell data on the cell population
+        /* Set up cell data on the cell population */
         cell_population.SetDataOnAllCells("oxygen", 1.0);
 
-        // Set up cell-based simulation
+        /* Set up cell-based simulation */
         OffLatticeSimulation<3> simulator(cell_population);
         simulator.SetEndTime(100); // hours
-        simulator.SetSamplingTimestepMultiple(120); // Default timestep is 30 seconds,
-                                                    //so this gives one set of output each hour.
+
+        /* Default timestep is 30 seconds,
+         * so this gives one set of output each hour.*/
+        simulator.SetSamplingTimestepMultiple(120);
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
 
-        // Set up PDE and boundary conditions
+        /* Set up PDE and boundary conditions */
         CellwiseSourcePde<3> pde(cell_population, -1.0);
         ConstBoundaryCondition<3> bc(1.0);
         bool is_neumann_bc = false;
         PdeAndBoundaryConditions<3> pde_and_bc(&pde, &bc, is_neumann_bc);
         pde_and_bc.SetDependentVariableName("oxygen");
 
-        // Create a handler (for any number of PDEs+BCs, in this case we just add one).
+        /* Create a handler (for any number of PDEs+BCs, in this case we just add one).*/
         CellBasedPdeHandler<3> pde_handler(&cell_population);
         pde_handler.AddPdeAndBc(&pde_and_bc);
 
@@ -208,4 +210,4 @@ public:
     }
 };
 
-#endif /*TESTSPHEROIDEXPERIMENTS_HPP_*/
+#endif /*TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_*/

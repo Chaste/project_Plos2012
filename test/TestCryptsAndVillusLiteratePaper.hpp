@@ -34,8 +34,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 
-#ifndef TESTCELLBASEDMULTIPLECRYPT_HPP_
-#define TESTCELLBASEDMULTIPLECRYPT_HPP_
+#ifndef TESTCRYPTSANDVILLUSLITERATEPAPER_HPP_
+#define TESTCRYPTSANDVILLUSLITERATEPAPER_HPP_
 
 #include <cxxtest/TestSuite.h>
 
@@ -61,7 +61,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Debug.hpp"
 
-class TestCellBasedMultipleCrypt : public AbstractCellBasedTestSuite
+class TestCryptsAndVillusLiteratePaper : public AbstractCellBasedTestSuite
 {
 private:
     /*
@@ -202,4 +202,4 @@ public:
 
 };
 
-#endif /*TESTCELLBASEDMULTIPLECRYPT_HPP_*/
+#endif /*TESTCRYPTSANDVILLUSLITERATEPAPER_HPP_*/
