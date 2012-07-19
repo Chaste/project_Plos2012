@@ -33,10 +33,25 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-
 #ifndef TESTSPIRALWAVELITERATEPAPER_HPP_
 #define TESTSPIRALWAVELITERATEPAPER_HPP_
-
+/*
+ * = Cardiac electrophysiology: spiral wave =
+ *
+ * On this wiki page we describe in detail the code that is used to run this example from the paper.
+ *
+ * Here we use a domain and model suggested in the paper Qu ''et al.'' "Origins of spiral wave meander and breakup
+ * in a two-dimensional cardiac tissue model" Annals of biomedical engineering. 28(7):755-771 (2000) [http://www.springerlink.com/index/XQ0268R4K70847PR.pdf | link].
+ *
+ * The example includes a pacing protocol and model ion-channel conductance modifications that result in a stable spiral wave.
+ *
+ * This example uses a specially annotated CellML file, and illustrates how to change parameters in a
+ * cell model in an automated manner in the associated cell factory at `Plos2012/src/SpiralWave`.
+ *
+ * == Code overview ==
+ *
+ * The first thing to do is to include the necessary header files.
+ */
 #include <cxxtest/TestSuite.h>
 
 #include "MonodomainProblem.hpp"
@@ -67,7 +82,7 @@ public:
          * conductivity'' is used as the monodomain effective conductivity (not a
          * harmonic mean of intra and extracellular conductivities).
          * So if you want to alter the monodomain conductivity call
-         * `HeartConfig::Instance()->SetIntracellularConductivities`
+         * `HeartConfig::Instance()->SetIntracellularConductivities()`
          */
         HeartConfig::Instance()->SetSimulationDuration(500); //ms
         HeartConfig::Instance()->SetOutputDirectory("Plos2012_SpiralWave");
@@ -77,8 +92,8 @@ public:
         LuoRudyCellFactory cell_factory(mesh_width,mesh_width);
 
         /*
-         * Now we declare the problem class, `MonodomainProblem<2>` instead of `BidomainProblem<2>`.
-         * The interface for both is the same.
+         * Now we declare the problem class, `MonodomainProblem<2>`.
+         * To do a bidomain simulation is as simple as changing the following line to `BidomainProblem<2>`.
          */
         MonodomainProblem<2> monodomain_problem( &cell_factory );
 
@@ -88,13 +103,15 @@ public:
          */
         monodomain_problem.SetMesh(&mesh);
 
-        /* `SetWriteInfo` is a useful method that means that the min/max voltage is
+        /*
+         * `SetWriteInfo` is a useful method that means that the min/max voltage is
          * printed as the simulation runs (useful for verifying that cells are stimulated
          * and the wave propagating, for example) (although note scons does buffer output
-         * before printing to screen) */
+         * before printing to screen)
+         */
         monodomain_problem.SetWriteInfo();
 
-        /* Finally, call `Initialise` and `Solve` as before */
+        /* Finally, call `Initialise` and `Solve` */
         monodomain_problem.Initialise();
         monodomain_problem.Solve();
     }

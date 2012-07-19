@@ -1,5 +1,11 @@
 = Chaste: an open source C++ library for computational physiology and biology =
 
-This section contains pages generated automatically from the source code accompanying our paper under submission to PLoS CB.
+Welcome to the Chaste wiki.
 
-Content describing paper to follow...
+This section contains pages generated automatically from the source code accompanying "Chaste: an open source C++ library for computational physiology and biology", our paper under submission to PLoS Computational Biology.
+
+Before running these examples you will need to install Chaste's dependencies and the source code for version 3.1. The easiest way to do this is using an Ubuntu machine (or an Ubuntu virtual machine) as discussed on InstallGuides/UbuntuPackage.
+
+For manual installation of each dependency, on any version of linux, see DeveloperInstallGuide.
+
+The paper is organised around four examples that are annotated and explained here:

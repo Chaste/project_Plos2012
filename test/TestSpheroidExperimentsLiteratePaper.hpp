@@ -37,6 +37,26 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
 #define TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
 
+/*
+ * = Tumour spheroid =
+ *
+ * On this wiki page we describe in detail the code that is used to run this example from the paper.
+ *
+ * The simulation is a mesh-based off-lattice simulation. In other words, cells are represented by points
+ * in space (nodes of a mesh) and are allowed to move without being confined to certain lattice sites.
+ *
+ * We show a hybrid discrete-continuum model by using a reaction-diffusion PDE for oxygen, which discrete cells then
+ * respond to be proliferating in high oxygen, or dying in low oxygen.
+ *
+ * We also show how a simulation can be checkpointed: that is, written to disk, reloaded, and continued.
+ *
+ * This example uses only files from the core repository.
+ *
+ * == Code overview ==
+ *
+ * The first thing to do is to include the necessary header files.
+ */
+
 #include <cxxtest/TestSuite.h>
 
 // Must be included before other cell_based headers
@@ -44,7 +64,6 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <iomanip>
 #include <boost/foreach.hpp>
-
 #include "OffLatticeSimulation.hpp"
 #include "CellBasedEventHandler.hpp"
 #include "MeshBasedCellPopulation.hpp"
@@ -66,10 +85,8 @@ class TestSpheroidExperimentsLiteratePaper : public AbstractCellBasedTestSuite
 private:
 
     /*
-     * These methods are cxx-test instructions
-     * running before and after each test below.
-     * They just report the time the
-     * test took.
+     * These methods are cxx-test instructions running before and after each test below.
+     * They just report the time the test took.
      */
     void setUp()
     {
@@ -98,7 +115,7 @@ public:
      */
     void TestMeshBasedSpheroidWithPde() throw(Exception)
     {
-        // Create a simple 3D mesh, initially comprised of just five nodes
+        /* Create a simple 3D mesh, initially comprised of just five nodes */
         std::vector<Node<3>*> nodes;
         nodes.push_back(new Node<3>(0, true,  0.0, 0.0, 0.0));
         nodes.push_back(new Node<3>(1, true,  1.0, 1.0, 0.0));
@@ -114,7 +131,7 @@ public:
         {
             StochasticOxygenBasedCellCycleModel* p_model = new StochasticOxygenBasedCellCycleModel();
             p_model->SetDimension(3);
-            p_model->SetStemCellG1Duration(2.0);
+            p_model->SetStemCellG1Duration(4.0);
             p_model->SetHypoxicConcentration(0.1);
             p_model->SetQuiescentConcentration(0.3);
             p_model->SetCriticalHypoxicDuration(8);
@@ -141,7 +158,8 @@ public:
         simulator.SetEndTime(100); // hours
 
         /* Default timestep is 30 seconds,
-         * so this gives one set of output each hour.*/
+         * so this gives one set of output each hour.
+         */
         simulator.SetSamplingTimestepMultiple(120);
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
 
@@ -161,6 +179,7 @@ public:
 
         // Create a force law and pass it to the simulation
         MAKE_PTR(GeneralisedLinearSpringForce<3>, p_force);
+        p_force->SetMeinekeSpringStiffness(30.0); // default is 15.0;
         p_force->SetCutOffLength(1.5);
         simulator.AddForce(p_force);
 
@@ -177,16 +196,20 @@ public:
 
     void TestLongerMeshBasedSpheroidWithPde() throw(Exception)
     {
-        // The archive is to be copied from previous test output
-        // It could be stored and re-loaded from anywhere you like
-        // if you want to experiment with different interventions on
-        // an existing spheroid.
+        /* The archive is to be copied from previous test output
+         * It could be stored and re-loaded from anywhere you like.
+         *
+         * This is useful for checkpointing on large HPC machines, and also
+         * if you want to experiment with different interventions on
+         * an existing spheroid state.
+         */
         FileFinder test_data_directory("Plos2012_MeshBasedSpheroidWithPde/archive",
                                        RelativeTo::ChasteTestOutput);
 
-        // to the testoutput/archive directory to continue running the simulation
+        /* We specify a location to copy the archive files from the previous test to */
         OutputFileHandler archive_handler("Plos2012_LongerMeshBasedSpheroidWithPde/archive");
 
+        /* And copy the files across (this uses the boost filesystem library, incidnetally) */
         // Following is done in two lines to avoid a bug in Intel compiler v12.0!
         std::vector<FileFinder> temp_files = test_data_directory.FindMatches("*");
         BOOST_FOREACH(FileFinder temp_file, temp_files)
@@ -194,18 +217,18 @@ public:
             archive_handler.CopyFileTo(temp_file);
         }
 
-        // Load the simulation up
+        /* Load the simulation up */
         OffLatticeSimulation<3>* p_simulator
             = CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Load("Plos2012_LongerMeshBasedSpheroidWithPde", 100);
 
-        // Change some settings
+        /* Change some settings */
         p_simulator->SetEndTime(160);
         p_simulator->SetOutputDirectory("Plos2012_LongerMeshBasedSpheroidWithPde");
 
-        // Solve the system
+        /* Run the simulation to the new end time */
         p_simulator->Solve();
 
-        // Save results
+        /* Save the results */
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(p_simulator);
     }
 };

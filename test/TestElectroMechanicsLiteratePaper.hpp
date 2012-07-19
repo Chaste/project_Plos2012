@@ -35,7 +35,24 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef TESTELECTROMECHANICSLITERATEPAPER_HPP_
 #define TESTELECTROMECHANICSLITERATEPAPER_HPP_
 
-
+/*
+ * = Electro-mechanics on a cardiac tissue wedge =
+ *
+ * On this wiki page we describe in detail the code that is used to run this example from the paper.
+ * This example is based on UserTutorials/CardiacElectroMechanics
+ *
+ * The example shows how an electrical wave is followed by contraction along cardiac fibres.
+ * The fibres have different orientations in different parts of the tissue, resulting in a
+ * "twisting" motion.
+ *
+ * Remember to run with build=GccOptNative for speed.
+ *
+ * This example uses only files from the core repository.
+ *
+ * == Code overview ==
+ *
+ * We first include some header files which define the classes we will use.
+ */
 #include <cxxtest/TestSuite.h>
 #include "PlaneStimulusCellFactory.hpp"
 #include "PetscSetupAndFinalize.hpp"
@@ -45,47 +62,62 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "FileFinder.hpp"
 #include "VtkMeshWriter.hpp"
 
-/*
-* This example is based on one of the cardiac electro-mechanics tutorials,
-* see these for further details.
-*
-* Remember to run with build=GccOptNative_ndebug for speed
-*/
+
 class TestElectroMechanicsLiteratePaper : public CxxTest::TestSuite
 {
 public:
+    /*
+     * The following code is the `test` itself, we use the `scons` / `cxx-test` framework to run simulations, as it
+     * provides a handy way to do all the necessary linking and library building.
+     */
     void TestTwistingCube() throw(Exception)
     {
-    	// This class sets up cells with the correct stimuli to
-        // stimulate just those cells on the x=0 surface at t=0.
+    	/*
+    	 * This class sets up cells with the correct stimuli to
+         * stimulate just those cells on the x=0 surface at t=0.
+         *
+         * We define the strength of stimulus that we need.
+         */
         PlaneStimulusCellFactory<CellLuoRudy1991FromCellML, 3u> cell_factory(-1000*1000);
 
-        // Set up two meshes of 1mm by 1mm by 1mm
-        // We have a fine electrics mesh and a coarser mechanics one.
+        /* For electro-mechanics we need to set up two meshes of 1mm by 1mm by 1mm
+         * We have a fine electrics mesh and a coarser mechanics one.
+         */
         TetrahedralMesh<3u,3u> electrics_mesh;
         electrics_mesh.ConstructRegularSlabMesh(0.01, 0.1, 0.1, 0.1);
-
         QuadraticMesh<3> mechanics_mesh(0.02, 0.1, 0.1, 0.1);
 
-        // fix the nodes on Z=0
+        /* We are going to fix some nodes on Z (dimension '2' indexed from 0)
+         * so we first need to identify these
+         */
         std::vector<unsigned> fixed_nodes
           = NonlinearElasticityTools<3u>::GetNodesByComponentValue(mechanics_mesh, 2, 0.0);
 
-        HeartConfig::Instance()->SetSimulationDuration(36.0); //ms
-
-        // Define the electro-mechanics problem
+        /* We now define the electro-mechanics problem.
+         * This includes specifying the contraction model and the material properties,
+         * as well as those nodes that are fixed and the mechanics timestep to use.
+         *
+         * Mechanics happens over a longer timescale than electrophysiology,
+         * so we can use larger space and time steps for this aspect.
+         */
         ElectroMechanicsProblemDefinition<3u> problem_defn(mechanics_mesh);
         problem_defn.SetContractionModel(KERCHOFFS2003,1.0);
         problem_defn.SetUseDefaultCardiacMaterialLaw(COMPRESSIBLE);
         problem_defn.SetZeroDisplacementNodes(fixed_nodes);
         problem_defn.SetMechanicsSolveTimestep(1.0); // ms
 
+
         std::string output_directory = "Plos2012_ElectroMechanics";
         std::string fibre_file_name = "5by5by5_fibres.ortho";
 
-        // This is how to generate a fibre file for this mesh
-        // (this could be generated once, stored and re-loaded as below)
-        // We use a Streeter-style formula here.
+        /*
+         * This is how to generate a fibre file for this mesh
+         * (this could be generated once, stored and re-loaded, as indeed we do below)
+         * We use a Streeter-style formula here.
+         *
+         * Usually the fibres for a scientific problem would be determined by e.g. DTMRI
+         * and stored with the mesh files.
+         */
         {
             OutputFileHandler handler(output_directory + "Fibres");
             out_stream p_file = handler.OpenOutputFile(fibre_file_name);
@@ -107,9 +139,10 @@ public:
             }
             p_file->close();
 
-            // We only compile the following if VTK is installed and set up.
-            // This is optional - just for visualizing the fibre directions as in the paper.
-            // the simulation will run without it.
+            /* We only compile the following if VTK is installed and set up.
+             * This is optional - it is only used here for visualizing the fibre directions as in the paper figure.
+             * The simulation will run without it.
+             */
 #ifdef CHASTE_VTK
             VtkMeshWriter<3u,3u> mesh_writer(output_directory+ "Fibres", "mesh", false);
 
@@ -118,11 +151,13 @@ public:
 #endif // CHASTE_VTK
         }
 
-        // Load up the file we just wrote to use as fibre directions for this mechanics problem.
+        /*
+         * Load up the file we just wrote to use as fibre directions for this mechanics problem.
+         */
         FileFinder fibre_file_finder(output_directory + "Fibres/" + fibre_file_name, RelativeTo::ChasteTestOutput);
         problem_defn.SetVariableFibreSheetDirectionsFile(fibre_file_finder, false);
 
-        // Set up and solve the full cardiac electro-mechanics problem.
+        /* Set up and solve the full cardiac electro-mechanics problem.*/
         CardiacElectroMechanicsProblem<3u> problem(COMPRESSIBLE,
                                                    MONODOMAIN,
                                                    &electrics_mesh,
@@ -131,10 +166,11 @@ public:
                                                    &problem_defn,
                                                    output_directory);
 
-        // Run the simulation
+        /* Run the simulation for long enough for some contraction to occur */
+        HeartConfig::Instance()->SetSimulationDuration(36.0); //ms
         problem.Solve();
 
-        // Report where time was spent to std::cout.
+        /* Report where time was spent to std::cout. */
         MechanicsEventHandler::Headings();
         MechanicsEventHandler::Report();
     }
