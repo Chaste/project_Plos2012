@@ -36,7 +36,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TESTELECTROMECHANICSLITERATEPAPER_HPP_
 
 /*
- * = Electro-mechanics on a cardiac tissue wedge =
+ * = Cardiac electro-mechanics: a cardiac tissue wedge with varying fibre directions =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.
  * This example is based on UserTutorials/CardiacElectroMechanics
@@ -72,6 +72,9 @@ public:
      */
     void TestTwistingCube() throw(Exception)
     {
+        /* Set the length of the simulation, long enough for some contraction to occur */
+        HeartConfig::Instance()->SetSimulationDuration(36.0); //ms
+
     	/*
     	 * This class sets up cells with the correct stimuli to
          * stimulate just those cells on the x=0 surface at t=0.
@@ -166,8 +169,7 @@ public:
                                                    &problem_defn,
                                                    output_directory);
 
-        /* Run the simulation for long enough for some contraction to occur */
-        HeartConfig::Instance()->SetSimulationDuration(36.0); //ms
+        /* Run the simulation*/
         problem.Solve();
 
         /* Report where time was spent to std::cout. */

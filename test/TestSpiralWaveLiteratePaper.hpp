@@ -48,6 +48,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * This example uses a specially annotated CellML file, and illustrates how to change parameters in a
  * cell model in an automated manner in the associated cell factory at `Plos2012/src/SpiralWave`.
  *
+ * This test can be run in parallel and will speed up well proportional to the number of processors you have.
+ * e.g.
+ * scons build=GccOptNative_4 test_suite=projects/Plos2012/test/TestSpiralWaveLiteratePaper.hpp
+ *
  * == Code overview ==
  *
  * The first thing to do is to include the necessary header files.
@@ -56,7 +60,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "MonodomainProblem.hpp"
 #include "DistributedTetrahedralMesh.hpp"
-#include "LuoRudyCellFactory.hpp" // This is defined in this project 'src' folder, the rest are in Chaste 3.0.
+#include "LuoRudyCellFactory.hpp" // This is defined in this project 'src' folder, the rest are in Chaste 3.1.
 #include "PetscSetupAndFinalize.hpp"
 
 /*

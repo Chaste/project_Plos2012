@@ -38,7 +38,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
 
 /*
- * = Tumour spheroid =
+ * = Cell-based simulation: tumour spheroid with oxygen diffusion and uptake =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.
  *
@@ -132,8 +132,8 @@ public:
             StochasticOxygenBasedCellCycleModel* p_model = new StochasticOxygenBasedCellCycleModel();
             p_model->SetDimension(3);
             p_model->SetStemCellG1Duration(4.0);
-            p_model->SetHypoxicConcentration(0.1);
-            p_model->SetQuiescentConcentration(0.3);
+            p_model->SetHypoxicConcentration(0.2);
+            p_model->SetQuiescentConcentration(0.5);
             p_model->SetCriticalHypoxicDuration(8);
             double birth_time = -RandomNumberGenerator::Instance()->ranf()*
                                 (  p_model->GetStemCellG1Duration()
