@@ -47,7 +47,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * Remember to run with build=GccOptNative for speed.
  *
- * This example uses only files from the core repository.
+ * This example uses only files from the core Chaste code.
  *
  * == Code overview ==
  *
