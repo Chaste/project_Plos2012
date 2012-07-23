@@ -8,4 +8,5 @@ Before running these examples you will need to install Chaste's dependencies and
 
 For manual installation of each dependency, on any version of linux, see DeveloperInstallGuide.
 
-The paper is organised around four examples that are annotated and explained here:
+The paper is organised around four examples that are annotated and explained here. 
+The code required to run these examples can be downloaded from [http://www.cs.ox.ac.uk/chaste/download the main download site].

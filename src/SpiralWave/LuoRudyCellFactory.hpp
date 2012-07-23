@@ -100,10 +100,7 @@ public:
             std::cout << "G_K = " << p_cell->GetAnyVariable("membrane_rapid_delayed_rectifier_potassium_current_conductance") << "mM \n";
             std::cout << "G_K1 = " << p_cell->GetAnyVariable("membrane_inward_rectifier_potassium_current_conductance") << "mM \n";
         }
-        else
-        {
-            std::cout << "Constructing node " << nodeIndex << "\r";
-        }
+
         return p_cell;
     }
 };
