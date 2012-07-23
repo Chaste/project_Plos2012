@@ -131,9 +131,9 @@ public:
         {
             StochasticOxygenBasedCellCycleModel* p_model = new StochasticOxygenBasedCellCycleModel();
             p_model->SetDimension(3);
-            p_model->SetStemCellG1Duration(4.0);
-            p_model->SetHypoxicConcentration(0.2);
-            p_model->SetQuiescentConcentration(0.5);
+            p_model->SetStemCellG1Duration(2.0);
+            p_model->SetHypoxicConcentration(0.1);
+            p_model->SetQuiescentConcentration(0.3);
             p_model->SetCriticalHypoxicDuration(8);
             double birth_time = -RandomNumberGenerator::Instance()->ranf()*
                                 (  p_model->GetStemCellG1Duration()
@@ -160,7 +160,7 @@ public:
         /* Default timestep is 30 seconds,
          * so this gives one set of output each hour.
          */
-        simulator.SetSamplingTimestepMultiple(120);
+        simulator.SetSamplingTimestepMultiple(60);
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
 
         /* Set up PDE and boundary conditions */
@@ -222,7 +222,7 @@ public:
             = CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Load("Plos2012_LongerMeshBasedSpheroidWithPde", 100);
 
         /* Change some settings */
-        p_simulator->SetEndTime(160);
+        p_simulator->SetEndTime(150);
         p_simulator->SetOutputDirectory("Plos2012_LongerMeshBasedSpheroidWithPde");
 
         /* Run the simulation to the new end time */

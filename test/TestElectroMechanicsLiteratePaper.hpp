@@ -128,8 +128,8 @@ public:
             std::vector<c_vector<double,3u> > fibre_directions;
             for(unsigned i=0; i<mechanics_mesh.GetNumElements(); i++)
             {
-                double x = mechanics_mesh.GetElement(i)->CalculateCentroid()(0);
-                double theta = M_PI/3.0 - 10*x*2*M_PI/3.0; // 60 degrees when X=0, -60 when X=0.1;
+                double big_x = mechanics_mesh.GetElement(i)->CalculateCentroid()(0);
+                double theta = M_PI/3.0 - 10*big_x*2*M_PI/3.0; // 60 degrees when X=0, -60 when X=0.1;
 
                 c_vector<double,3u> fibre_direction;
                 fibre_direction[0] = 0;

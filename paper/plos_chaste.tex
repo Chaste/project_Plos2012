@@ -347,7 +347,7 @@ FIGURE~\ref{fig:FourCrypts} HERE.
 
 In Figure~\ref{fig:FourCrypts} we present an example based on the intestinal epithelium: a 3D off-lattice node-based simulation confined to a 2D surface.
 In this simulation of a small intestinal villus surrounded by four crypts, cells move according to a nearest-neighbour-defined repulsive force.
-Over the course of the simulation each of the four crypts becomes monoclonal, leading to a villus carrying each of the four clonal populations  (\highlight{see video S2}).
+Over the course of the simulation each of the four crypts becomes monoclonal, leading to a villus carrying each of the four clonal populations  (see video S2).
 In addition, each cell is carrying an ODE system for Delta-Notch signalling, which takes as an input the average Delta level of the neighbours \cite{collier1996pattern}.
 This leads to a dynamic pattern of Delta-Notch with high/low activity in neighbouring cells, thought to lead to differentiation into secretory and absorbative cells.
 
@@ -360,14 +360,14 @@ Heterogeneities in fibre directions and cell models can be included, and post-pr
 
 FIGURE~\ref{fig:SpiralWave} HERE. 
 
-In Figure~\ref{fig:SpiralWave} we present a snapshot of a two-dimensional monodomain simulation which reproduces one of the results of a study into electrical wave dynamics \cite{Qu2000Origins} (\highlight{see video S3}).
+In Figure~\ref{fig:SpiralWave} we present a snapshot of a two-dimensional monodomain simulation which reproduces one of the results of a study into electrical wave dynamics \cite{Qu2000Origins} (see video S3).
 A stable re-entrant spiral wave is generated on a 3cm x 3cm mesh, by appropriate stimulation and alteration of ion-channel expression in a cardiac action potential model \cite{Luo1991Model}.
 Such behaviour of electrical waves is commonly studied to understand how changes to ion-channel dynamics, through disease or drug block, can lead to the onset of fatal arrhythmias.
 
 Recently we have also begun to work on electromechanics \cite{Pathmanathan2010}, this becoming publicly available in v3.0. 
 We use this electromechanics code for our final example in Figure~\ref{fig:TwistyWedge}.
 Deformation occurs due to cellular tension development in response to electrical activation and calcium release, coupled to a model of mechanical properties of cardiac tissue.
-Figure~\ref{fig:TwistyWedge} shows varying fibre directions throughout a three-dimensional block of tissue, alongside the spread of an electrical wave, and subsequent deformation (\highlight{see also video S4}).
+Figure~\ref{fig:TwistyWedge} shows varying fibre directions throughout a three-dimensional block of tissue, alongside the spread of an electrical wave, and subsequent deformation (see also video S4).
 
 FIGURE~\ref{fig:TwistyWedge} HERE.
 
@@ -382,8 +382,7 @@ Improvements to the numerical algorithms used in cardiac simulation have been a 
 \highlight{cite Megan, and include as co-author?}.
 
 Chaste displayed exceptional performance in terms of accuracy and convergence properties in a recent independent study surveying major cardiac electro-physiology solvers~\cite{niederer2011verification,pathmanathan2011computational}.
-Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently.
-\comment{JC: May be able to cite scalability paper soon.}
+Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently \cite{bernabeu2012}.
 
 \subsection*{Other application areas}
 The Chaste library has found applications in other areas of computational biology. 
@@ -417,8 +416,6 @@ import of SBML models for signalling pathway and cell-cycle models;
 fluid flow for haemodynamics.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
-
-
 \subsection*{How to become an active developer}
 
 The main Chaste website is at \url{http://www.cs.ox.ac.uk/chaste}, from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
@@ -449,8 +446,6 @@ There is a guide for people who would like to work with the latest development v
 \bibliography{refs}
 
 \section*{Figure Legends}
-
-\highlight{Gary: todo, make sure there is a movie of each of these available as supplementary material...}
 
 \begin{figure}[!htbp]
 \begin{center}
@@ -532,7 +527,7 @@ Supplementary material for the paper ``\textbf{Chaste: an open source C++ librar
 consists of
 \begin{itemize}
     \item This article, providing installation instructions and detail on Chaste dependencies.
-    \item A Chaste `project' download.
+    \item A Chaste `project' download, also available at \url{http://www.cs.ox.ac.uk/chaste/download} in the ``Bolt-on Projects'' section.
     \item Video S1.
     \item Video S2.
     \item Video S3.
