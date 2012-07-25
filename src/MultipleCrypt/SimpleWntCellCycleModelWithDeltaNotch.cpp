@@ -107,6 +107,9 @@ void SimpleWntCellCycleModelWithDeltaNotch::UpdateCellCyclePhase()
     UpdateDeltaNotch();
     SolveOdeToTime(SimulationTime::Instance()->GetTime());
     SimpleWntCellCycleModel::UpdateCellCyclePhase();
+
+    this->mpCell->GetCellData()->SetItem("notch", GetNotch());
+    this->mpCell->GetCellData()->SetItem("delta", GetDelta());
 }
 
 void SimpleWntCellCycleModelWithDeltaNotch::Initialise()

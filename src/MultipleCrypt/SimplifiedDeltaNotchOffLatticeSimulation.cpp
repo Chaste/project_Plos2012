@@ -56,29 +56,15 @@ SimplifiedDeltaNotchOffLatticeSimulation<DIM>::~SimplifiedDeltaNotchOffLatticeSi
 template<unsigned DIM>
 void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::SetupSolve()
 {
-	OffLatticeSimulation<DIM>::SetupSolve();
-    UpdateCellData();
-}
-
-template<unsigned DIM>
-void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateAtEndOfTimeStep()
-{
-	OffLatticeSimulation<DIM>::UpdateAtEndOfTimeStep();
-    UpdateCellData();
-}
-
-template<unsigned DIM>
-void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateCellData()
-{
-    // Make sure the cell population is updated
-    this->mrCellPopulation.Update();
+	OffLatticeSimulation<DIM>::SetupSolve(); // just outputs node velocities if requested.
 
     // First store each cell's Notch and Delta concentrations in CellData
+	// This is done by cell cycle model after this first setup.
     for (typename AbstractCellPopulation<DIM>::Iterator cell_iter = this->mrCellPopulation.Begin();
          cell_iter != this->mrCellPopulation.End();
          ++cell_iter)
     {
-    	// This line is the only modification from the trunk class DeltaNotchOffLatticeSimulation
+      // This line is the only modification from the trunk class DeltaNotchOffLatticeSimulation
         SimpleWntCellCycleModelWithDeltaNotch* p_model = static_cast<SimpleWntCellCycleModelWithDeltaNotch*>(cell_iter->GetCellCycleModel());
 
         double this_delta = p_model->GetDelta();
@@ -88,6 +74,23 @@ void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateCellData()
         cell_iter->GetCellData()->SetItem("delta", this_delta);
     }
 
+	// Make sure the cell population is updated
+    this->mrCellPopulation.Update();
+
+    UpdateCellData();
+}
+
+template<unsigned DIM>
+void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateAtEndOfTimeStep()
+{
+	OffLatticeSimulation<DIM>::UpdateAtEndOfTimeStep();
+
+    UpdateCellData();
+}
+
+template<unsigned DIM>
+void SimplifiedDeltaNotchOffLatticeSimulation<DIM>::UpdateCellData()
+{
     // Next iterate over the population to compute and store each cell's neighbouring Delta concentration in CellData
     for (typename AbstractCellPopulation<DIM>::Iterator cell_iter = this->mrCellPopulation.Begin();
          cell_iter != this->mrCellPopulation.End();

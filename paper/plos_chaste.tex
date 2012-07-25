@@ -81,9 +81,9 @@
 \\
 Gary R. Mirams$^{1,\ast}$, Christopher J. Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
 Rafel Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
-Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel G. Harvey$^{1}$, 
-James M. Osborne$^{1}$, Pras Pathmanathan$^{1,7}$, Joe Pitt-Francis$^{1}$, 
-James Southern$^8$, Nejib Zemzemi$^9$, David J. Gavaghan$^{1}$
+Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel G. Harvey$^{1}$, Megan E. Marsh$^{7}$, 
+James M. Osborne$^{1}$, Pras Pathmanathan$^{1,8}$, Joe Pitt-Francis$^{1}$, 
+James Southern$^9$, Nejib Zemzemi$^{10}$, David J. Gavaghan$^{1}$
 \\
 \bf{1} Computational Biology, Department of Computer Science, University of Oxford, Oxford, UK
 \\
@@ -97,11 +97,13 @@ James Southern$^8$, Nejib Zemzemi$^9$, David J. Gavaghan$^{1}$
 \\
 \bf{6} Centre for Mathematical Biology, Mathematical Institute, University of Oxford, Oxford, UK
 \\
-\bf{7} Food and Drug Administration, Silver Spring, Maryland, USA
+\bf{7} Department of Computer Science, University of Saskatchewan, Saskatoon, Canada
 \\
-\bf{8} Fujitsu Laboratories of Europe, Hayes Park, London, UK
+\bf{8} Food and Drug Administration, Silver Spring, Maryland, USA
 \\
-\bf{9} INRIA, Bordeaux, France
+\bf{9} Fujitsu Laboratories of Europe, Hayes Park, London, UK
+\\
+\bf{10} INRIA, Bordeaux, France
 \\
 $\ast$ E-mail: \url{gary.mirams@cs.ox.ac.uk}
 \end{flushleft}
@@ -378,8 +380,7 @@ Simulations have also been performed to study defibrillation of a human heart in
 Dynamic loading and units conversion of CellML files \cite{Cooper2011cuc} has enabled studies that consider the extensive variability between different models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
 Our group has also used Chaste to study the effect of stochasticity in cardiac models \cite{Walmsley2012,Dutta2011,Pueyo2011}, a cause of variability in experimental recordings, and potentially linked to pro-arrhythmic risk.
 
-Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, and have enabled the novel biological problems above to be studied. We have focussed on matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
-\highlight{cite Megan, and include as co-author?}.
+Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, and have enabled the novel biological problems above to be studied. We have focussed on efficient solution of action potential models \cite{Cooper06,Cooper2011cuc,Marsh2012}, matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
 
 Chaste displayed exceptional performance in terms of accuracy and convergence properties in a recent independent study surveying major cardiac electro-physiology solvers~\cite{niederer2011verification,pathmanathan2011computational}.
 Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently \cite{bernabeu2012}.
