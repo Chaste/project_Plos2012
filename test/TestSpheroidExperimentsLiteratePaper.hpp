@@ -104,14 +104,14 @@ private:
 public:
 
     /*
-     * This example is split into two separate codes to showcase the checkpointing
-     * abilities of Chaste.
+     * This example is split into two separate tests/simulations to demonstrate the
+     * checkpointing abilities of Chaste.
      *
      * The first test runs from t=0 to t=100,
-     * and the second from t=100 to t=160.
+     * and the second from t=100 to t=150.
      *
      * It could equally well be reproduced by setting the end time in the first
-     * test to 160.
+     * test to 150.
      */
     void TestMeshBasedSpheroidWithPde() throw(Exception)
     {
@@ -131,7 +131,8 @@ public:
         {
             StochasticOxygenBasedCellCycleModel* p_model = new StochasticOxygenBasedCellCycleModel();
             p_model->SetDimension(3);
-            p_model->SetStemCellG1Duration(2.0);
+            /* We alter a number of parameters from their defaults, to speed up this example. */
+            p_model->SetStemCellG1Duration(4.0);
             p_model->SetHypoxicConcentration(0.1);
             p_model->SetQuiescentConcentration(0.3);
             p_model->SetCriticalHypoxicDuration(8);
@@ -147,7 +148,6 @@ public:
         /* Create cell population - a mapping between a mesh and cells. */
         MeshBasedCellPopulation<3> cell_population(mesh, cells);
         cell_population.SetAbsoluteMovementThreshold(DBL_MAX);
-        cell_population.SetOutputCellVolumes(true);
         cell_population.SetWriteVtkAsPoints(true);
         
         /* Set up cell data on the cell population */
@@ -157,8 +157,8 @@ public:
         OffLatticeSimulation<3> simulator(cell_population);
         simulator.SetEndTime(100); // hours
 
-        /* Default timestep is 30 seconds,
-         * so this gives one set of output each hour.
+        /* Default time step is 30 seconds,
+         * so this gives two visualisation outputs each hour.
          */
         simulator.SetSamplingTimestepMultiple(60);
         simulator.SetOutputDirectory("Plos2012_MeshBasedSpheroidWithPde");
@@ -217,11 +217,11 @@ public:
             archive_handler.CopyFileTo(temp_file);
         }
 
-        /* Load the simulation up */
+        /* Load the simulation up from 100 hours archive */
         OffLatticeSimulation<3>* p_simulator
             = CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Load("Plos2012_LongerMeshBasedSpheroidWithPde", 100);
 
-        /* Change some settings */
+        /* Change some settings, a new end time and output directory */
         p_simulator->SetEndTime(150);
         p_simulator->SetOutputDirectory("Plos2012_LongerMeshBasedSpheroidWithPde");
 
