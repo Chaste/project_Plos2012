@@ -38,7 +38,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TESTCRYPTSANDVILLUSLITERATEPAPER_HPP_
 
 /*
- * [[Image(PaperTutorials/Plos2012:combined.png, align=right, border=2, height=202px)]]
+ * [[Image(PaperTutorials/Plos2012:combined.png, align=right, height=202px)]]
  * = Cell-based simulation: multiple crypts and a villus =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.

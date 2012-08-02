@@ -11,8 +11,8 @@ For manual installation of each dependency, on any version of linux, see Develop
 The paper is organised around four examples that are annotated and explained here. Click on the images below to go to the tutorial.
 The code required to run these examples can be downloaded from [http://www.cs.ox.ac.uk/chaste/download the main download site].
 
-[[Image(raw_spiral_wave_image.png, link=wiki:PaperTutorials/Plos2012/SpiralWave, border=1, height=202px)]]
-[[Image(combined.png, link=wiki:PaperTutorials/Plos2012/CryptsAndVillus, border=1, height=202px)]]
-[[Image(spheroid_v2.png, link=wiki:PaperTutorials/Plos2012/SpheroidExperiments, border=1, height=202px)]]
+[[Image(raw_spiral_wave_image.png, link=wiki:PaperTutorials/Plos2012/SpiralWave, height=202px)]]
+[[Image(combined.png, link=wiki:PaperTutorials/Plos2012/CryptsAndVillus, height=202px)]]
+[[Image(spheroid_v2.png, link=wiki:PaperTutorials/Plos2012/SpheroidExperiments, height=202px)]]
 
-[[Image(composite.png, link=wiki:PaperTutorials/Plos2012/ElectroMechanics, border=1, height=200px)]]
+[[Image(composite.png, link=wiki:PaperTutorials/Plos2012/ElectroMechanics, height=200px)]]

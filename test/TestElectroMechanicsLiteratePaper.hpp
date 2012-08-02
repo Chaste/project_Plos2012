@@ -36,7 +36,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TESTELECTROMECHANICSLITERATEPAPER_HPP_
 
 /*
- * [[Image(PaperTutorials/Plos2012:composite.png, align=right, border=2, height=150px)]]
+ * [[Image(PaperTutorials/Plos2012:composite.png, align=right, height=150px)]]
  * = Cardiac electro-mechanics: a cardiac tissue wedge with varying fibre directions =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.
@@ -46,7 +46,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * The fibres have different orientations in different parts of the tissue, resulting in a
  * "twisting" motion.
  *
- * Remember to run with build=GccOptNative for speed.
+ * Remember to run with `build=GccOptNative` for speed.
  *
  * This example uses only files from the core Chaste code.
  *
