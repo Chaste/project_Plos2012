@@ -38,6 +38,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define TESTSPHEROIDEXPERIMENTSLITERATEPAPER_HPP_
 
 /*
+ * [[Image(PaperTutorials/Plos2012:spheroid_v2.png, align=right, border=2, height=202px)]]
  * = Cell-based simulation: tumour spheroid with oxygen diffusion and uptake =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.

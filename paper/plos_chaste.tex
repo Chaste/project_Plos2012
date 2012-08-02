@@ -389,7 +389,7 @@ Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins201
 The Chaste library has found applications in other areas of computational biology. 
 Over the last decade, there has been a strong interest in building a multi-scale modelling framework to study the contractile function of the human gastrointestinal (GI) system \cite{Sanders2006,Buist2010}.  
 %The organs along the GI tract are larger than the heart and their electrophysiology arguably even more complex \cite{Sanders2006}. 
-The authors have used Chaste to integrate the detailed cellular electrophysiology of the stomach into a whole organ framework with a view to studying the effects of genetic mutations as well as diseases such as diabetes \cite{corrias2012modelling} \highlight{Alberto: is book chapter available to cite?}.
+The authors have used Chaste to integrate the detailed cellular electrophysiology of the stomach into a whole organ framework with a view to studying the effects of genetic mutations as well as diseases such as diabetes \cite{corrias2012modelling} \highlight{Gary: Alberto, is book chapter available to cite?}.
 
 A number of other groups are using Chaste for a large variety of simulations, including: 
 lattice-based multiple occupancy cellular automata (Markus Owen, University of Nottingham);  % approved
@@ -427,7 +427,7 @@ There is a guide for people who would like to work with the latest development v
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
-\highlight{Please add in any funding acknowledgements you want - e.g. DTC funding.}
+\highlight{Gary: Please add in any funding acknowledgements you want - e.g. DTC funding.}
 The authors gratefully acknowledge the following sources of financial support:
 GlaxoSmithKline Grants and Affiliates Award to GRM and DJG; 
 EPSRC e-Science pilot project in Integrative Biology (GR/S72023/01);
@@ -464,8 +464,7 @@ This publication was based on work supported in part by Award No. KUK-C1-013-04,
 {\bf 3D off-lattice simulation coupled to PDE: 3D simulation of a tumour spheroid.}
 A cross-section of a tumour spheroid is presented. 
 Cell centres, nodes of a mesh, are represented by spherical shells and coloured according to oxygen concentration. 
-Proliferation is dependent on oxygen, which diffuses and is taken up by cells in the spheroid, so only cells near the outer rim divide.
-Under low oxygen conditions cell death occurs, leaving a necrotic core at the spheroid centre.
+Proliferation is dependent on oxygen, which diffuses and is taken up by cells in the spheroid, so only cells near the outer rim divide. Cell death occurs under low oxygen conditions near the tumour centre.
 %\highlight{See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
 }
 \label{fig:TumourSpheroid}
@@ -525,25 +524,30 @@ consists of
 \begin{itemize}
     \item This article, providing installation instructions and detail on Chaste dependencies.
     \item A Chaste `project' download, also available at \url{http://www.cs.ox.ac.uk/chaste/download} in the ``Bolt-on Projects'' section.
-    \item Video S1.
-    \item Video S2.
-    \item Video S3.
-    \item Video S4.
+    \item Video S1 --- the simulation giving rise to Figure~\ref{fig:TumourSpheroid}.
+    \item Video S2 --- the simulation giving rise to Figure~\ref{fig:FourCrypts}.
+    \item Video S3 --- the simulation giving rise to Figure~\ref{fig:SpiralWave}.
+    \item Video S4 --- the simulation giving rise to Figure~\ref{fig:TwistyWedge}.
 \end{itemize}
 
 
 \section{Installation}
 
-In this section we summarise how to install and run Chaste.
+In this section we summarise how to install and run Chaste. 
+There are links to all the relevant pages on the Chaste wiki page associated with this paper:
+\url{}.
+
+
 The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
 Instructions for this can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
 In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
 
 Chaste can also be installed on any other Linux system. 
 Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
-Instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
+Up-to-date instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
 
-The bolt-on project \texttt{Plos2012} is available to download from \highlight{finish}
+A bolt-on project \texttt{Plos2012} has been made available that reproduces all of the examples in the article.
+It is available to download from the ``Bolt-on projects'' tab on the main Chaste download site: \url{http://www.cs.ox.ac.uk/chaste/download.html}.
 
 \newpage
 \section{Dependencies}

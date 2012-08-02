@@ -36,6 +36,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef TESTSPIRALWAVELITERATEPAPER_HPP_
 #define TESTSPIRALWAVELITERATEPAPER_HPP_
 /*
+ * [[Image(PaperTutorials/Plos2012:raw_spiral_wave_image.png, align=right, border=2, height=202px)]]
  * = Cardiac electrophysiology: spiral wave =
  *
  * On this wiki page we describe in detail the code that is used to run this example from the paper.
