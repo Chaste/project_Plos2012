@@ -77,7 +77,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "CellBasedPdeHandler.hpp"
 #include "ChastePoint.hpp"
 #include "SmartPointers.hpp"
-#include "OxygenBasedCellKiller.hpp"
+#include "ApoptoticCellKiller.hpp"
 #include "AbstractCellBasedTestSuite.hpp"
 
 class TestSpheroidExperimentsLiteratePaper : public AbstractCellBasedTestSuite
@@ -86,7 +86,7 @@ private:
 
     /*
      * These methods are cxx-test instructions running before and after each test below.
-     * They just report the time the test took.
+     * They just report the time the test took, in different parts of the code.
      */
     void setUp()
     {
@@ -157,7 +157,8 @@ public:
         OffLatticeSimulation<3> simulator(cell_population);
         simulator.SetEndTime(100); // hours
 
-        /* Default time step is 30 seconds,
+        /*
+         * Default time step is 30 seconds,
          * so this gives two visualisation outputs each hour.
          */
         simulator.SetSamplingTimestepMultiple(60);
@@ -174,23 +175,30 @@ public:
         CellBasedPdeHandler<3> pde_handler(&cell_population);
         pde_handler.AddPdeAndBc(&pde_and_bc);
 
-        // Pass PDE handler to the simulation
+        /* Pass PDE handler to the simulation */
         simulator.SetCellBasedPdeHandler(&pde_handler);
 
-        // Create a force law and pass it to the simulation
+        /* Create a force law and pass it to the simulation */
         MAKE_PTR(GeneralisedLinearSpringForce<3>, p_force);
         p_force->SetMeinekeSpringStiffness(30.0); // default is 15.0;
         p_force->SetCutOffLength(1.5);
         simulator.AddForce(p_force);
 
-        // Set up cell killer and pass into simulation
-        MAKE_PTR_ARGS(OxygenBasedCellKiller<3>, p_killer, (&cell_population));
+        /*
+         * Set up cell killer and pass into simulation.
+         *
+         * In this simulation the cell cycle model gives cells an
+         * `ApoptoticCellProperty` if they are in low oxygen (as
+         * defined by the PDE). This cell killer removes cells that
+         * have this property.
+         */
+        MAKE_PTR_ARGS(ApoptoticCellKiller<3>, p_killer, (&cell_population));
         simulator.AddCellKiller(p_killer);
 
-        // Run the simulation
+        /* Run the simulation */
         simulator.Solve();
 
-        // Save results
+        /* Save the results */
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(&simulator);
     }
 

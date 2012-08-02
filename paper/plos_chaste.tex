@@ -260,8 +260,6 @@ Chaste provides shared libraries for code which is common to many computational 
 Here we briefly describe the components of the code base and their capabilities.
 We will present and discuss example simulations, and the new scientific insight Chaste has enabled, in the Results section.
 
-\highlight{Add an overall schematic figure --- Figure~\ref{fig:OverallSchematic}??}.
-
 %\comment{JC: Should we add footnote URLs for the various external packages mentioned?}
 % PloS Comp Biol doesn't seem to have footnotes, so I think Supplementary Material table will have to do.
 \begin{itemize}
@@ -290,8 +288,9 @@ If common code occurs in more than one user project, then generally it is moved 
 Here we provide some examples of the types of scientific problems that Chaste has been used for to date.
 This section is structured around four examples, which can all be reproduced by running the tests in the project which accompanies this paper. 
 Each example is simple, so as to enable reproduction on a typical desktop PC. 
-The code for each example is available to download as supplementary material and can also be found at \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012}.
-For examples of state-of-the-art simulation results obtained using Chaste, please refer to the papers cited herein.
+The code for each example is available to download as supplementary material, and can also be found at \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012} 
+where the codes are presented in tutorial-style wiki pages.
+For examples of state-of-the-art scientific results obtained using Chaste, please refer to the papers cited herein.
 
 % What we (and others) have used Chaste for to date. Organise this around 4 figures/movies in supplementary material.
 % \begin{enumerate}
@@ -375,12 +374,13 @@ FIGURE~\ref{fig:TwistyWedge} HERE.
 
 The development of a mesh of the human heart embedded within a torso enabled us to simulate the 12-lead human body surface ECG, and to predict ECG changes under drug action \cite{zemzemi2012}. 
 These techniques may soon be used to predict the results of human clinical trials during drug development, to improve the attrition rates in drug development, and to prevent dangerous drugs reaching the market \cite{Mirams2011,mirams2011time,Mirams2012}.
-Simulations have also been performed to study defibrillation of a human heart in arrhythmia \highlight{[Ey Miguel: ref?]}, with a view to improving medical devices and interventions.
+Simulations have also been performed to study defibrillation of a human heart in arrhythmia \cite{bernabeu2010shock}, with a view to improving medical devices and interventions.
 
 Dynamic loading and units conversion of CellML files \cite{Cooper2011cuc} has enabled studies that consider the extensive variability between different models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
 Our group has also used Chaste to study the effect of stochasticity in cardiac models \cite{Walmsley2012,Dutta2011,Pueyo2011}, a cause of variability in experimental recordings, and potentially linked to pro-arrhythmic risk.
 
-Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, and have enabled the novel biological problems above to be studied. We have focussed on efficient solution of action potential models \cite{Cooper06,Cooper2011cuc,Marsh2012}, matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
+Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, and have enabled the novel biological problems above to be studied. 
+We have focussed on efficient solution of action potential models \cite{Cooper06,Cooper2011cuc,Marsh2012}, matrix preconditioners \cite{Bernabeu2009a,Bernabeu2010}, adaptivity \cite{Southern2012Parallel}, and choice of finite element formulation \cite{Pathmanathan2010ngb,Pathmanathan2011,arthurs2012efficient}.
 
 Chaste displayed exceptional performance in terms of accuracy and convergence properties in a recent independent study surveying major cardiac electro-physiology solvers~\cite{niederer2011verification,pathmanathan2011computational}.
 Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins2011}, with further improvements recently \cite{bernabeu2012}.
@@ -427,20 +427,16 @@ There is a guide for people who would like to work with the latest development v
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
+\highlight{Please add in any funding acknowledgements you want - e.g. DTC funding.}
+The authors gratefully acknowledge the following sources of financial support:
+GlaxoSmithKline Grants and Affiliates Award to GRM and DJG; 
+EPSRC e-Science pilot project in Integrative Biology (GR/S72023/01);
+EPSRC, Software for High Performance Computing project (EP/F011628/1);
+European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT), framework 7 grant (DG-INFSO 224381);
+2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net});
+BBSRC grant to Oxford Centre for Integrative Systems Biology (BB/D020190/1).
+This publication was based on work supported in part by Award No. KUK-C1-013-04, made by King Abdullah University of Science and Technology (KAUST).
 
-\begin{itemize}
-\item IB: EPSRC, e-Science pilot project in Integrative Biology (GR/S72023/01).
-
-\item Original EPSRC grant: EPSRC, Software for High Performance Computing project (EP/F011628/1).
-
-\item PreDiCT: European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT). Framework 7 grant (DG-INFSO 224381)
-
-\item 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net}).
-
-\item OCISB: BBSRC grant BB/D020190/1.
-
-\item KAUST: This publication was based on work supported in part by Award No. KUK-C1-013-04, made by King Abdullah University of Science and Technology (KAUST).
-\end{itemize}
 
 %\section*{References}
 % The bibtex filename
@@ -448,16 +444,16 @@ There is a guide for people who would like to work with the latest development v
 
 \section*{Figure Legends}
 
-\begin{figure}[!htbp]
-\begin{center}
-%\includegraphics[width=4in]{images/schematic.eps}
-\end{center}
-\caption{
-{\bf Overall schematic of the code?}  
-Caption.
-}
-\label{fig:OverallSchematic}
-\end{figure}
+% \begin{figure}[!htbp]
+% \begin{center}
+% %\includegraphics[width=4in]{images/schematic.eps}
+% \end{center}
+% \caption{
+% {\bf Overall schematic of the code?}  
+% Caption.
+% }
+% \label{fig:OverallSchematic}
+% \end{figure}
 
 \begin{figure}[!htbp]
 \begin{center}
