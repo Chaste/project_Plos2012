@@ -79,11 +79,23 @@
 }
 % Insert Author names, affiliations and corresponding author email.
 \\
-Gary R. Mirams$^{1,\ast}$, Christopher J. Arthurs$^{1}$, Miguel O. Bernabeu$^{2}$, 
-Rafel Bordas$^{1}$, Jonathan Cooper$^{1}$, Alberto Corrias$^3$, Yohan Davit$^4$, 
-Sara-Jane Dunn$^5$, Alexander G. Fletcher$^6$, Daniel G. Harvey$^{1}$, Megan E. Marsh$^{7}$, 
-James M. Osborne$^{1}$, Pras Pathmanathan$^{1,8}$, Joe Pitt-Francis$^{1}$, 
-James Southern$^9$, Nejib Zemzemi$^{10}$, David J. Gavaghan$^{1}$
+Gary R. Mirams$^{1,\ast}$, 
+Christopher J. Arthurs$^{1}$, 
+Miguel O. Bernabeu$^{2}$, 
+Rafel Bordas$^{1}$, 
+Jonathan Cooper$^{1}$, 
+Alberto Corrias$^3$, 
+Yohan Davit$^4$, 
+Sara-Jane Dunn$^5$, 
+Alexander G. Fletcher$^6$, 
+Daniel G. Harvey$^{1}$, 
+Megan E. Marsh$^{7}$, 
+James M. Osborne$^{1}$, 
+Pras Pathmanathan$^{1,8}$, 
+Joe Pitt-Francis$^{1}$, 
+James Southern$^9$, 
+Nejib Zemzemi$^{10}$, 
+David J. Gavaghan$^{1}$
 \\
 \bf{1} Computational Biology, Department of Computer Science, University of Oxford, Oxford, UK
 \\
@@ -140,8 +152,8 @@ Moreover, such code can be discarded after it has served its purpose, or inherit
 To move away from this convention, and so to accelerate scientific research in computational biology and physiology, we have adopted an industrial approach to software development in the design of Chaste: 
 providing a library of commonly required numerical tools within a framework that simplifies the simulation of computational biology problems. 
 The Chaste software environment is at the forefront of the cardiac and cell-based modelling fields, being one of the few open source software platforms available for each of these applications. 
-Chaste is now regularly used on supercomputing clusters to simulate the activity of the human heart, and investigate cell behaviour in the development of cancers. 
-The Chaste structure admits quick extensions for new projects, and we believe there are many  components that could be used, and contributed to, by the wider scientific community. 
+Chaste is now regularly used on supercomputing clusters to simulate the activity of the heart, and to investigate cell behaviour in the development of cancers. 
+The Chaste infrastructure admits quick extensions for new projects, and we believe there are many components that could be used, and contributed to, by the wider scientific community. 
 The code is open source and freely available to download.
 
 % We're at 3495 words not including abstract/summary/refs.
@@ -176,7 +188,7 @@ To date, our primary applications have been in computational physiology and biop
 In these fields, a wide array of models are represented as continuum ODE/PDE problems, individual or agent-based discrete models, or a hybrid of these two. 
 Examples of problems falling into these categories include cardiac electrophysiology and electromechanics, tumour growth, and developmental biology. 
 In 2005, we began to build Chaste as a software environment that could be used for simulation of these types of problem, which would overcome many of the pitfalls discussed above. 
-To achieve this, Chaste comprises a library of fully-tested modules for the common elements of these biological exemplars, which can be easily utilised and readily extended for the simulation of novel models (and the use of novel numerical algorithms). 
+To achieve this, Chaste comprises a library of fully-tested modules for the common elements of these biological exemplars, which can be easily utilised and readily extended for the simulation of novel models, and the use of novel numerical algorithms. 
 
 Other notable open source codes include OpenCMISS for continuum modelling \cite{Bradley2011}, CompuCell3D for cellular Potts modelling \cite{Cickovski2007} and MultiCellXML for agent-based modelling and simulation data \cite{Macklin2012}. 
 Chaste is unique in being well suited for both continuum and discrete modelling approaches, and is in an excellent position to investigate hybrid approaches \cite{Osborne2010}.
@@ -184,7 +196,8 @@ Chaste is unique in being well suited for both continuum and discrete modelling 
 
 Release 1.0 of Chaste occurred in 2009 and has been described previously \cite{Bernabeu2008,pitt2009chaste}. 
 Through the use of examples, we will describe the capabilities of version 3.1, novel scientific applications that have been made possible, and future directions. 
-It is our intention that all of the examples in this article can be easily reproduced on a desktop PC, they are therefore less computationally intensive than many of the simulations performed in active research.
+It is our intention that all of the examples in this article can be easily reproduced on a desktop PC;
+they are therefore less computationally intensive than many of the simulations performed in active research.
 The example simulations can be run, and figures recreated, by downloading the associated Chaste project from \url{http://www.cs.ox.ac.uk/chaste/download}, as described in the Supplementary Material.
 
 \section*{Design and Implementation}
@@ -222,7 +235,7 @@ This has the advantage of forcing developers to consider the best interface for 
 The test code is committed to the central repository alongside the source code that it tests.
 Upon each commit, all the tests are run in order to check that no functionality has been inadvertently broken.
 This ensures the code always performs as intended, and developers `protect' their new code from any future changes to either the code itself, or any code it relies on.
-This does not guarantee bug-free code, but in practice this approach makes bugs very rare.
+This approach does not guarantee bug-free code, but in practice makes bugs very rare.
 When bugs do occur, this is typically because functionality is expected that has not been fully tested, and the first step in the solution is to write more tests.
 
 Additional tests are run each night, which: check all of the standard tests for memory leaks; 
@@ -253,7 +266,7 @@ In addition a standardised code layout is adopted, with in-line documentation, w
 This is made easier by using the Eclipse IDE (\url{http://www.eclipse.org}) \cite{allowatt2005ide}, to allow developers to share a code layout specification.
 The documentation is compiled into an auto-generated website, publicly available, using doxygen (\url{http://www.doxygen.org}).
 %We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
-Other C++ standards are documented and publicly accessible on the Chaste wiki.
+Other C++ standards are documented and publicly accessible on the Chaste wiki \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
 
 \subsection*{Code Layout and Design}
 Chaste provides shared libraries for code which is common to many computational biology problems. 
@@ -272,13 +285,14 @@ We will present and discuss example simulations, and the new scientific insight 
  \item \texttt{continuum\_mechanics} --- code for solving compressible and incompressible general non-linear elasticity problems.
 \end{itemize}
 
-These core components are used by two main application components that have driven Chaste development to date --- \texttt{cell\_based} and \texttt{heart}, these will be discussed in the Results section.
+These core components are used by two main application components that have driven Chaste development to date --- \texttt{cell\_based} and \texttt{heart}. These will be discussed in the Results section.
 
 \subsubsection*{Projects}
 
 We support `bolt-on' projects for individual studies using Chaste. 
 This allows storage of code in the version-control repository, and provides an interface to the testing framework.
-We aim to release a project with each new publication, allowing all of the results and figures in an article to be reproduced with a given version of Chaste, see Supplementary Material for instructions on downloading the project associated with this article.
+We aim to release a project with each new publication, allowing all of the results and figures in an article to be reproduced with a given version of Chaste.
+See the Supplementary Material for instructions on downloading the project associated with this article.
 If common code occurs in more than one user project, then generally it is moved to the central Chaste repository, thus becoming publicly available.
 
 \section*{Results}
@@ -286,9 +300,9 @@ If common code occurs in more than one user project, then generally it is moved 
 %    Results – Examples of biological problems solved using the software, 
 %    including results obtained with the deposited test data and associated parameters.
 Here we provide some examples of the types of scientific problems that Chaste has been used for to date.
-This section is structured around four examples, which can all be reproduced by running the tests in the project which accompanies this paper. 
+This section is structured around four examples, which can all be reproduced by running the tests in the project accompanying this paper. 
 Each example is simple, so as to enable reproduction on a typical desktop PC. 
-The code for each example is available to download as supplementary material, and can also be found at \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012} 
+The code for each example is available to download as part of the supplementary material, and can also be found at \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012} 
 where the codes are presented in tutorial-style wiki pages.
 For examples of state-of-the-art scientific results obtained using Chaste, please refer to the papers cited herein.
 
@@ -350,7 +364,7 @@ In Figure~\ref{fig:FourCrypts} we present an example based on the intestinal epi
 In this simulation of a small intestinal villus surrounded by four crypts, cells move according to a nearest-neighbour-defined repulsive force.
 Over the course of the simulation each of the four crypts becomes monoclonal, leading to a villus carrying each of the four clonal populations  (see video S2).
 In addition, each cell is carrying an ODE system for Delta-Notch signalling, which takes as an input the average Delta level of the neighbours \cite{collier1996pattern}.
-This leads to a dynamic pattern of Delta-Notch with high/low activity in neighbouring cells, thought to lead to differentiation into secretory and absorbative cells.
+This leads to a dynamic pattern of Delta-Notch with high/low activity in neighbouring cells, thought to lead to differentiation into secretory and absorbative cells \cite{crosnier2006organizing}.
 
 \subsection*{Heart}
 
@@ -362,7 +376,7 @@ Heterogeneities in fibre directions and cell models can be included, and post-pr
 FIGURE~\ref{fig:SpiralWave} HERE. 
 
 In Figure~\ref{fig:SpiralWave} we present a snapshot of a two-dimensional monodomain simulation which reproduces one of the results of a study into electrical wave dynamics \cite{Qu2000Origins} (see video S3).
-A stable re-entrant spiral wave is generated on a 3cm x 3cm mesh, by appropriate stimulation and alteration of ion-channel expression in a cardiac action potential model \cite{Luo1991Model}.
+A stable re-entrant spiral wave is generated on a 3cm $\times$ 3cm mesh, by appropriate stimulation and alteration of ion-channel expression in a cardiac action potential model \cite{Luo1991Model}.
 Such behaviour of electrical waves is commonly studied to understand how changes to ion-channel dynamics, through disease or drug block, can lead to the onset of fatal arrhythmias.
 
 Recently we have also begun to work on electromechanics \cite{Pathmanathan2010}, this becoming publicly available in v3.0. 
@@ -376,7 +390,7 @@ The development of a mesh of the human heart embedded within a torso enabled us 
 These techniques may soon be used to predict the results of human clinical trials during drug development, to improve the attrition rates in drug development, and to prevent dangerous drugs reaching the market \cite{Mirams2011,mirams2011time,Mirams2012}.
 Simulations have also been performed to study defibrillation of a human heart in arrhythmia \cite{bernabeu2010shock}, with a view to improving medical devices and interventions.
 
-Dynamic loading and units conversion of CellML files \cite{Cooper2011cuc} has enabled studies that consider the extensive variability between different models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
+Dynamic loading and units conversion of CellML files \cite{Cooper2011cuc} have enabled studies that consider the extensive variability between different models \cite{Pathmanathan2011,Mirams2011,Cooper2011}.
 Our group has also used Chaste to study the effect of stochasticity in cardiac models \cite{Walmsley2012,Dutta2011,Pueyo2011}, a cause of variability in experimental recordings, and potentially linked to pro-arrhythmic risk.
 
 Improvements to the numerical algorithms used in cardiac simulation have been a large focus of our research efforts, and have enabled the novel biological problems above to be studied. 
@@ -387,9 +401,10 @@ Independent benchmarking has shown good scaling to 2048 cores \cite{Strazdins201
 
 \subsection*{Other application areas}
 The Chaste library has found applications in other areas of computational biology. 
-Over the last decade, there has been a strong interest in building a multi-scale modelling framework to study the contractile function of the human gastrointestinal (GI) system \cite{Sanders2006,Buist2010}.  
+Over the last decade, there has been a strong interest in building a multi-scale modelling framework to study the contractile function of the human gastrointestinal system \cite{Sanders2006,Buist2010}.  
 %The organs along the GI tract are larger than the heart and their electrophysiology arguably even more complex \cite{Sanders2006}. 
 The authors have used Chaste to integrate the detailed cellular electrophysiology of the stomach into a whole organ framework with a view to studying the effects of genetic mutations as well as diseases such as diabetes \cite{corrias2012modelling, CDB13}.
+
 A number of other groups are using Chaste for a large variety of simulations, including: 
 lattice-based multiple occupancy cellular automata (Markus Owen, University of Nottingham);  % approved
 the effects of radiation on tissue (Shaowen Hu, NASA); % approved
@@ -404,7 +419,7 @@ and neuron electrophysiology (Andres Agudelo-Toro, Max Planck Institute Universi
 %    Any future work planned to be carried out by the authors, how others might extend the software.
 %\subsection*{Availability}
 Chaste is freely available to download from \url{http://www.cs.ox.ac.uk/chaste}. 
-Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, v3.1 and future releases are under the more flexible 3-clause BSD licence, to facilitate use of the code by industrial partners.
+Releases 1.0 -- 3.0 were under the LGPL v2.0 licence, while v3.1 and future releases are under the more flexible 3-clause BSD licence, to facilitate use of the code by industrial partners.
 
 %\subsection*{Future Directions}
 
@@ -462,8 +477,9 @@ This publication was based on work supported in part by Award No. KUK-C1-013-04,
 \caption{
 {\bf 3D off-lattice simulation coupled to PDE: 3D simulation of a tumour spheroid.}
 A cross-section of a tumour spheroid is presented. 
-Cell centres, nodes of a mesh, are represented by spherical shells and coloured according to oxygen concentration. 
-Proliferation is dependent on oxygen, which diffuses and is taken up by cells in the spheroid, so only cells near the outer rim divide. Cell death occurs under low oxygen conditions near the tumour centre.
+Cell centres, nodes of a mesh, are represented by spherical shells and coloured according to the local oxygen concentration. 
+Proliferation is dependent on oxygen, which diffuses and is taken up by cells in the spheroid, such that only cells near the outer rim divide. 
+Cell death occurs under low oxygen conditions near the centre of the spheroid.
 %\highlight{See also MeshBasedSpheroidVtkAsPointsCrossSection.avi.}
 }
 \label{fig:TumourSpheroid}
@@ -475,8 +491,11 @@ Proliferation is dependent on oxygen, which diffuses and is taken up by cells in
 \end{center}
 \caption{
 {\bf 3D off-lattice simulation confined to a 2D surface: small intestinal crypts and villus}.  
-Left: cells are labelled according to their ancestor cell, each crypt gives rise to a monoclonal population, the villus is comprised of a population from each crypt. 
-Right: the same simulation, here cells are labelled according to Delta levels (nondimensionalised), Delta-Notch patterning occurs due to a signalling model inside each cell, which depends on the activity of neighbouring cells, this patterning is thought to lead to differentiation into secretory and absorbative cell types.
+Left: cells are labelled according to their ancestor cell; 
+each crypt gives rise to a monoclonal population, with a multiclonal villus comprised of cells from each crypt. 
+Right: the same simulation, here with cells labelled according to Delta levels (non-dimensionalised); 
+Delta-Notch patterning occurs due to a signalling model inside each cell, which depends on the activity of neighbouring cells, 
+and is thought to lead to differentiation into secretory and absorbative cell types.
 }
 \label{fig:FourCrypts}
 \end{figure}
@@ -533,8 +552,8 @@ consists of
 \section{Installation}
 
 In this section we summarise how to install and run Chaste. 
-There are links to all the relevant pages on the Chaste wiki page associated with this paper:
-\url{}.
+There are links to all the relevant information from the Chaste wiki page associated with this paper:
+\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012}.
 
 
 The simplest method is to use the Ubuntu Linux operating system, as a package is available for this platform.
