@@ -169,7 +169,7 @@ G. Wilson \cite{wilson2006s}
 \end{quotation}
 
 \textbf{First}, the \emph{speed} at which progress can be made by researchers in our field is typically limited because previously developed models and methods are often not re-used effectively.
-At the most practical level, model equations and algorithms are encoded as software (or, more usefully, as mark-up languages for the generation of software \cite{Cooper2010virtual}), describing unambiguously the computations required for simulations.
+At the most practical level, model equations and algorithms are encoded as software (or, more usefully, as mark-up languages for generating software \cite{Cooper2010virtual}), describing unambiguously the computations required for simulations.
 In computational physiology and biology, many problems share a need for the same underlying components and numerical schemes.
 It is still common for each new PhD student or post-doctoral researcher to `re-invent the wheel' and develop, for example, their own mesh structures, ordinary/partial differential equation (ODE/PDE) solvers and input/output (IO) interfaces. 
 This not only slows progress, but a lack of formal software training on structuring and documenting code can lead to `spaghetti code' \cite{Merali2010}. 
@@ -218,7 +218,7 @@ The example simulations can be run, and figures recreated, by downloading the as
 
 In this section, we discuss the Chaste development strategy, as this is fundamental to its properties, capabilities and extensibility for novel problems.
 We then introduce the code layout and the available model types and algorithms.
-Chaste is written in C++, a fairly low-level compiled language that allows object-oriented class definitions.
+Chaste is written in C++, a compiled language that allows object-oriented class definitions.
 This makes the code suitable for applications where efficient memory management and performance are key, but also allows simple extension and inheritance of existing functionality.
 
 \subsection*{Development Strategy}
@@ -269,7 +269,7 @@ The documentation is compiled into an auto-generated website, publicly available
 Other C++ standards are documented and publicly accessible on the Chaste wiki \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
 
 \subsection*{Code Layout and Design}
-Chaste provides shared libraries for code which is common to many computational biology problems. 
+Chaste provides libraries for code which is common to many computational biology problems. 
 Here we briefly describe the components of the code base and their capabilities.
 We will present and discuss example simulations, and the new scientific insight Chaste has enabled, in the Results section.
 
@@ -278,7 +278,7 @@ We will present and discuss example simulations, and the new scientific insight 
 \begin{itemize}
  \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations) using the Boost serialization library \cite{karlsson2005beyond}, parallel vector classes, and code to handle warnings and errors.
  \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
- \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; mesh distribution using METIS/parMETIS \cite{karypis1998fast}; readers and writers for Triangle/Tetgen \cite{shewchuk96b,si2005}, meshalyzer, cmgui and VTK (Paraview) formats.
+ \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; mesh distribution using METIS/parMETIS \cite{karypis1998fast}; readers and writers for Triangle/TetGen \cite{shewchuk96b,si2005}, Meshalyzer, Cmgui and VTK (Paraview) formats.
  \item \texttt{linalg} (linear algebra) --- code which uses Boost uBLAS and PETSc \cite{petsc} for vector and matrix operations.
  \item \texttt{ode} --- code for defining ODEs; solvers, basic finite difference schemes, CVODE \cite{hindmarsh2005sundials}; termination on root-finding capabilities.
  \item \texttt{pde} --- code for defining elliptic and parabolic second-order PDEs; parallel finite element solvers of generic coupled systems of PDEs (using \texttt{mesh} and \texttt{linalg}).
@@ -321,7 +321,7 @@ The \texttt{cell\_based} code provides a range of modelling frameworks for indiv
 Common code is provided for cell-cycle models, cell death events, intracellular signalling pathways, and for coupling to PDEs, e.g. for the diffusion of nutrients or oxygen. 
 For cellular simulations, there are two main types of model: on- and off-lattice.
 
-\textbf{On-lattice} models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which one lattice site is associated with one or more cells.
+\textbf{On-lattice} models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which each lattice site is associated with one or more cells.
 Advanced models of angiogenesis have been built using the cellular automata framework \cite{perfahl2011multiscale}.
 Cellular Potts models are also available (1--3D), in which a cell occupies a number of lattice sites \cite{Graner1992Simulation,Cickovski2007}, and additional sites are included or removed to minimize an energy function.
 
@@ -331,7 +331,7 @@ Cellular Potts models are also available (1--3D), in which a cell occupies a num
 node-based (1--3D), where neighbours are any nodes within a certain interaction distance;
 or mesh-based (1--3D), where neighbours are nodes which share elements of a mesh (defined by a Delaunay triangulation of the cell centres).
 
-(ii) Vertex dynamics models (2D) represent cells as polygons (or polyhedrons) whose vertices move in response to forces. 
+(ii) Vertex dynamics models (2D) represent cells as polygons whose vertices move in response to forces. 
 %Cells are defined by the vertices of their polygonal perimeter, these move according to energy minimization formulae of various types - \highlight{list Nagai-Honda, Weiliky Oster etc. here perhaps a sentence on each, include a generic energy minimization equation here?, cite ...}.
 %It is standard to make the simplifying assumption that the motion of vertices is over-damped \cite{Drasdo2000}, and inertial terms are small compared to dissipative terms.
 %This leads to first-order dynamics, with the evolution of the position ${\bf r}_i$ of each vertex $i$ determined by
@@ -350,7 +350,7 @@ FIGURE~\ref{fig:TumourSpheroid} HERE.
 
 Our first example uses an off-lattice mesh based 3D simulation, coupled to a PDE.
 The PDE boundary condition is a fixed oxygen concentration at the spheroid surface, oxygen diffuses and is taken up by cells.
-In low oxygen conditions cells cease to proliferate, and in very low conditions they die, leaving a void in the centre of the spheroid (see Figure~\ref{fig:TumourSpheroid} \highlight{and video S1}), as observed in experiment.
+In low oxygen conditions cells cease to proliferate, and in very low conditions they die, leaving a void in the centre of the spheroid (see Figure~\ref{fig:TumourSpheroid} and video S1), as observed in experiment.
 
 A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
 This component includes code to define the intestinal crypt geometry, Wnt signalling pathway and intestinal cell-cycle models. 
@@ -375,14 +375,14 @@ Heterogeneities in fibre directions and cell models can be included, and post-pr
 
 FIGURE~\ref{fig:SpiralWave} HERE. 
 
-In Figure~\ref{fig:SpiralWave} we present a snapshot of a two-dimensional monodomain simulation which reproduces one of the results of a study into electrical wave dynamics \cite{Qu2000Origins} (see video S3).
+In Figure~\ref{fig:SpiralWave} we present a snapshot of a 2-D monodomain simulation which reproduces one of the results of a study into electrical wave dynamics \cite{Qu2000Origins} (see video S3).
 A stable re-entrant spiral wave is generated on a 3cm $\times$ 3cm mesh, by appropriate stimulation and alteration of ion-channel expression in a cardiac action potential model \cite{Luo1991Model}.
 Such behaviour of electrical waves is commonly studied to understand how changes to ion-channel dynamics, through disease or drug block, can lead to the onset of fatal arrhythmias.
 
-Recently we have also begun to work on electromechanics \cite{Pathmanathan2010}, this becoming publicly available in v3.0. 
+Recently we have also begun to work on electromechanics \cite{Pathmanathan2010}, this becoming publicly available from v3.0 onwards. 
 We use this electromechanics code for our final example in Figure~\ref{fig:TwistyWedge}.
 Deformation occurs due to cellular tension development in response to electrical activation and calcium release, coupled to a model of mechanical properties of cardiac tissue.
-Figure~\ref{fig:TwistyWedge} shows varying fibre directions throughout a three-dimensional block of tissue, alongside the spread of an electrical wave, and subsequent deformation (see also video S4).
+Figure~\ref{fig:TwistyWedge} shows varying fibre directions throughout a 3-D block of tissue, alongside the spread of an electrical wave, and subsequent deformation (see also video S4).
 
 FIGURE~\ref{fig:TwistyWedge} HERE.
 
@@ -428,7 +428,7 @@ parallel cardiac electro-mechanics;
 His-Purkinje system in cardiac electrophysiology; 
 lung mechanics; 
 import of SBML models for signalling pathway and cell-cycle models; 
-fluid flow for haemodynamics.
+fluid flow for haemodynamics and airflow.
 We are investigating ways to make it easier for users to contribute code, and aim to support a Microsoft Windows environment in the next year.
 
 \subsection*{How to become an active developer}
@@ -446,7 +446,7 @@ The authors gratefully acknowledge the following sources of financial support:
 GlaxoSmithKline Grants and Affiliates Award to GRM and DJG; 
 EPSRC e-Science pilot project in Integrative Biology (GR/S72023/01);
 EPSRC, Software for High Performance Computing project (EP/F011628/1);
-European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT), framework 7 grant (DG-INFSO 224381);
+European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT), Framework 7 grant (DG-INFSO 224381);
 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net});
 BBSRC grant to Oxford Centre for Integrative Systems Biology (BB/D020190/1).
 This publication was based on work supported in part by Award No. KUK-C1-013-04, made by King Abdullah University of Science and Technology (KAUST).
@@ -506,7 +506,7 @@ and is thought to lead to differentiation into secretory and absorbative cell ty
 \end{center}
 \caption{
 {\bf Cardiac electrophysiology: a re-entrant spiral wave}.
-This figure displays the membrane voltage in a two-dimensional 3cm $\times$ 3cm monodomain simulation using the Luo-Rudy 1991 action-potential model \cite{Luo1991Model} with the modifications and protocol suggested in \cite{Qu2000Origins}.
+This figure displays the membrane voltage in a 2-D 3cm $\times$ 3cm monodomain simulation using the Luo-Rudy 1991 action-potential model \cite{Luo1991Model} with the modifications and protocol suggested in \cite{Qu2000Origins}.
 }
 \label{fig:SpiralWave}
 \end{figure}
@@ -572,9 +572,10 @@ It is available to download from the ``Bolt-on projects'' tab on the main Chaste
 
 \begin{table}[!ht]
     \caption{
-    \bf{Chaste Dependencies.} For the full text of all licences examine the contents of \protect\url{docs/licences.html} 
+    \textbf{Chaste Dependencies.} For the full text of all licences examine the contents of \protect\url{docs/licences.html} 
     or visit \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}
-    \comment{JC: Update to a release version.}}
+    \comment{JC: Update to a release version.}
+    \\ $^*$ indicates that the software is packaged with Chaste.}
     \begin{tabular}{|l|l|l|}
       \hline
       Dependency & Available from & Licence \\
@@ -583,16 +584,17 @@ Amara & \url{http://wiki.xml3k.org/Amara} & Apache 1.1\\
 Boost & \url{http://www.boost.org} & Custom\\
 CodeSynthesis XSD &  \url{http://codesynthesis.com/products/xsd} & GPL\\
 CVODE (SUNDIALS) & \url{https://computation.llnl.gov/casc/sundials} & BSD\\
-CxxTest & \url{http://cxxtest.tigris.org} & LGPL\\
+CxxTest$^*$ & \url{http://cxxtest.tigris.org}  & LGPL\\
 HDF5 &  \url{http://www.hdfgroup.org/HDF5/HDF5.txt} & Custom\\
 (Par)METIS &  \url{http://glaros.dtc.umn.edu/gkhome/views/metis} & Custom\\
-MPICH &  \url{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
+MPICH, or&  \url{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
+Open MPI & \url{http://www.open-mpi.org} & BSD\\
 PETSc &  \url{http://www.mcs.anl.gov/petsc} & Custom\\
 Pyparsing &  \url{http://pyparsing.wikispaces.com} & MIT\\
 RDFLib &  \url{https://github.com/RDFLib} & BSD\\
 RNV &  \url{http://www.davidashen.net/rnv.html} & BSD\\
-TetGen &  packaged with Chaste & Custom\\
-triangle &  packaged with Chaste & Custom\\
+TetGen$^*$ &  \url{http://tetgen.berlios.de}  & Custom\\
+Triangle$^*$ & \url{http://www.cs.cmu.edu/~quake/triangle.html}  & Custom\\
 VTK &  \url{http://www.vtk.org} & BSD\\
 Xerces &  \url{http://xerces.apache.org/xerces-c} & Apache 2 \\
       \hline
