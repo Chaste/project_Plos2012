@@ -82,7 +82,8 @@ public:
         double mesh_width = 3; // cm
         mesh.ConstructRegularSlabMesh(node_spacing_in_mesh, mesh_width /*length*/, mesh_width /*width*/);
         /*
-         * Set the simulation duration, etc, and create an instance of the cell factory.
+         * Set the simulation duration, etc.
+         *
          * One thing that should be noted for monodomain problems, the ''intracellular
          * conductivity'' is used as the monodomain effective conductivity (not a
          * harmonic mean of intra and extracellular conductivities).
@@ -94,6 +95,13 @@ public:
         HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.01, 0.01, 1);
 
+        /*
+         * "Cell factory" objects have the task of providing a cardiac cell model
+         * for each node of the mesh. When a factory constructs a cell it allocates
+         * an ODE solver and a stimulus. In this case we have written a cell factory
+         * to provide the necessary S1-S2 style stimulus to initiate a spiral wave.
+         * This class can be found in the project's 'src' folder.
+         */
         LuoRudyCellFactory cell_factory(mesh_width,mesh_width);
 
         /*
