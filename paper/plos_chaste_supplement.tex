@@ -1,0 +1,145 @@
+% Template for PLoS
+% Version 1.0 January 2009
+%
+% To compile to PDF, run:
+% latex plos.template
+% bibtex plos.template
+% latex plos.template
+% latex plos.template
+% dvipdf plos.template
+
+% DO NOT EDIT - PLoS STYLE
+\documentclass[10pt]{article}
+
+% amsmath package, useful for mathematical formulas
+\usepackage{amsmath}
+% amssymb package, useful for mathematical symbols
+\usepackage{amssymb}
+
+% graphicx package, useful for including eps and pdf graphics
+% include graphics with the command \includegraphics
+\usepackage{graphicx}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+\usepackage{color} 
+
+% Use doublespacing - comment out for single spacing
+\usepackage{setspace} 
+\doublespacing
+
+% Text layout
+\topmargin 0.0cm
+\oddsidemargin 0.5cm
+\evensidemargin 0.5cm
+\textwidth 16cm 
+\textheight 21cm
+
+% Bold the 'Figure #' in the caption and separate it with a period
+% Captions will be left justified
+\usepackage[labelfont=bf,labelsep=period,justification=raggedright]{caption}
+
+% Use the PLoS provided bibtex style
+\bibliographystyle{plos2009}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+% Leave date blank
+\date{}
+
+\pagestyle{myheadings}
+%% ** EDIT HERE **
+
+%% ** EDIT HERE **
+\usepackage{url}
+%% PLEASE INCLUDE ALL MACROS BELOW
+\newcommand{\highlight}[1]{{\color{red} \bf{#1}}}
+\newcommand{\garycomment}[1]{{\color{green} \bf{Gary: #1}}}
+\newcommand{\comment}[1]{{\color{green} \bf{#1}}}
+%% END MACROS SECTION
+
+% Article Structure
+%    Title which includes the name of the software.
+%    Authors and affiliations.
+%    Abstract – Fundamental task(s) which the software accomplishes, examples of biological insights from the use of the software, details of availability, including where to download the most recent source code, the license, any operating system dependencies, and support mailing lists.
+%    Introduction – A description of the problem addressed by the software and of its novelty and exceptional nature in addressing that problem.
+%    Design and Implementation – Details of the algorithms used by the software, how those algorithms have been instantiated, including dependencies. Details of the supplied test data and how to install and run the software should be detailed in the supplementary material.
+%    Results – Examples of biological problems solved using the software, including results obtained with the deposited test data and associated parameters.
+%    Availability and Future Directions – Where the software has been deposited. Any future work planned to be carried out by the authors, how others might extend the software.
+\begin{document}
+
+% Title must be 150 characters or less
+\begin{flushleft}
+{\Large
+\textbf{Chaste: an open source C++ library for computational physiology and biology}
+}
+\section*{Supplementary Material}
+
+Supplementary material for the article consists of:
+\begin{itemize}
+    \item This article, providing installation instructions and detail on Chaste dependencies.
+    \item A Chaste `project' download, also available at \url{http://www.cs.ox.ac.uk/chaste/download} in the ``Bolt-on Projects'' section.
+    \item Video S1 --- the simulation giving rise to Figure~1.
+    \item Video S2 --- the simulation giving rise to Figure~2.
+    \item Video S3 --- the simulation giving rise to Figure~3.
+    \item Video S4 --- the simulation giving rise to Figure~4.
+    \item A series of wiki pages giving tutorial-style guide to the code that generated these figures at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012}.
+\end{itemize}
+
+\section{Installation}
+
+In this section we summarise how to install and run Chaste. 
+There are links to all the relevant information on the Chaste wiki page associated with this paper:
+\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012}.
+
+The simplest method is to use the Ubuntu Linux operating system, as a `one-click install' package is available for this platform.
+Instructions for this can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
+\newline
+In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
+
+Chaste can also be installed on any other Linux system. 
+Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
+Up-to-date instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
+
+A bolt-on project \texttt{Plos2012} has been made available that reproduces all of the examples in the article.
+It is available to download from the ``Bolt-on projects'' tab on the main Chaste download site: \url{http://www.cs.ox.ac.uk/chaste/download.html}.
+
+\section{Dependencies}
+
+\begin{table}[!ht]
+\caption{
+\textbf{Chaste Dependencies.} For the full text of all licences examine the contents of \protect\url{docs/licences.html} 
+or visit \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/16530/trunk/docs/Licences.html}.
+An asterisk indicates that the software is packaged with Chaste.}    
+\begin{tabular}{|l|l|l|}
+\hline
+Dependency & Available from & Licence \\
+\hline
+Amara & \url{http://wiki.xml3k.org/Amara} & Apache 1.1\\
+Boost & \url{http://www.boost.org} & Custom\\
+CodeSynthesis XSD &  \url{http://codesynthesis.com/products/xsd} & GPL\\
+CVODE (SUNDIALS) & \url{https://computation.llnl.gov/casc/sundials} & BSD\\
+CxxTest$^*$ & \url{http://cxxtest.tigris.org}  & LGPL\\
+HDF5 &  \url{http://www.hdfgroup.org/HDF5/HDF5.txt} & Custom\\
+(Par)METIS &  \url{http://glaros.dtc.umn.edu/gkhome/views/metis} & Custom\\
+MPICH, or&  \url{http://www.mcs.anl.gov/research/projects/mpich2} & Custom\\
+Open MPI & \url{http://www.open-mpi.org} & BSD\\
+PETSc &  \url{http://www.mcs.anl.gov/petsc} & Custom\\
+Pyparsing &  \url{http://pyparsing.wikispaces.com} & MIT\\
+RDFLib &  \url{https://github.com/RDFLib} & BSD\\
+RNV &  \url{http://www.davidashen.net/rnv.html} & BSD\\
+TetGen$^*$ &  \url{http://tetgen.berlios.de}  & Custom\\
+Triangle$^*$ & \url{http://www.cs.cmu.edu/~quake/triangle.html}  & Custom\\
+VTK &  \url{http://www.vtk.org} & BSD\\
+Xerces &  \url{http://xerces.apache.org/xerces-c} & Apache 2 \\
+\hline
+\end{tabular}
+\label{tab:ChasteDependencies}
+\end{table}
+\end{flushleft}
+\end{document}
+
