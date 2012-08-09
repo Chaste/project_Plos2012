@@ -136,7 +136,7 @@ Chaste is constantly evolving and is now being applied to a far wider range of p
 The code provides modules for handling common scientific computing components, such as meshes and solvers for ordinary and partial differential equations (ODEs/PDEs).
 Re-use of these components avoids the need for researchers to `re-invent the wheel' with each new project, accelerating the rate of progress in new applications.
 Chaste is developed using industrial techniques, in particular test-driven development, to ensure code quality, re-use and reliability.
-In this article we provide examples that illustrate the types of problems Chaste can be used to solve, which can be run on a desktop computer.
+In this article we provide examples that illustrate the types of problems Chaste can be used to solve, and which can be run on a desktop computer.
 We highlight some of the scientific studies that use of Chaste has enabled, and the insights they have provided.
 The source code, both for releases and the development version, is available under an open source BSD licence to download at \url{http://www.cs.ox.ac.uk/chaste}, 
 together with details of a mailing list and links to documentation and tutorials.
@@ -266,7 +266,7 @@ In addition a standardised code layout is adopted, with in-line documentation, w
 This is made easier by using the Eclipse IDE (\url{http://www.eclipse.org}) \cite{allowatt2005ide}, to allow developers to share a code layout specification.
 The documentation is compiled into an auto-generated website, publicly available, using doxygen (\url{http://www.doxygen.org}).
 %We have a standard approach for other technicalities unique to C++, which are similar to some of the Joint Strike Fighter C++ standards \cite{jsf}.
-Other C++ standards are documented and publicly accessible on the Chaste wiki \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
+Other coding standards are documented and publicly accessible on the Chaste wiki, \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi}.
 
 \subsection*{Code Layout and Design}
 Chaste provides libraries for code which is common to many computational biology problems. 
@@ -277,8 +277,8 @@ We will present and discuss example simulations, and the new scientific insight 
 % PloS Comp Biol doesn't seem to have footnotes, so I think Supplementary Material table will have to do.
 \begin{itemize}
  \item \texttt{global} --- contains code for basic mathematics (including a random number generator), time stepping, checkpointing (saving and loading simulations) using the Boost serialization library \cite{karlsson2005beyond}, parallel vector classes, and code to handle warnings and errors.
- \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, together with modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
- \item \texttt{mesh} --- code for storing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; mesh distribution using METIS/parMETIS \cite{karypis1998fast}; readers and writers for Triangle/TetGen \cite{shewchuk96b,si2005}, Meshalyzer, Cmgui and VTK (Paraview) formats.
+ \item \texttt{io} (input/output) --- code for reading, writing and conversion of various file formats, including modules to handle the HDF5 scientific file format \cite{folk1999hdf5}, which enables distributed data to be collated and stored in a single file.
+ \item \texttt{mesh} --- code for representing linear or quadratic tetrahedral meshes and vertex meshes in memory; nodes, elements, boundary properties; mesh generation; mesh distribution using METIS/parMETIS \cite{karypis1998fast}; readers and writers for Triangle/TetGen \cite{shewchuk96b,si2005}, Meshalyzer, Cmgui and VTK (Paraview) formats.
  \item \texttt{linalg} (linear algebra) --- code which uses Boost uBLAS and PETSc \cite{petsc} for vector and matrix operations.
  \item \texttt{ode} --- code for defining ODEs; solvers, basic finite difference schemes, CVODE \cite{hindmarsh2005sundials}; termination on root-finding capabilities.
  \item \texttt{pde} --- code for defining elliptic and parabolic second-order PDEs; parallel finite element solvers of generic coupled systems of PDEs (using \texttt{mesh} and \texttt{linalg}).
@@ -318,7 +318,7 @@ For examples of state-of-the-art scientific results obtained using Chaste, pleas
 \subsection*{Cell-based}
 
 The \texttt{cell\_based} code provides a range of modelling frameworks for individual-cell-based simulations.
-Common code is provided for cell-cycle models, cell death events, intracellular signalling pathways, and for coupling to PDEs, e.g. for the diffusion of nutrients or oxygen. 
+Common code is provided for cell-cycle models, cell death events, intracellular signalling pathways, and for coupling to PDEs, e.g.\ for the diffusion of nutrients or oxygen. 
 For cellular simulations, there are two main types of model: on- and off-lattice.
 
 \textbf{On-lattice} models which are supported include cellular automata (1--3D) \cite{moreira2002cellular}, in which each lattice site is associated with one or more cells.
@@ -349,7 +349,7 @@ We have used Chaste to examine the suitability of these different modelling para
 FIGURE~\ref{fig:TumourSpheroid} HERE.
 
 Our first example uses an off-lattice mesh based 3D simulation, coupled to a PDE.
-The PDE boundary condition is a fixed oxygen concentration at the spheroid surface, oxygen diffuses and is taken up by cells.
+The PDE boundary condition is a fixed oxygen concentration at the spheroid surface; oxygen diffuses and is taken up by cells.
 In low oxygen conditions cells cease to proliferate, and in very low conditions they die, leaving a void in the centre of the spheroid (see Figure~\ref{fig:TumourSpheroid} and video S1), as observed in experiment.
 
 A specialist \texttt{crypt} code component has been developed to study intestinal crypts and the initiation of colorectal cancer. 
@@ -370,7 +370,7 @@ This leads to a dynamic pattern of Delta-Notch with high/low activity in neighbo
 
 The \texttt{heart} component of Chaste provides fast and accurate solution of electro-mechanical problems on large meshes, optimised for high-performance computing facilities by using PETSc for parallel linear algebra, and (par)METIS for mesh distribution \cite{bordas2009simulation}.
 
-Simulations can be performed based upon single-cell ODE systems using CVODE, or at the tissue/whole-organ level using PDE formulations such as monodomain, bidomain, bidomain-with-bath, \comment{[need ref here]} and our new extended-bidomain system \cite{corrias2012modelling}.
+Simulations can be performed of single-cell ODE systems using CVODE, or at the tissue/whole-organ level using PDE formulations such as monodomain, bidomain, bidomain-with-bath, \comment{[need ref here]} and our new extended-bidomain system \cite{corrias2012modelling}.
 Heterogeneities in fibre directions and cell models can be included, and post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \cite{gima2002ionic}, and conduction velocities.
 
 FIGURE~\ref{fig:SpiralWave} HERE. 
@@ -433,20 +433,21 @@ We are investigating ways to make it easier for users to contribute code, and ai
 
 \subsection*{How to become an active developer}
 
-The main Chaste website is at \url{http://www.cs.ox.ac.uk/chaste}, from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
+The main Chaste website is at \url{http://www.cs.ox.ac.uk/chaste}; from here you can sign up to the users mailing list to receive announcements of new versions and support from users and developers.
 You can also register to create a login for the Chaste wiki to view and comment on work tickets, and submit patches for inclusion in Chaste.
 In addition to the examples associated with this article we have a large number of tutorials that are easy to adapt to perform many types of simulation. 
-There is a guide for people who would like to work with the latest development version of Chaste here:\\
+There is a guide for people who would like to work with the latest development version of Chaste at:\\
 \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/ChasteGuides/ExternalDeveloperGuide}
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
-\highlight{Gary: Please add in any funding acknowledgements you want - e.g. DTC funding.}
+\highlight{Gary: Please add in any funding acknowledgements you want - e.g.\ DTC funding.}
 The authors gratefully acknowledge the following sources of financial support:
 GlaxoSmithKline Grants and Affiliates Award to GRM and DJG; 
 EPSRC e-Science pilot project in Integrative Biology (GR/S72023/01);
 EPSRC, Software for High Performance Computing project (EP/F011628/1);
 European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT), Framework 7 grant (DG-INFSO 224381);
+European Commission, Virtual Physiological Network of Excellence (VPH-NoE), Framework 7 grant (DG-INFSO 223920);
 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net});
 BBSRC grant to Oxford Centre for Integrative Systems Biology (BB/D020190/1);
 EPSRC via Oxford Life Sciences Interface Doctoral Training Centre.
@@ -576,7 +577,7 @@ It is available to download from the ``Bolt-on projects'' tab on the main Chaste
     \textbf{Chaste Dependencies.} For the full text of all licences examine the contents of \protect\url{docs/licences.html} 
     or visit \protect\url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/export/14566/trunk/docs/Licences.html}
     \comment{JC: Update to a release version.}
-    \\ $^*$ indicates that the software is packaged with Chaste.}
+    An asterisk indicates that the software is packaged with Chaste.}
     \begin{tabular}{|l|l|l|}
       \hline
       Dependency & Available from & Licence \\
