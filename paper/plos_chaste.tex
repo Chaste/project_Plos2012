@@ -342,7 +342,7 @@ or mesh-based (1--3D), where neighbours are nodes which share elements of a mesh
 In some vertex dynamics models, a free energy function is specified, whose gradient is assumed to exert a force on each vertex \cite{Honda1980}. 
 Elsewhere, the forces acting on each vertex are provided explicitly \cite{Weliky1990}. 
 An extension of vertex models to 3D is planned for future work.
-\highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
+%\highlight{Depending on when this paper is submitted, cite the Chaste vertex paper if it has been accepted!} 
 
 We have used Chaste to examine the suitability of these different modelling paradigms for the same biological problem, highlighting any idiosyncrasies \cite{Pathmanathan2009,Osborne2010}.
 
@@ -370,7 +370,8 @@ This leads to a dynamic pattern of Delta-Notch with high/low activity in neighbo
 
 The \texttt{heart} component of Chaste provides fast and accurate solution of electro-mechanical problems on large meshes, optimised for high-performance computing facilities by using PETSc for parallel linear algebra, and (par)METIS for mesh distribution \cite{bordas2009simulation}.
 
-Simulations can be performed of single-cell ODE systems using CVODE, or at the tissue/whole-organ level using PDE formulations such as monodomain, bidomain, bidomain-with-bath, \comment{[need ref here]} and our new extended-bidomain system \cite{corrias2012modelling}.
+Simulations can be performed of single-cell ODE systems using CVODE, or at the tissue/whole-organ level using PDE formulations such as monodomain, bidomain, bidomain-with-bath, %\comment{[need ref here]}
+and our new extended-bidomain system \cite{corrias2012modelling}.
 Heterogeneities in fibre directions and cell models can be included, and post-processing can be performed to obtain quantities such as action potential durations, pseudo-ECGs \cite{gima2002ionic}, and conduction velocities.
 
 FIGURE~\ref{fig:SpiralWave} HERE. 
@@ -441,12 +442,12 @@ There is a guide for people who would like to work with the latest development v
 
 % Do NOT remove this, even if you are not including acknowledgements
 \section*{Acknowledgements}
-\highlight{Gary: Please add in any funding acknowledgements you want - e.g.\ DTC funding.}
+%\highlight{Gary: Please add in any funding acknowledgements you want - e.g.\ DTC funding.}
 The authors gratefully acknowledge the following sources of financial support:
 GlaxoSmithKline Grants and Affiliates Award to GRM and DJG; 
 EPSRC e-Science pilot project in Integrative Biology (GR/S72023/01);
 EPSRC, Software for High Performance Computing project (EP/F011628/1);
-European Commission, Prediction of Drug Impact in Cardiac Toxicity (PreDiCT), Framework 7 grant (DG-INFSO 224381);
+European Commission, Prediction of Drug Impact in Cardiac Toxicity (preDiCT), Framework 7 grant (DG-INFSO 224381);
 European Commission, Virtual Physiological Network of Excellence (VPH-NoE), Framework 7 grant (DG-INFSO 223920);
 2020 Science: EPSRC and Microsoft Research, Cambridge through grant EP/I017909/1 (\url{www.2020science.net});
 BBSRC grant to Oxford Centre for Integrative Systems Biology (BB/D020190/1);

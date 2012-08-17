@@ -47,6 +47,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * "twisting" motion.
  *
  * Remember to run with `build=GccOptNative` for speed.
+ * e.g.
+ * `scons build=GccOptNative test_suite=projects/Plos2012/test/TestElectroMechanicsLiteratePaper.hpp`
  *
  * This example uses only files from the core Chaste code.
  *

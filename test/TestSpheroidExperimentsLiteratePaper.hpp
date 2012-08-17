@@ -53,6 +53,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This example uses only files from the core repository.
  *
+ * Remember to run with `build=GccOptNative` for speed.
+ * e.g.
+ * `scons build=GccOptNative test_suite=projects/Plos2012/test/TestSpheroidExperimentsLiteratePaper.hpp`
+ *
  * == Code overview ==
  *
  * The first thing to do is to include the necessary header files.
@@ -106,7 +110,7 @@ public:
 
     /*
      * This example is split into two separate tests/simulations to demonstrate the
-     * checkpointing abilities of Chaste.
+     * check-pointing abilities of Chaste.
      *
      * The first test runs from t=0 to t=100,
      * and the second from t=100 to t=150.

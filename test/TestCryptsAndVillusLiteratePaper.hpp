@@ -55,6 +55,11 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This example uses some source files that can be found in the `Plos2012/src` folder.
  *
+ * Remember to run with `build=GccOptNative` for speed.
+ * e.g.
+ * `scons build=GccOptNative test_suite=projects/Plos2012/test/TestCryptsAndVillusLiteratePaper.hpp`
+ *
+ *
  * == Code overview ==
  *
  * The first thing to do is to include the necessary header files.

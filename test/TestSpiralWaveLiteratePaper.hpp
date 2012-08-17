@@ -51,7 +51,7 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * This test can be run in parallel and will speed up well proportional to the number of processors you have.
  * e.g.
- * scons build=GccOptNative_4 test_suite=projects/Plos2012/test/TestSpiralWaveLiteratePaper.hpp
+ * `scons build=GccOptNative_4 test_suite=projects/Plos2012/test/TestSpiralWaveLiteratePaper.hpp`
  *
  * == Code overview ==
  *

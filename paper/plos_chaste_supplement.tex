@@ -97,18 +97,21 @@ There are links to all the relevant information on the Chaste wiki page associat
 \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/PaperTutorials/Plos2012}.
 
 The simplest method is to use the Ubuntu Linux operating system, as a `one-click install' package is available for this platform.
-Instructions for this can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
+Up to date instructions for this can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides/UbuntuPackage}.
 \newline
 In practice many users find it easiest to install Chaste on a virtual machine running Ubuntu, if no Ubuntu machine is available.
 
-Chaste can also be installed on any other Linux system. 
-Manual installation of a number of dependencies is required, but scripts are provided to simplify this process.
-Up-to-date instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
+Chaste can also be installed on any other Linux system, via manual installation of a number of dependencies. 
+Some scripts are provided on our wiki to simplify this process: instructions can be found at \url{https://chaste.cs.ox.ac.uk/cgi-bin/trac.cgi/wiki/InstallGuides}.
 
 A bolt-on project \texttt{Plos2012} has been made available that reproduces all of the examples in the article.
 It is available to download from the ``Bolt-on projects'' tab on the main Chaste download site: \url{http://www.cs.ox.ac.uk/chaste/download.html}.
 
 \section{Dependencies}
+
+The dependencies of Chaste are shown in Table~\ref{tab:ChasteDependencies}. 
+We aim to support a variety of versions of each library, to make installation simpler, as many of these are pre-installed on scientific computing services and HPC clusters.
+Our policy is to support those versions of the libraries that feature in the newest Ubuntu release, with all intermediate versions back to those in the oldest current long-term support editions of Ubuntu (up to five years' worth of versions).
 
 \begin{table}[!ht]
 \caption{
