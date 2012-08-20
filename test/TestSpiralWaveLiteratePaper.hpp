@@ -127,6 +127,10 @@ public:
         /* Finally, call `Initialise` and `Solve` */
         monodomain_problem.Initialise();
         monodomain_problem.Solve();
+
+        /*
+         * The easiest way to visualize this simulation is with meshalyzer.
+         */
     }
 };
 

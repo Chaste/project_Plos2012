@@ -243,6 +243,10 @@ public:
 
         /* Save the results */
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(p_simulator);
+
+        /*
+         * The easiest way to visualize this simulation is with paraview.
+         */
     }
 };
 

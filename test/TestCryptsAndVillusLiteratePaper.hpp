@@ -264,6 +264,10 @@ public:
         /* We now solve for a further 750 hours, up to a total of 1000 hours */
         simulator.SetEndTime(1000.0);
         simulator.Solve(); // to 1000 hours
+
+        /*
+         * The easiest way to visualize this simulation is with paraview.
+         */
     }
 };
 
