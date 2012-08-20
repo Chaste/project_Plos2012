@@ -181,10 +181,6 @@ public:
         /* Report where time was spent to std::cout. */
         MechanicsEventHandler::Headings();
         MechanicsEventHandler::Report();
-
-        /*
-         * The easiest way to visualize this simulation is with cmgui - simply load with `LoadElectroMechanicsSimulation.com` (that is in this folder).
-         */
     }
 };
 

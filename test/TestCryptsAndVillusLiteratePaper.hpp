@@ -59,6 +59,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * e.g.
  * `scons build=GccOptNative test_suite=projects/Plos2012/test/TestCryptsAndVillusLiteratePaper.hpp`
  *
+ * The easiest way to visualize this simulation is with paraview.
+ *
  *
  * == Code overview ==
  *
@@ -265,9 +267,6 @@ public:
         simulator.SetEndTime(1000.0);
         simulator.Solve(); // to 1000 hours
 
-        /*
-         * The easiest way to visualize this simulation is with paraview.
-         */
     }
 };
 

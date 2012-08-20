@@ -57,6 +57,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * e.g.
  * `scons build=GccOptNative test_suite=projects/Plos2012/test/TestSpheroidExperimentsLiteratePaper.hpp`
  *
+ * The easiest way to visualize this simulation is with paraview.
+ *
  * == Code overview ==
  *
  * The first thing to do is to include the necessary header files.
@@ -244,9 +246,6 @@ public:
         /* Save the results */
         CellBasedSimulationArchiver<3, OffLatticeSimulation<3> >::Save(p_simulator);
 
-        /*
-         * The easiest way to visualize this simulation is with paraview.
-         */
     }
 };
 

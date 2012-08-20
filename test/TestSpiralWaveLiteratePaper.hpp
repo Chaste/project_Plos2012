@@ -53,6 +53,8 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * e.g.
  * `scons build=GccOptNative_4 test_suite=projects/Plos2012/test/TestSpiralWaveLiteratePaper.hpp`
  *
+ * The easiest way to visualize this simulation is with meshalyzer.
+ *
  * == Code overview ==
  *
  * The first thing to do is to include the necessary header files.
@@ -127,10 +129,6 @@ public:
         /* Finally, call `Initialise` and `Solve` */
         monodomain_problem.Initialise();
         monodomain_problem.Solve();
-
-        /*
-         * The easiest way to visualize this simulation is with meshalyzer.
-         */
     }
 };
 
