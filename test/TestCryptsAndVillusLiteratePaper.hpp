@@ -89,8 +89,6 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "PlaneBasedCellKiller.hpp"
 #include "MultipleCryptGeometryBoundaryCondition.hpp"
 
-#include "Debug.hpp"
-
 class TestCryptsAndVillusLiteratePaper : public AbstractCellBasedTestSuite
 {
 private:
