@@ -9,8 +9,10 @@ The easiest way to do this is using an Ubuntu machine (or an Ubuntu virtual mach
 Note that Chaste is only supported on Linux/Unix systems, so users of Windows or Mac OS X will need to follow the virtual machine route.
 For manual installation of each dependency, on any version of Linux, see DeveloperInstallGuide.
 
-The paper is organised around four examples that are annotated and explained here. Click on the images below to go to the tutorials.
+The paper is organised around four examples that are annotated and explained here.
+Click on the images below to go to the respective tutorials.
 The code required to run these examples can be downloaded from [http://www.cs.ox.ac.uk/chaste/download the main download site].
+For further information on using Chaste to solve these and related problems, see our [wiki:ChasteGuides extensive guide material].
 
 [[Image(raw_spiral_wave_image.png, link=wiki:PaperTutorials/Plos2012/SpiralWave, height=202px)]]
 [[Image(combined.png, link=wiki:PaperTutorials/Plos2012/CryptsAndVillus, height=202px)]]
